@@ -114,16 +114,11 @@ export const ProductCard = ({
           )}
         </Link>
 
-        {/* Category & Status Pill Tag */}
+        {/* Category Pill Tag */}
         <div className="absolute top-3 left-3 flex items-center space-x-1.5 z-10 pointer-events-none">
           <span className="px-2.5 py-1 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-wider font-semibold text-[#200E01] rounded-lg shadow-xs">
             {product.category}
           </span>
-          {product.newArrivalStatus && (
-            <span className="px-2 py-0.5 bg-[#8B0000] text-[#EDE7C7] text-[9px] uppercase tracking-wider font-bold rounded-lg shadow-xs">
-              New
-            </span>
-          )}
         </div>
 
         {/* Floating Animated Wishlist Button */}

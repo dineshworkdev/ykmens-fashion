@@ -251,25 +251,12 @@ const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion })
       : [index % 2 === 0 ? -14 : 14, 0, index % 2 === 0 ? 14 : -14]
   );
 
-  // Rotation continuously softens toward 0° at peak focus then restores
-  const scrollRotate = useTransform(
-    sectionProgress,
-    [start, peak, end],
-    shouldReduceMotion
-      ? [0, 0, 0]
-      : [
-          `${item.desktopRotate}deg`,
-          `${item.desktopRotate * 0.3}deg`,
-          `${item.desktopRotate}deg`,
-        ]
-  );
-
   return (
     <motion.div
       style={{
         scale: scrollScale,
         y: scrollY,
-        rotate: scrollRotate,
+        rotate: '0deg',
       }}
       className={`relative z-10 ${item.desktopY} origin-center`}
     >
@@ -316,13 +303,11 @@ const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion })
 
 /**
  * YK MENS FASHION — FEATURED CATEGORIES
- * INVISIBLE CURVED EDITORIAL PATH / RUNWAY (MOTION + TILT REFINEMENT)
+ * INVISIBLE CURVED EDITORIAL PATH / RUNWAY
  * 
- * - Continuous, fluid movement: raw scroll passed through a responsive spring layer
- * - Stronger resting tilt: -6° (Outerwear) ↘ +5.5° (Shirts) ↘ -5° (Trousers) ↘ +5.5° (Tops)
- * - Seamless straightening toward 0° as card enters focal center
- * - Continuous multi-point scale and image crop drift
- * - No snapping, no discrete state toggles, no scroll-jacking
+ * - Mobile: Continuous flowing curved path with spring-smoothed scroll physics & subtle tilt
+ * - Desktop: Upright, stable, premium cards arranged along an undulating curved wave layout
+ * - Background: Rich warm parchment surface (#ECE6DA) providing tactile section separation
  */
 export const FeaturedCategoriesCurved = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -339,7 +324,7 @@ export const FeaturedCategoriesCurved = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-16 sm:py-24 lg:py-28 bg-[#E7DECD]/40 border-b border-[#DFE5F3] overflow-hidden relative"
+      className="py-16 sm:py-24 lg:py-28 bg-[#ECE6DA] border-b border-[#DCD5C6] overflow-hidden relative"
     >
       {/* Subtle atmospheric tonal accents */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
@@ -349,7 +334,7 @@ export const FeaturedCategoriesCurved = () => {
 
       <Container className="relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-10 sm:mb-14 border-b border-[#DFE5F3] gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-10 sm:mb-14 border-b border-[#DCD5C6] gap-4">
           <div>
             <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block mb-2">
               Explore Wardrobe

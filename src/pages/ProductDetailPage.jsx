@@ -171,16 +171,11 @@ export const ProductDetailPage = () => {
                 </div>
               )}
 
-              {/* Status Tags */}
+              {/* Category Tag */}
               <div className="absolute top-4 left-4 flex items-center space-x-2 z-10 pointer-events-none">
                 <span className="px-3 py-1.5 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-wider font-semibold text-[#200E01] rounded-lg shadow-xs">
                   {product.category}
                 </span>
-                {product.newArrivalStatus && (
-                  <span className="px-2.5 py-1 bg-[#8B0000] text-[#EDE7C7] text-[9px] uppercase tracking-wider font-bold rounded-lg shadow-xs">
-                    New Arrival
-                  </span>
-                )}
               </div>
 
               {/* Floating Mobile Image Counter */}

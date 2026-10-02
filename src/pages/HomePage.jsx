@@ -54,20 +54,19 @@ export const HomePage = () => {
       <FeaturedCategoriesCurved />
 
       {/* =========================================================================
-          CHAPTER 03: SHOWCASE RUNWAY (SELECTED PRODUCTS)
-          Surface: Crisp Light Canvas #F2EFEA
+          CHAPTER 03: SHOWCASE RUNWAY (SEASONAL SHOWCASE)
+          Surface: Deep Midnight Slate #12161A for dramatic editorial contrast
           Showcase Rule: NO product prices on homepage showcase.
-          CTAs: "VIEW PRODUCT" or "SHOP NOW".
           ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#F2EFEA] border-b border-[#DFE5F3] overflow-hidden">
+      <section className="py-20 sm:py-28 bg-[#12161A] border-b border-[#20272E] text-[#F2EFEA] overflow-hidden">
         <Container>
           {/* Section Header with Slider Navigation Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-6 sm:mb-8 border-b border-[#DFE5F3] gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-6 sm:mb-8 border-b border-[#222B33] gap-6">
             <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block mb-2">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#A6445D] font-bold block mb-2">
                 New Arrivals
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0D0D0D]">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F2EFEA]">
                 Seasonal Showcase
               </h2>
             </div>
@@ -78,7 +77,7 @@ export const HomePage = () => {
                 type="button"
                 onClick={() => carouselRef.current?.prev()}
                 aria-label="Previous product"
-                className="p-3 bg-white hover:bg-[#E7DECD] border border-[#DFE5F3] text-[#0D0D0D] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/30"
+                className="p-3 bg-[#1C2329] hover:bg-[#252E36] border border-[#2B353F] text-[#F2EFEA] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/50"
               >
                 <AnimatedArrowLeft className="w-4 h-4" />
               </button>
@@ -86,13 +85,13 @@ export const HomePage = () => {
                 type="button"
                 onClick={() => carouselRef.current?.next()}
                 aria-label="Next product"
-                className="p-3 bg-white hover:bg-[#E7DECD] border border-[#DFE5F3] text-[#0D0D0D] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/30"
+                className="p-3 bg-[#1C2329] hover:bg-[#252E36] border border-[#2B353F] text-[#F2EFEA] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/50"
               >
                 <AnimatedArrowRight className="w-4 h-4" />
               </button>
               <FashionButton
                 to={`${ROUTES.SHOP}?filter=new`}
-                variant="dark"
+                variant="lightLuxe"
                 size="sm"
                 className="ml-2"
               >
@@ -110,186 +109,11 @@ export const HomePage = () => {
       </section>
 
       {/* =========================================================================
-          CHAPTER 04: BRAND STORY
-          Surface: Warm Light Parchment #E7DECD / Cream #EDE7C7
-          Neutral Storytelling (No fake atelier/provenance claims)
+          CHAPTER 04: CLOSING BRAND INVITATION
+          Surface: Warm Stone / Ecru #F3EFE6
+          Clear CTA directing users toward Shop & Collections
           ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#EDE7C7]/50 border-b border-[#DFE5F3]">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Story Visual with Rounded Corners */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: luxuryEase }}
-              className="lg:col-span-6 relative"
-            >
-              <div className="relative aspect-[4/5] bg-white rounded-3xl p-3 sm:p-4 border border-[#E7DECD] shadow-md overflow-hidden">
-                <div className="w-full h-full rounded-2xl overflow-hidden bg-[#F2EFEA]">
-                  <img
-                    src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=85"
-                    alt="YK MENS FASHION Brand Story"
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Story Content */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: luxuryEase }}
-              className="lg:col-span-6 space-y-6"
-            >
-              <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block">
-                The Philosophy
-              </span>
-
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0D0D0D] leading-[1.12]">
-                Menswear Designed For Confidence & Everyday Life
-              </h2>
-
-              <p className="text-sm sm:text-base text-[#557373] leading-relaxed">
-                YK MENS FASHION was founded on a simple conviction: men deserve clothing that balances sharp, confident style with genuine everyday ease. We reject stiff, uncomfortable tailoring and transient fast-fashion trends in favor of thoughtfully proportioned garments you will reach for day after day.
-              </p>
-
-              <p className="text-sm sm:text-base text-[#557373] leading-relaxed">
-                From precision-cut shirts and structured outerwear to comfortable pleated trousers, every piece is made with high-quality fabrics, durable construction, and a clean modern aesthetic.
-              </p>
-
-              <div className="pt-2 flex flex-wrap gap-4 items-center">
-                <FashionButton
-                  to={ROUTES.ABOUT}
-                  variant="dark"
-                  size="md"
-                >
-                  Our Story
-                </FashionButton>
-                <FashionButton
-                  to={ROUTES.SHOP}
-                  variant="outlineDark"
-                  size="md"
-                  showArrow={false}
-                >
-                  Explore Shop
-                </FashionButton>
-              </div>
-            </motion.div>
-          </div>
-        </Container>
-      </section>
-
-      {/* =========================================================================
-          CHAPTER 05: LOOKBOOK HIGHLIGHT
-          Surface: Ice Blue #DFE5F3 / Light Sand
-          Structured Collage with Rounded Corners
-          ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#DFE5F3]/40 border-b border-[#DFE5F3]">
-        <Container>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-12 border-b border-[#DFE5F3] gap-4">
-            <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block mb-2">
-                Visual Curation
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0D0D0D]">
-                The Lookbook
-              </h2>
-            </div>
-            <FashionButton
-              to={ROUTES.LOOKBOOK}
-              variant="dark"
-              size="sm"
-            >
-              View Lookbook
-            </FashionButton>
-          </div>
-
-          {/* Structured 3-Image Collage with Rounded Corners */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center">
-            {/* Image 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: luxuryEase }}
-              className="md:col-span-5 bg-white p-3 rounded-2xl border border-[#DFE5F3] shadow-sm overflow-hidden group"
-            >
-              <div className="aspect-[4/5] rounded-xl overflow-hidden bg-[#F2EFEA]">
-                <img
-                  src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=1200&q=85"
-                  alt="Lookbook 01"
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-              </div>
-            </motion.div>
-
-            {/* Image 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1, ease: luxuryEase }}
-              className="md:col-span-4 bg-white p-3 rounded-2xl border border-[#DFE5F3] shadow-sm overflow-hidden group"
-            >
-              <div className="aspect-[3/4] rounded-xl overflow-hidden bg-[#F2EFEA]">
-                <img
-                  src="https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?auto=format&fit=crop&w=800&q=85"
-                  alt="Lookbook 02"
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-              </div>
-            </motion.div>
-
-            {/* Image 3 & CTA Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2, ease: luxuryEase }}
-              className="md:col-span-3 flex flex-col space-y-6"
-            >
-              <div className="bg-white p-3 rounded-2xl border border-[#DFE5F3] shadow-sm overflow-hidden group">
-                <div className="aspect-[4/5] rounded-xl overflow-hidden bg-[#F2EFEA]">
-                  <img
-                    src="https://images.unsplash.com/photo-1534030347209-467a5b0ad3e6?auto=format&fit=crop&w=800&q=85"
-                    alt="Lookbook 03"
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-2xl border border-[#DFE5F3] shadow-sm space-y-3">
-                <span className="text-[10px] uppercase tracking-wider font-bold text-[#8B0000] block">
-                  Curated Ensembles
-                </span>
-                <h4 className="font-serif text-lg font-bold text-[#0D0D0D]">
-                  Complete Wardrobe Looks
-                </h4>
-                <p className="text-xs text-[#557373] leading-relaxed">
-                  Discover how our shirts, trousers, and outerwear combine into cohesive everyday outfits.
-                </p>
-                <Link
-                  to={ROUTES.LOOKBOOK}
-                  className="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#200E01] hover:text-[#8B0000] transition-colors"
-                >
-                  <span>Explore Ensembles</span>
-                  <AnimatedChevronRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </Container>
-      </section>
-
-      {/* =========================================================================
-          CHAPTER 06: CLOSING BRAND INVITATION
-          Surface: Warm Light Parchment #E7DECD
-          Clear CTA directing users toward Shop
-          ========================================================================= */}
-      <section className="py-20 sm:py-24 bg-[#E7DECD]/60">
+      <section className="py-20 sm:py-24 bg-[#F3EFE6] border-b border-[#E0D9CB]">
         <Container>
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block">

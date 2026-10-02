@@ -104,11 +104,6 @@ export const HeroSection = () => {
                   fetchPriority="high"
                 />
 
-                {/* Clean Season Pill */}
-                <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#0D0D0D]/80 backdrop-blur-xs text-[#F2EFEA] text-[10px] tracking-[0.2em] uppercase font-semibold rounded-full shadow-xs">
-                  New Season
-                </div>
-
                 {/* Clean Floating Product Panel: FEATURED PIECE / [Product Name] / Shop → */}
                 <Link
                   to={`/product/${heroProduct.slug}`}
@@ -327,11 +322,6 @@ export const HeroSection = () => {
                   loading="eager"
                   fetchPriority="high"
                 />
-
-                {/* Clean Season Pill */}
-                <div className="absolute top-4 left-4 px-3 py-1.5 bg-[#0D0D0D]/85 backdrop-blur-sm text-[#F2EFEA] text-[10px] uppercase tracking-[0.2em] font-semibold rounded-lg shadow-sm">
-                  New Season
-                </div>
 
                 {/* Secondary Inset Swatch / Detail Shot (Visual craft & texture depth) */}
                 <motion.div
