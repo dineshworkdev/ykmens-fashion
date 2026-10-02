@@ -1,0 +1,45 @@
+/**
+ * Centralized Icon Module
+ * All UI icons are imported through this single entry point using lucide-react.
+ * Strictly no emojis and no ad-hoc icon libraries.
+ */
+
+export {
+  ShoppingBag,
+  ShoppingCart,
+  Heart,
+  Search,
+  User,
+  UserCheck,
+  Menu,
+  X,
+  ChevronRight,
+  ChevronLeft,
+  ChevronDown,
+  ChevronUp,
+  ArrowRight,
+  ArrowLeft,
+  Plus,
+  Minus,
+  Trash2,
+  Check,
+  CheckCircle2,
+  AlertCircle,
+  Truck,
+  ShieldCheck,
+  CreditCard,
+  SlidersHorizontal,
+  Grid,
+  List,
+  Eye,
+  Share2,
+  Edit2,
+  Lock,
+  MapPin,
+  Mail,
+  Clock,
+  Layers,
+  Send,
+  MessageSquare,
+  HelpCircle,
+} from 'lucide-react';

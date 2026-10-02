@@ -1,0 +1,29 @@
+/**
+ * YK MENS FASHION - CSS Custom Properties
+ * Strictly restricted to the 5 brand colors
+ */
+
+:root {
+  --yk-ice: #DFE5F3;
+  --yk-slate: #557373;
+  --yk-olive: #272401;
+  --yk-sand: #F2EFEA;
+  --yk-dark: #0D0D0D;
+
+  /* Semantic Mappings */
+  --bg-primary: var(--yk-sand);
+  --bg-secondary: var(--yk-ice);
+  --bg-contrast: var(--yk-dark);
+
+  --text-primary: var(--yk-dark);
+  --text-secondary: var(--yk-slate);
+  --text-accent: var(--yk-olive);
+  --text-inverse: var(--yk-sand);
+
+  --border-light: var(--yk-ice);
+  --border-medium: var(--yk-slate);
+  --border-dark: var(--yk-olive);
+
+  --brand-primary: var(--yk-olive);
+  --brand-secondary: var(--yk-slate);
+}
