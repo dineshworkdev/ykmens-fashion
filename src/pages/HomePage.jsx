@@ -55,18 +55,18 @@ export const HomePage = () => {
 
       {/* =========================================================================
           CHAPTER 03: SHOWCASE RUNWAY (SEASONAL SHOWCASE)
-          Surface: Ice Blue #DFE5F3 from approved YK palette
+          Surface: Deep Muted Petrol Teal #1E4048 — rich, saturated, visibly teal
           Showcase Rule: NO product prices on homepage showcase.
           ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#DFE5F3] border-b border-[#E7DECD] text-[#0D0D0D] overflow-hidden">
+      <section className="py-20 sm:py-28 bg-[#1E4048] border-b border-[#152E34] text-[#FAF7F2] overflow-hidden">
         <Container>
           {/* Section Header with Slider Navigation Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-6 sm:mb-8 border-b border-[#E7DECD] gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-6 sm:mb-8 border-b border-[#2C525B] gap-6">
             <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block mb-2">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block mb-2">
                 New Arrivals
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0D0D0D]">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAF7F2]">
                 Seasonal Showcase
               </h2>
             </div>
@@ -77,7 +77,7 @@ export const HomePage = () => {
                 type="button"
                 onClick={() => carouselRef.current?.prev()}
                 aria-label="Previous product"
-                className="p-3 bg-white/95 hover:bg-white border border-[#E7DECD] text-[#0D0D0D] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/50"
+                className="p-3 bg-[#2A525C] hover:bg-[#35626D] border border-[#3E727F] text-[#FAF7F2] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D99E84]/50"
               >
                 <AnimatedArrowLeft className="w-4 h-4" />
               </button>
@@ -85,13 +85,13 @@ export const HomePage = () => {
                 type="button"
                 onClick={() => carouselRef.current?.next()}
                 aria-label="Next product"
-                className="p-3 bg-white/95 hover:bg-white border border-[#E7DECD] text-[#0D0D0D] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/50"
+                className="p-3 bg-[#2A525C] hover:bg-[#35626D] border border-[#3E727F] text-[#FAF7F2] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D99E84]/50"
               >
                 <AnimatedArrowRight className="w-4 h-4" />
               </button>
               <FashionButton
                 to={`${ROUTES.SHOP}?filter=new`}
-                variant="dark"
+                variant="lightLuxe"
                 size="sm"
                 className="ml-2"
               >
@@ -110,10 +110,10 @@ export const HomePage = () => {
 
       {/* =========================================================================
           CHAPTER 04: CLOSING BRAND INVITATION
-          Surface: Light Cream #EDE7C7 from approved YK palette
+          Surface: Warm Sandstone / Soft Linen Clay #EFE5D8
           Clear CTA directing users toward Shop & Collections
           ========================================================================= */}
-      <section className="py-20 sm:py-24 bg-[#EDE7C7] border-b border-[#E7DECD]">
+      <section className="py-20 sm:py-24 bg-[#EFE5D8] border-b border-[#DECFC0]">
         <Container>
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block">

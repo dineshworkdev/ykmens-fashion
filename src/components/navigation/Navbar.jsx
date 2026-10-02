@@ -52,8 +52,8 @@ export const Navbar = () => {
       <header
         className={`sticky top-0 z-40 transition-all duration-300 ease-out border-b ${
           isScrolled
-            ? 'bg-[#F2EFEA]/95 text-[#0D0D0D] border-[#DFE5F3] shadow-sm backdrop-blur-md'
-            : 'bg-[#F2EFEA] text-[#0D0D0D] border-[#DFE5F3]'
+            ? 'bg-[#F2EFEA]/95 text-[#0D0D0D] border-[#E7DECD] shadow-sm backdrop-blur-md'
+            : 'bg-[#F2EFEA] text-[#0D0D0D] border-[#E7DECD]'
         }`}
       >
         <div
