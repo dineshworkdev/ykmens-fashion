@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Container from '../components/layout/Container';
+import HeroSection from '../components/home/HeroSection';
 import RadialShowcaseCarousel from '../components/home/RadialShowcaseCarousel';
 import FashionButton from '../components/common/FashionButton';
 import { useProducts } from '../hooks/useProducts';
@@ -35,190 +36,18 @@ export const HomePage = () => {
   const newArrivals = getNewArrivals().slice(0, 6);
   const carouselRef = useRef(null);
 
-  // Scroll animations for subtle hero parallax
-  const heroRef = useRef(null);
-  const { scrollYProgress: heroProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  });
-
-  const heroImageY = useTransform(heroProgress, [0, 1], ['0%', '10%']);
-  const heroTextY = useTransform(heroProgress, [0, 1], ['0%', '-6%']);
-
   // 4 Featured categories with verified high-quality imagery
   const [outerwear, shirts, trousers, tshirts] = CATEGORIES;
 
   return (
     <div className="bg-[#F2EFEA] text-[#0D0D0D] overflow-x-hidden selection:bg-[#8B0000] selection:text-[#EDE7C7]">
       {/* =========================================================================
-          CHAPTER 01: HERO — REFINED LIGHT FASHION HERO
+          CHAPTER 01: HERO — EDITORIAL MODERN MENSWEAR HERO
           Surface: Light Sand #F2EFEA + Cream #EDE7C7
           Typography: Deep Obsidian #0D0D0D + Espresso #200E01
           Accents: Crimson #8B0000 + Slate #557373
           ========================================================================= */}
-      <section
-        ref={heroRef}
-        className="relative bg-[#F2EFEA] border-b border-[#E7DECD] pt-8 sm:pt-12 pb-16 sm:pb-24 overflow-hidden"
-      >
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Left Content Column */}
-            <motion.div
-              style={{ y: heroTextY }}
-              className="lg:col-span-7 flex flex-col justify-center space-y-6 sm:space-y-8"
-            >
-              {/* Subtle Brand Tagline */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: luxuryEase }}
-                className="flex items-center space-x-3 text-xs uppercase tracking-[0.25em] text-[#557373] font-semibold"
-              >
-                <span className="w-6 h-[2px] bg-[#8B0000] rounded-full" />
-                <span>Modern Menswear Collection</span>
-              </motion.div>
-
-              {/* Confident, Fashionable Headline with Masked Line Reveals */}
-              <div className="space-y-1">
-                <div className="overflow-hidden">
-                  <motion.h1
-                    initial={{ y: '105%', opacity: 0 }}
-                    animate={{ y: '0%', opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.08, ease: luxuryEase }}
-                    className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0D0D0D] leading-[1.08]"
-                  >
-                    Defined By Style.
-                  </motion.h1>
-                </div>
-                <div className="overflow-hidden">
-                  <motion.span
-                    initial={{ y: '105%', opacity: 0 }}
-                    animate={{ y: '0%', opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.18, ease: luxuryEase }}
-                    className="block font-serif font-normal italic text-[#200E01] text-3xl sm:text-4xl lg:text-5xl mt-1"
-                  >
-                    Crafted For Movement.
-                  </motion.span>
-                </div>
-              </div>
-
-              {/* Genuine Brand Introduction */}
-              <motion.p
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.28, ease: luxuryEase }}
-                className="text-sm sm:text-base text-[#557373] max-w-lg leading-relaxed"
-              >
-                Elevated essentials and tailored silhouettes built for modern men. Clean lines, breathable fabrics, and versatile pieces designed to transition seamlessly from day to night.
-              </motion.p>
-
-              {/* Action Buttons: Practical, Branded, Rounded */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.36, ease: luxuryEase }}
-                className="flex flex-wrap gap-4 items-center pt-2"
-              >
-                <FashionButton
-                  to={ROUTES.SHOP}
-                  variant="dark"
-                  size="lg"
-                >
-                  Explore Shop
-                </FashionButton>
-
-                <FashionButton
-                  to={ROUTES.COLLECTIONS}
-                  variant="outlineDark"
-                  size="lg"
-                  showArrow={false}
-                >
-                  View Collections
-                </FashionButton>
-              </motion.div>
-
-              {/* Highlights Pill Strip */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.45, ease: luxuryEase }}
-                className="grid grid-cols-3 gap-4 pt-6 border-t border-[#DFE5F3] max-w-md text-center sm:text-left"
-              >
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#0D0D0D] block">
-                    Premium Fits
-                  </span>
-                  <span className="text-[11px] text-[#557373]">Sculpted silhouettes</span>
-                </div>
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#0D0D0D] block">
-                    Curated Fabrics
-                  </span>
-                  <span className="text-[11px] text-[#557373]">Comfort & longevity</span>
-                </div>
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#0D0D0D] block">
-                    Direct Delivery
-                  </span>
-                  <span className="text-[11px] text-[#557373]">Across India</span>
-                </div>
-              </motion.div>
-            </motion.div>
-
-            {/* Right Dominant Hero Fashion Visual with Clip-Path Reveal */}
-            <motion.div
-              style={{ y: heroImageY }}
-              initial={{ clipPath: 'inset(10% 0% 0% 0% round 1.5rem)', opacity: 0 }}
-              animate={{ clipPath: 'inset(0% 0% 0% 0% round 1.5rem)', opacity: 1 }}
-              transition={{ duration: 1.1, delay: 0.15, ease: luxuryEase }}
-              className="lg:col-span-5 relative"
-            >
-              <div className="relative aspect-[3/4] sm:aspect-[4/5] bg-white rounded-3xl p-3 sm:p-4 border border-[#E7DECD] shadow-lg overflow-hidden group">
-                {/* Hero Campaign Image with Subtle Scale Settling */}
-                <div className="w-full h-full rounded-2xl overflow-hidden relative bg-[#EDE7C7]/40">
-                  <motion.img
-                    initial={{ scale: 1.08 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 1.2, delay: 0.2, ease: luxuryEase }}
-                    src="https://images.unsplash.com/photo-1544923246-77307dd654cb?auto=format&fit=crop&w=1200&q=85"
-                    alt="YK MENS FASHION Hero Visual"
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-1000 ease-out"
-                  />
-
-                  {/* Subtle Inset Category Badge */}
-                  <div className="absolute top-4 left-4 px-3 py-1.5 bg-white/90 backdrop-blur-xs text-[10px] uppercase tracking-wider text-[#200E01] font-semibold rounded-lg shadow-sm">
-                    New Season Outerwear
-                  </div>
-
-                  {/* Floating Inset Action Card */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5, ease: luxuryEase }}
-                    className="absolute inset-x-4 bottom-4 p-4 bg-white/95 backdrop-blur-md rounded-xl border border-[#DFE5F3] flex justify-between items-center shadow-md group/card hover:bg-white transition-all"
-                  >
-                    <div>
-                      <span className="text-[10px] uppercase tracking-wider text-[#557373] font-semibold block">
-                        Featured Piece
-                      </span>
-                      <h4 className="text-xs sm:text-sm font-bold text-[#0D0D0D]">
-                        Structured Wool Overcoat
-                      </h4>
-                    </div>
-                    <Link
-                      to="/product/structured-wool-overcoat-obsidian"
-                      className="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-[#0D0D0D] text-white hover:bg-[#8B0000] text-xs font-semibold rounded-lg transition-colors"
-                    >
-                      <span>Shop Now</span>
-                      <AnimatedArrowRight className="w-3 h-3" />
-                    </Link>
-                  </motion.div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </Container>
-      </section>
+      <HeroSection />
 
       {/* =========================================================================
           CHAPTER 02: CATEGORY SHOWCASE
