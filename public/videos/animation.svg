@@ -50,7 +50,7 @@
     </clipPath>
   </defs>
 
-  <rect width="100%" height="100%" fill="#E7DECD"/>
+  <rect width="100%" height="100%" fill="#D9C6B3"/>
 
   <!-- Same segmented loading environment, with no complete ring. -->
   <ellipse cx="627.0" cy="627.0" rx="575" ry="575"

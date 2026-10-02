@@ -324,7 +324,7 @@ export const FeaturedCategoriesCurved = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-16 sm:py-24 lg:py-28 bg-[#E6DACB] border-b border-[#D5C7B6] overflow-hidden relative"
+      className="py-16 sm:py-24 lg:py-28 bg-[#E7DECD] border-b border-[#D5C7B6] overflow-hidden relative"
     >
       {/* Subtle atmospheric tonal accents */}
       <div className="absolute inset-0 pointer-events-none opacity-30">

@@ -59,12 +59,12 @@ export const HeroSection = () => {
       ref={heroContainerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative bg-[#E7DECD] border-b border-[#E7DECD] pt-3 sm:pt-6 lg:pt-8 pb-10 sm:pb-14 lg:pb-16 overflow-hidden"
+      className="relative bg-[#D9C6B3] border-b border-[#C8B5A2] pt-3 sm:pt-6 lg:pt-8 pb-10 sm:pb-14 lg:pb-16 overflow-hidden"
     >
       {/* Subtle architectural hairline accents in approved palette */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-[#E7DECD] via-transparent to-transparent hidden lg:block" />
-        <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-[#E7DECD] via-transparent to-transparent hidden lg:block" />
+        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-[#C8B5A2] via-transparent to-transparent hidden lg:block" />
+        <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-[#C8B5A2] via-transparent to-transparent hidden lg:block" />
       </div>
 
       <Container className="relative z-10">

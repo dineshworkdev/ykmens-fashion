@@ -33,10 +33,10 @@ export const LoadingScreen = ({ onComplete }) => {
           ease: [0.22, 1, 0.36, 1], // Smooth luxury deceleration
         },
       }}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#E7DECD] select-none"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#D9C6B3] select-none"
       aria-label="YK MENS FASHION Loading Intro"
     >
-      {/* Centered natural presentation matching the #E7DECD stage */}
+      {/* Centered natural presentation matching the #D9C6B3 stage */}
       <div className="relative w-[85vw] max-w-[420px] aspect-square flex items-center justify-center">
         <img
           src="/videos/animation.svg"
