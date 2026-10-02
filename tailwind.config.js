@@ -33,6 +33,7 @@ export default {
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
         serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        brand: ['"Cinzel"', 'Georgia', 'serif'],
       },
       letterSpacing: {
         editorial: '0.25em',

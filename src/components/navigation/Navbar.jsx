@@ -74,22 +74,19 @@ export const Navbar = () => {
               </button>
             </div>
 
-            {/* Branded Identity: Distinctive Fashion-Brand Wordmark Lockup */}
+            {/* Branded Identity: Authentic Contemporary Men's Fashion Wordmark */}
             <div className="flex items-center select-none">
               <Link
                 to={ROUTES.HOME}
-                className="group flex items-center space-x-2 sm:space-x-2.5 transition-opacity duration-200 hover:opacity-90 active:scale-[0.98]"
+                className="group inline-flex items-baseline space-x-2 sm:space-x-2.5 lg:space-x-3 transition-opacity duration-200 hover:opacity-90 active:scale-[0.98]"
               >
-                {/* Visual Anchor: Dominant High-Character Serif Wordmark */}
-                <span className="font-serif font-bold text-2xl sm:text-[26px] lg:text-[28px] tracking-[-0.02em] leading-none text-[#200E01] group-hover:text-[#8B0000] transition-colors">
+                {/* Visual Anchor: Monumental Roman Chisel Wordmark */}
+                <span className="font-brand font-bold text-[22px] sm:text-[25px] lg:text-[27px] tracking-[0.03em] leading-none text-[#200E01] group-hover:text-[#8B0000] transition-colors">
                   YK
                 </span>
 
-                {/* Subtle Architectural Hairline Separator */}
-                <span className="w-px h-3 sm:h-3.5 bg-[#200E01]/25 self-center" aria-hidden="true" />
-
-                {/* Connected Descriptor: Clean, Controlled Letter-Spaced Sans */}
-                <span className="font-sans text-[8.5px] sm:text-[9.5px] lg:text-[10px] uppercase tracking-[0.24em] font-semibold text-[#557373] group-hover:text-[#200E01] transition-colors leading-none pt-0.5 whitespace-nowrap">
+                {/* Connected Descriptor: Clean Modern Sans Baseline Partner */}
+                <span className="font-sans text-[9px] sm:text-[10px] lg:text-[10.5px] uppercase tracking-[0.22em] font-semibold text-[#200E01]/85 group-hover:text-[#8B0000] transition-colors leading-none whitespace-nowrap">
                   MENS FASHION
                 </span>
               </Link>
