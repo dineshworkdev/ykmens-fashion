@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Container from '../components/layout/Container';
 import HeroSection from '../components/home/HeroSection';
+import FeaturedCategoriesCurved from '../components/home/FeaturedCategoriesCurved';
 import RadialShowcaseCarousel from '../components/home/RadialShowcaseCarousel';
 import FashionButton from '../components/common/FashionButton';
 import { useProducts } from '../hooks/useProducts';
-import { CATEGORIES } from '../data/categories';
 import { ROUTES } from '../utils/constants';
 import {
   AnimatedArrowRight,
@@ -36,9 +36,6 @@ export const HomePage = () => {
   const newArrivals = getNewArrivals().slice(0, 6);
   const carouselRef = useRef(null);
 
-  // 4 Featured categories with verified high-quality imagery
-  const [outerwear, shirts, trousers, tshirts] = CATEGORIES;
-
   return (
     <div className="bg-[#F2EFEA] text-[#0D0D0D] overflow-x-hidden selection:bg-[#8B0000] selection:text-[#EDE7C7]">
       {/* =========================================================================
@@ -50,167 +47,11 @@ export const HomePage = () => {
       <HeroSection />
 
       {/* =========================================================================
-          CHAPTER 02: CATEGORY SHOWCASE
+          CHAPTER 02: FEATURED CATEGORIES — INVISIBLE CURVED EDITORIAL RUNWAY
           Surface: Warm Parchment #E7DECD / Light Cream #EDE7C7
-          Structured Grid: 4 categories with rounded containers & hover micro-motion
+          Composition: Flowing S-Curve Runway driven by normal vertical scroll
           ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#E7DECD]/40 border-b border-[#DFE5F3]">
-        <Container>
-          {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-12 border-b border-[#DFE5F3] gap-4">
-            <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block mb-2">
-                Explore Wardrobe
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0D0D0D]">
-                Featured Categories
-              </h2>
-            </div>
-            <Link
-              to={ROUTES.SHOP}
-              className="inline-flex items-center space-x-2 text-xs uppercase tracking-wider font-bold text-[#200E01] hover:text-[#8B0000] transition-colors group"
-            >
-              <span>View All Categories</span>
-              <AnimatedArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-
-          {/* Structured Category Grid: Clean 4-card grid on desktop, scroll/stack on mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {/* 1. OUTERWEAR */}
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: luxuryEase }}
-              className="group bg-white rounded-2xl p-4 border border-[#E7DECD] hover:border-[#200E01] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between"
-            >
-              <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden bg-[#F2EFEA] mb-4">
-                <img
-                  src={outerwear.image}
-                  alt={outerwear.name}
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              <div className="pt-1">
-                <span className="text-[10px] uppercase tracking-wider font-semibold text-[#557373] block mb-1">
-                  Coats & Jackets
-                </span>
-                <h3 className="font-serif text-xl font-bold text-[#0D0D0D] mb-3">
-                  {outerwear.name}
-                </h3>
-                <Link
-                  to={`${ROUTES.SHOP}?category=outerwear`}
-                  className="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#200E01] group-hover:text-[#8B0000] transition-colors"
-                >
-                  <span>Explore Outerwear</span>
-                  <AnimatedChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* 2. SHIRTS */}
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1, ease: luxuryEase }}
-              className="group bg-white rounded-2xl p-4 border border-[#E7DECD] hover:border-[#200E01] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between"
-            >
-              <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden bg-[#F2EFEA] mb-4">
-                <img
-                  src={shirts.image}
-                  alt={shirts.name}
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              <div className="pt-1">
-                <span className="text-[10px] uppercase tracking-wider font-semibold text-[#557373] block mb-1">
-                  Tailored & Relaxed
-                </span>
-                <h3 className="font-serif text-xl font-bold text-[#0D0D0D] mb-3">
-                  {shirts.name}
-                </h3>
-                <Link
-                  to={`${ROUTES.SHOP}?category=shirts`}
-                  className="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#200E01] group-hover:text-[#8B0000] transition-colors"
-                >
-                  <span>Explore Shirts</span>
-                  <AnimatedChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* 3. TROUSERS */}
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2, ease: luxuryEase }}
-              className="group bg-white rounded-2xl p-4 border border-[#E7DECD] hover:border-[#200E01] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between"
-            >
-              <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden bg-[#F2EFEA] mb-4">
-                <img
-                  src={trousers.image}
-                  alt={trousers.name}
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              <div className="pt-1">
-                <span className="text-[10px] uppercase tracking-wider font-semibold text-[#557373] block mb-1">
-                  Pleated & Wide-Leg
-                </span>
-                <h3 className="font-serif text-xl font-bold text-[#0D0D0D] mb-3">
-                  {trousers.name}
-                </h3>
-                <Link
-                  to={`${ROUTES.SHOP}?category=trousers`}
-                  className="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#200E01] group-hover:text-[#8B0000] transition-colors"
-                >
-                  <span>Explore Trousers</span>
-                  <AnimatedChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* 4. T-SHIRTS */}
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3, ease: luxuryEase }}
-              className="group bg-white rounded-2xl p-4 border border-[#E7DECD] hover:border-[#200E01] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between"
-            >
-              <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden bg-[#F2EFEA] mb-4">
-                <img
-                  src={tshirts.image}
-                  alt={tshirts.name}
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              <div className="pt-1">
-                <span className="text-[10px] uppercase tracking-wider font-semibold text-[#557373] block mb-1">
-                  Heavyweight Cotton
-                </span>
-                <h3 className="font-serif text-xl font-bold text-[#0D0D0D] mb-3">
-                  {tshirts.name}
-                </h3>
-                <Link
-                  to={`${ROUTES.SHOP}?category=t-shirts`}
-                  className="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#200E01] group-hover:text-[#8B0000] transition-colors"
-                >
-                  <span>Explore T-Shirts</span>
-                  <AnimatedChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </Container>
-      </section>
+      <FeaturedCategoriesCurved />
 
       {/* =========================================================================
           CHAPTER 03: SHOWCASE RUNWAY (SELECTED PRODUCTS)

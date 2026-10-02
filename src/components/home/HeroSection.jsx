@@ -4,35 +4,29 @@ import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } fro
 import Container from '../layout/Container';
 import FashionButton from '../common/FashionButton';
 import { ROUTES } from '../../utils/constants';
+import { PRODUCTS } from '../../data/products';
 import { AnimatedArrowRight } from '../common/AnimatedIcons';
 
 // Refined luxury cubic bezier curves
 const luxuryEase = [0.22, 1, 0.36, 1];
 
-// Category cues for quick wardrobe navigation (replacing generic benefit bullets)
-const HERO_CATEGORIES = [
-  { label: 'Outerwear', slug: 'outerwear', code: '01' },
-  { label: 'Shirts', slug: 'shirts', code: '02' },
-  { label: 'Trousers', slug: 'trousers', code: '03' },
-  { label: 'Tailoring', slug: 'outerwear', code: '04' },
-];
-
 /**
- * YK MENS FASHION — HERO SECTION VISUAL UPGRADE
+ * YK MENS FASHION — HOMEPAGE HERO SECTION REFINEMENT
  * 
- * Mobile + Desktop Editorial Fashion Composition
- * - Visual Dominance: Primary fashion visual takes center stage
- * - Immediate recognition: "This is a modern men's fashion brand"
- * - Mobile-first structure: Fashion Visual -> Brand Label -> Headline -> Short Copy -> Dominant CTAs
- * - Desktop editorial structure: Asymmetric balance, layered imagery, intentional negative space
- * - Color discipline: Light Sand (#F2EFEA), Cream (#EDE7C7), Parchment (#E7DECD), Ice (#DFE5F3) dominant
- *   Dark Obsidian (#0D0D0D) and Espresso (#200E01) for text, buttons, and borders
- *   Crimson (#8B0000) reserved for subtle accents
- * - Respects prefers-reduced-motion
+ * Strict Brand Compliance:
+ * - IMAGE + PRODUCT NAME + CATEGORY + CTA all represent the same real product from products.js
+ * - Clean editorial visual composition (Light sand #F2EFEA dominant, #EDE7C7 / #E7DECD accents)
+ * - Concise, authentic copy: "Modern menswear designed for everyday confidence."
+ * - High-impact, mobile-first visual hierarchy: Visual -> Label -> Headline -> Short Copy -> Primary CTA
+ * - Refined, un-cluttered floating product panel: FEATURED PIECE / [Product Name] / Shop →
+ * - Polished Framer Motion reveals with full prefers-reduced-motion support
  */
 export const HeroSection = () => {
   const shouldReduceMotion = useReducedMotion();
   const heroContainerRef = useRef(null);
+
+  // Directly bind to verified product from products.js (yk-prod-001)
+  const heroProduct = PRODUCTS.find((p) => p.slug === 'structured-wool-overcoat-obsidian') || PRODUCTS[0];
 
   // Subtle cursor interaction for desktop image frame (disabled on reduced motion / touch)
   const mouseX = useMotionValue(0);
@@ -41,10 +35,10 @@ export const HeroSection = () => {
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
 
-  const imageTiltX = useTransform(smoothMouseY, [-0.5, 0.5], ['2deg', '-2deg']);
-  const imageTiltY = useTransform(smoothMouseX, [-0.5, 0.5], ['-2.5deg', '2.5deg']);
-  const imageTranslateX = useTransform(smoothMouseX, [-0.5, 0.5], ['-4px', '4px']);
-  const imageTranslateY = useTransform(smoothMouseY, [-0.5, 0.5], ['-4px', '4px']);
+  const imageTiltX = useTransform(smoothMouseY, [-0.5, 0.5], ['1.8deg', '-1.8deg']);
+  const imageTiltY = useTransform(smoothMouseX, [-0.5, 0.5], ['-2deg', '2deg']);
+  const imageTranslateX = useTransform(smoothMouseX, [-0.5, 0.5], ['-3px', '3px']);
+  const imageTranslateY = useTransform(smoothMouseY, [-0.5, 0.5], ['-3px', '3px']);
 
   const handleMouseMove = (e) => {
     if (shouldReduceMotion || !heroContainerRef.current) return;
@@ -65,7 +59,7 @@ export const HeroSection = () => {
       ref={heroContainerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative bg-[#F2EFEA] border-b border-[#E7DECD] pt-4 sm:pt-8 lg:pt-10 pb-12 sm:pb-16 lg:pb-20 overflow-hidden"
+      className="relative bg-[#F2EFEA] border-b border-[#E7DECD] pt-3 sm:pt-6 lg:pt-8 pb-10 sm:pb-14 lg:pb-16 overflow-hidden"
     >
       {/* Subtle architectural hairline accents in approved palette */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
@@ -75,56 +69,60 @@ export const HeroSection = () => {
 
       <Container className="relative z-10">
         {/* =========================================================================
-            MOBILE LAYOUT (Below lg: 1024px)
-            Strict mobile-first hierarchy:
-            1. Prominent Fashion Visual (at top)
-            2. Brand Label with Crimson Accent
-            3. Campaign Headline
-            4. Concise Supporting Statement
-            5. Dominant Action CTAs
-            6. Wardrobe Category Cues
+            MOBILE HERO LAYOUT (Below lg: 1024px)
+            Mobile is the primary design target:
+            FASHION IMAGE
+            ↓
+            YK MENS FASHION
+            ↓
+            Defined By Style.
+            Crafted For Movement.
+            ↓
+            "Modern menswear designed for everyday confidence."
+            ↓
+            Primary CTA (Explore Shop) + Secondary CTA
             ========================================================================= */}
-        <div className="flex flex-col lg:hidden space-y-6">
-          {/* 1. Mobile Fashion Visual — Front and Center */}
+        <div className="flex flex-col lg:hidden space-y-5">
+          {/* 1. Mobile Fashion Visual — Dominant at Top */}
           <motion.div
-            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 16, clipPath: 'inset(8% 0% 0% 0% round 1.25rem)' }}
+            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14, clipPath: 'inset(6% 0% 0% 0% round 1.25rem)' }}
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0% round 1.25rem)' }}
             transition={{ duration: 0.85, ease: luxuryEase }}
             className="w-full relative"
           >
-            {/* Editorial Outer Frame */}
-            <div className="relative p-2 sm:p-3 bg-[#EDE7C7]/60 rounded-2xl sm:rounded-3xl border border-[#E7DECD] shadow-sm">
-              <div className="relative aspect-[4/4.6] sm:aspect-[4/4.2] w-full max-h-[460px] rounded-xl sm:rounded-2xl overflow-hidden bg-[#E7DECD]/40">
+            {/* Outer Frame */}
+            <div className="relative p-2 sm:p-2.5 bg-[#EDE7C7]/60 rounded-2xl border border-[#E7DECD] shadow-sm">
+              <div className="relative aspect-[4/4.5] sm:aspect-[4/4.2] w-full max-h-[420px] rounded-xl overflow-hidden bg-[#E7DECD]/40">
                 <motion.img
-                  initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.06 }}
+                  initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.05 }}
                   animate={{ scale: 1 }}
-                  transition={{ duration: 1.1, ease: luxuryEase }}
-                  src="https://images.unsplash.com/photo-1544923246-77307dd654cb?auto=format&fit=crop&w=1000&q=85"
-                  alt="YK Mens Fashion — Modern Menswear Campaign"
-                  className="w-full h-full object-cover object-top"
+                  transition={{ duration: 1.05, ease: luxuryEase }}
+                  src={heroProduct.images[0]}
+                  alt={`YK Mens Fashion — ${heroProduct.name}`}
+                  className="w-full h-full object-cover object-[center_top]"
                   loading="eager"
                   fetchPriority="high"
                 />
 
-                {/* Subtle top season pill */}
+                {/* Clean Season Pill */}
                 <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#0D0D0D]/80 backdrop-blur-xs text-[#F2EFEA] text-[10px] tracking-[0.2em] uppercase font-semibold rounded-full shadow-xs">
                   New Season
                 </div>
 
-                {/* Overlaid Editorial Product Link Capsule */}
+                {/* Clean Floating Product Panel: FEATURED PIECE / [Product Name] / Shop → */}
                 <Link
-                  to="/product/structured-wool-overcoat-obsidian"
-                  className="absolute inset-x-3 bottom-3 p-3 bg-white/95 backdrop-blur-sm rounded-xl border border-[#DFE5F3] flex items-center justify-between shadow-md active:bg-[#F2EFEA] transition-colors"
+                  to={`/product/${heroProduct.slug}`}
+                  className="absolute inset-x-2.5 bottom-2.5 p-3 bg-white/95 backdrop-blur-sm rounded-xl border border-[#DFE5F3] flex items-center justify-between shadow-md active:bg-[#F2EFEA] transition-colors"
                 >
-                  <div className="pr-2">
+                  <div className="pr-2 min-w-0">
                     <span className="text-[10px] uppercase tracking-wider text-[#557373] font-semibold block">
                       Featured Piece
                     </span>
                     <h4 className="text-xs sm:text-sm font-bold text-[#0D0D0D] truncate">
-                      Structured Wool Overcoat
+                      {heroProduct.name}
                     </h4>
                   </div>
-                  <span className="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-[#0D0D0D] text-[#F2EFEA] text-[11px] font-semibold rounded-lg shrink-0">
+                  <span className="inline-flex items-center space-x-1 px-3 py-1.5 bg-[#0D0D0D] text-[#F2EFEA] text-xs font-semibold rounded-lg shrink-0">
                     <span>Shop</span>
                     <AnimatedArrowRight className="w-3 h-3" />
                   </span>
@@ -135,23 +133,23 @@ export const HeroSection = () => {
 
           {/* 2. Mobile Brand Label */}
           <motion.div
-            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: luxuryEase }}
-            className="flex items-center space-x-2.5 text-xs uppercase tracking-[0.25em] text-[#557373] font-semibold pt-1"
+            transition={{ duration: 0.6, delay: 0.12, ease: luxuryEase }}
+            className="flex items-center space-x-2 text-xs uppercase tracking-[0.25em] text-[#557373] font-semibold pt-0.5"
           >
-            <span className="w-5 h-[2px] bg-[#8B0000] rounded-full" />
+            <span className="w-4 h-[2px] bg-[#8B0000] rounded-full" />
             <span>YK Mens Fashion</span>
           </motion.div>
 
           {/* 3. Mobile Campaign Headline */}
-          <div className="space-y-1">
+          <div className="space-y-0.5">
             <div className="overflow-hidden">
               <motion.h1
                 initial={shouldReduceMotion ? { opacity: 0 } : { y: '100%', opacity: 0 }}
                 animate={{ y: '0%', opacity: 1 }}
-                transition={{ duration: 0.75, delay: 0.22, ease: luxuryEase }}
-                className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#0D0D0D] leading-[1.1]"
+                transition={{ duration: 0.75, delay: 0.18, ease: luxuryEase }}
+                className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#0D0D0D] leading-[1.08]"
               >
                 Defined By Style.
               </motion.h1>
@@ -160,7 +158,7 @@ export const HeroSection = () => {
               <motion.span
                 initial={shouldReduceMotion ? { opacity: 0 } : { y: '100%', opacity: 0 }}
                 animate={{ y: '0%', opacity: 1 }}
-                transition={{ duration: 0.75, delay: 0.3, ease: luxuryEase }}
+                transition={{ duration: 0.75, delay: 0.25, ease: luxuryEase }}
                 className="block font-serif font-normal italic text-[#200E01] text-2xl sm:text-3xl"
               >
                 Crafted For Movement.
@@ -168,21 +166,21 @@ export const HeroSection = () => {
             </div>
           </div>
 
-          {/* 4. Mobile Concise Supporting Statement */}
+          {/* 4. Mobile Supporting Copy — Concise & Punchy */}
           <motion.p
-            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.38, ease: luxuryEase }}
-            className="text-sm sm:text-base text-[#557373] leading-relaxed max-w-lg"
+            transition={{ duration: 0.65, delay: 0.32, ease: luxuryEase }}
+            className="text-sm sm:text-base text-[#557373] leading-relaxed max-w-md"
           >
-            Modern menswear designed for everyday confidence. Elevated essentials and tailored silhouettes built to transition effortlessly.
+            Modern menswear designed for everyday confidence.
           </motion.p>
 
-          {/* 5. Mobile Dominant CTAs */}
+          {/* 5. Mobile Primary & Secondary CTAs */}
           <motion.div
-            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.44, ease: luxuryEase }}
+            transition={{ duration: 0.65, delay: 0.38, ease: luxuryEase }}
             className="flex flex-col sm:flex-row gap-3 pt-1"
           >
             <FashionButton
@@ -204,58 +202,35 @@ export const HeroSection = () => {
               View Collections
             </FashionButton>
           </motion.div>
-
-          {/* 6. Mobile Wardrobe Quick Cues */}
-          <motion.div
-            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.52, ease: luxuryEase }}
-            className="pt-4 border-t border-[#E7DECD]/80"
-          >
-            <span className="text-[10px] uppercase tracking-[0.2em] text-[#557373] font-semibold block mb-2.5">
-              Explore Wardrobe
-            </span>
-            <div className="flex flex-wrap gap-2">
-              {HERO_CATEGORIES.map((cat) => (
-                <Link
-                  key={cat.label}
-                  to={`/shop?category=${cat.slug}`}
-                  className="px-3 py-1.5 bg-[#EDE7C7]/50 hover:bg-[#0D0D0D] text-[#200E01] hover:text-[#F2EFEA] border border-[#E7DECD] rounded-lg text-xs font-medium transition-all"
-                >
-                  {cat.label}
-                </Link>
-              ))}
-            </div>
-          </motion.div>
         </div>
 
         {/* =========================================================================
-            DESKTOP LAYOUT (lg: 1024px and above)
-            Sophisticated Editorial Composition:
-            - Left: Distinctive typography, brand identity, concise copy, prominent CTAs
-            - Right: Dominant fashion campaign visual with layered art direction and depth
+            DESKTOP HERO LAYOUT (lg: 1024px and above)
+            Editorial Composition:
+            - Left: YK Brand Label, Campaign Statement, Concise Copy, Dominant CTAs
+            - Right: Dominant Fashion Artwork with refined framing, secondary tailoring inset & clean piece card
             ========================================================================= */}
-        <div className="hidden lg:grid lg:grid-cols-12 gap-8 xl:gap-14 items-center min-h-[580px] xl:min-h-[640px]">
-          {/* Left Column: Brand, Headline, Copy & Actions (5 Columns) */}
-          <div className="lg:col-span-5 flex flex-col justify-center space-y-7 xl:space-y-8 z-20">
+        <div className="hidden lg:grid lg:grid-cols-12 gap-8 xl:gap-12 items-center min-h-[560px] xl:min-h-[600px]">
+          {/* Left Column: Brand & Campaign Statement (5 Columns) */}
+          <div className="lg:col-span-5 flex flex-col justify-center space-y-6 xl:space-y-7 z-20">
             {/* Brand Tagline with Crimson Accent */}
             <motion.div
-              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -14 }}
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, ease: luxuryEase }}
+              transition={{ duration: 0.65, ease: luxuryEase }}
               className="flex items-center space-x-3 text-xs uppercase tracking-[0.28em] text-[#557373] font-semibold"
             >
-              <span className="w-8 h-[2px] bg-[#8B0000] rounded-full" />
+              <span className="w-7 h-[2px] bg-[#8B0000] rounded-full" />
               <span>YK Mens Fashion</span>
             </motion.div>
 
             {/* Campaign Headline with Masked Roll Reveal */}
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               <div className="overflow-hidden">
                 <motion.h1
                   initial={shouldReduceMotion ? { opacity: 0 } : { y: '105%', opacity: 0 }}
                   animate={{ y: '0%', opacity: 1 }}
-                  transition={{ duration: 0.85, delay: 0.1, ease: luxuryEase }}
+                  transition={{ duration: 0.85, delay: 0.08, ease: luxuryEase }}
                   className="font-serif text-5xl xl:text-6xl font-bold tracking-tight text-[#0D0D0D] leading-[1.05]"
                 >
                   Defined By Style.
@@ -265,7 +240,7 @@ export const HeroSection = () => {
                 <motion.span
                   initial={shouldReduceMotion ? { opacity: 0 } : { y: '105%', opacity: 0 }}
                   animate={{ y: '0%', opacity: 1 }}
-                  transition={{ duration: 0.85, delay: 0.22, ease: luxuryEase }}
+                  transition={{ duration: 0.85, delay: 0.18, ease: luxuryEase }}
                   className="block font-serif font-normal italic text-[#200E01] text-4xl xl:text-5xl mt-0.5"
                 >
                   Crafted For Movement.
@@ -275,20 +250,20 @@ export const HeroSection = () => {
 
             {/* Short, Natural Supporting Statement */}
             <motion.p
-              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.32, ease: luxuryEase }}
-              className="text-base text-[#557373] max-w-md leading-relaxed"
+              transition={{ duration: 0.7, delay: 0.28, ease: luxuryEase }}
+              className="text-base text-[#557373] max-w-sm leading-relaxed"
             >
-              Modern menswear designed for everyday confidence. Elevated essentials and tailored silhouettes built to transition seamlessly from day to night.
+              Modern menswear designed for everyday confidence.
             </motion.p>
 
             {/* Primary & Secondary Action Buttons */}
             <motion.div
-              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.42, ease: luxuryEase }}
-              className="flex items-center space-x-4 pt-1"
+              transition={{ duration: 0.7, delay: 0.36, ease: luxuryEase }}
+              className="flex items-center space-x-4 pt-2"
             >
               <FashionButton
                 to={ROUTES.SHOP}
@@ -307,45 +282,12 @@ export const HeroSection = () => {
                 View Collections
               </FashionButton>
             </motion.div>
-
-            {/* Editorial Wardrobe Index / Category Jump */}
-            <motion.div
-              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.52, ease: luxuryEase }}
-              className="pt-6 border-t border-[#E7DECD] max-w-md"
-            >
-              <div className="flex items-center justify-between text-xs mb-3">
-                <span className="uppercase tracking-[0.25em] text-[#557373] font-semibold text-[11px]">
-                  Wardrobe Index
-                </span>
-                <span className="text-[#8B0000] font-serif italic text-sm">
-                  SS / 2026
-                </span>
-              </div>
-              <div className="grid grid-cols-4 gap-2">
-                {HERO_CATEGORIES.map((cat) => (
-                  <Link
-                    key={cat.label}
-                    to={`/shop?category=${cat.slug}`}
-                    className="group flex flex-col p-2 bg-[#EDE7C7]/40 hover:bg-[#0D0D0D] border border-[#E7DECD] rounded-xl transition-all duration-300"
-                  >
-                    <span className="text-[10px] font-mono text-[#557373] group-hover:text-[#EDE7C7]/80 transition-colors">
-                      {cat.code}
-                    </span>
-                    <span className="text-xs font-semibold text-[#0D0D0D] group-hover:text-[#F2EFEA] transition-colors mt-0.5 truncate">
-                      {cat.label}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </motion.div>
           </div>
 
           {/* Right Column: Dominant Editorial Fashion Artwork (7 Columns) */}
           <div className="lg:col-span-7 relative z-10">
             {/* Subtle architectural offset backdrop */}
-            <div className="absolute -inset-4 bg-[#EDE7C7]/50 rounded-[2.5rem] -rotate-1 border border-[#E7DECD]/80 -z-10 pointer-events-none" />
+            <div className="absolute -inset-3 bg-[#EDE7C7]/50 rounded-[2.25rem] -rotate-1 border border-[#E7DECD]/70 -z-10 pointer-events-none" />
 
             {/* Main Interactive Framed Composition */}
             <motion.div
@@ -363,40 +305,39 @@ export const HeroSection = () => {
               initial={
                 shouldReduceMotion
                   ? { opacity: 0 }
-                  : { opacity: 0, clipPath: 'inset(10% 0% 0% 0% round 2rem)', scale: 0.98 }
+                  : { opacity: 0, clipPath: 'inset(8% 0% 0% 0% round 1.75rem)', scale: 0.98 }
               }
               animate={
                 shouldReduceMotion
                   ? { opacity: 1 }
-                  : { opacity: 1, clipPath: 'inset(0% 0% 0% 0% round 2rem)', scale: 1 }
+                  : { opacity: 1, clipPath: 'inset(0% 0% 0% 0% round 1.75rem)', scale: 1 }
               }
-              transition={{ duration: 1.1, delay: 0.12, ease: luxuryEase }}
-              className="relative p-3.5 xl:p-4 bg-white/90 rounded-[2rem] border border-[#E7DECD] shadow-lg group"
+              transition={{ duration: 1.05, delay: 0.1, ease: luxuryEase }}
+              className="relative p-3.5 xl:p-4 bg-white/95 rounded-[1.85rem] border border-[#E7DECD] shadow-lg group"
             >
               {/* Primary Image Container */}
-              <div className="relative aspect-[4/4.8] xl:aspect-[4/4.6] w-full rounded-2xl overflow-hidden bg-[#EDE7C7]/40">
+              <div className="relative aspect-[4/4.7] xl:aspect-[4/4.5] w-full rounded-2xl overflow-hidden bg-[#EDE7C7]/40">
                 <motion.img
-                  initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.08 }}
+                  initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.06 }}
                   animate={{ scale: 1 }}
-                  transition={{ duration: 1.25, delay: 0.18, ease: luxuryEase }}
-                  src="https://images.unsplash.com/photo-1544923246-77307dd654cb?auto=format&fit=crop&w=1200&q=85"
-                  alt="YK MENS FASHION Editorial Campaign"
-                  className="w-full h-full object-cover object-top transition-transform duration-1000 ease-out group-hover:scale-[1.03]"
+                  transition={{ duration: 1.2, delay: 0.15, ease: luxuryEase }}
+                  src={heroProduct.images[0]}
+                  alt={`YK Mens Fashion — ${heroProduct.name}`}
+                  className="w-full h-full object-cover object-[center_top] transition-transform duration-1000 ease-out group-hover:scale-[1.03]"
                   loading="eager"
                   fetchPriority="high"
                 />
 
-                {/* Editorial Campaign Badge */}
-                <div className="absolute top-4 left-4 flex items-center space-x-2 px-3 py-1.5 bg-[#0D0D0D]/85 backdrop-blur-sm text-[#F2EFEA] text-[11px] uppercase tracking-[0.2em] font-semibold rounded-lg shadow-sm">
-                  <span className="w-2 h-2 rounded-full bg-[#8B0000]" />
-                  <span>Campaign 2026</span>
+                {/* Clean Season Pill */}
+                <div className="absolute top-4 left-4 px-3 py-1.5 bg-[#0D0D0D]/85 backdrop-blur-sm text-[#F2EFEA] text-[10px] uppercase tracking-[0.2em] font-semibold rounded-lg shadow-sm">
+                  New Season
                 </div>
 
                 {/* Secondary Inset Swatch / Detail Shot (Visual craft & texture depth) */}
                 <motion.div
-                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.45, ease: luxuryEase }}
+                  transition={{ duration: 0.75, delay: 0.4, ease: luxuryEase }}
                   className="absolute top-4 right-4 w-28 xl:w-32 aspect-[3/4] rounded-xl overflow-hidden border-2 border-white shadow-lg bg-[#E7DECD] hidden sm:block group/inset"
                 >
                   <img
@@ -411,26 +352,26 @@ export const HeroSection = () => {
                   </div>
                 </motion.div>
 
-                {/* Floating Inset Action Card */}
+                {/* Floating Inset Action Card: FEATURED PIECE / [Product Name] / Shop → */}
                 <motion.div
-                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.75, delay: 0.48, ease: luxuryEase }}
+                  transition={{ duration: 0.7, delay: 0.42, ease: luxuryEase }}
                   className="absolute inset-x-4 bottom-4 p-4 bg-white/95 backdrop-blur-md rounded-xl border border-[#DFE5F3] flex justify-between items-center shadow-md transition-all duration-300 hover:bg-white"
                 >
-                  <div>
+                  <div className="pr-3">
                     <span className="text-[10px] uppercase tracking-wider text-[#557373] font-semibold block">
-                      Featured Silhouette
+                      Featured Piece
                     </span>
                     <h4 className="text-sm font-bold text-[#0D0D0D]">
-                      Structured Wool Overcoat
+                      {heroProduct.name}
                     </h4>
                   </div>
                   <Link
-                    to="/product/structured-wool-overcoat-obsidian"
-                    className="inline-flex items-center space-x-2 px-4 py-2 bg-[#0D0D0D] text-[#F2EFEA] hover:bg-[#8B0000] text-xs font-semibold rounded-lg transition-colors shadow-xs active:scale-95"
+                    to={`/product/${heroProduct.slug}`}
+                    className="inline-flex items-center space-x-2 px-4 py-2 bg-[#0D0D0D] text-[#F2EFEA] hover:bg-[#8B0000] text-xs font-semibold rounded-lg transition-colors shadow-xs active:scale-95 shrink-0"
                   >
-                    <span>Shop Piece</span>
+                    <span>Shop</span>
                     <AnimatedArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </motion.div>
