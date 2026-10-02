@@ -55,13 +55,13 @@ export const HomePage = () => {
 
       {/* =========================================================================
           CHAPTER 03: SHOWCASE RUNWAY (SEASONAL SHOWCASE)
-          Surface: Muted Dusty Blue-Grey #D4DEE5 for sophisticated light editorial contrast
+          Surface: Ice Blue #DFE5F3 from approved YK palette
           Showcase Rule: NO product prices on homepage showcase.
           ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#D4DEE5] border-b border-[#BAC7D1] text-[#0D0D0D] overflow-hidden">
+      <section className="py-20 sm:py-28 bg-[#DFE5F3] border-b border-[#E7DECD] text-[#0D0D0D] overflow-hidden">
         <Container>
           {/* Section Header with Slider Navigation Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-6 sm:mb-8 border-b border-[#BAC7D1] gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-6 sm:mb-8 border-b border-[#E7DECD] gap-6">
             <div>
               <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block mb-2">
                 New Arrivals
@@ -77,7 +77,7 @@ export const HomePage = () => {
                 type="button"
                 onClick={() => carouselRef.current?.prev()}
                 aria-label="Previous product"
-                className="p-3 bg-white/95 hover:bg-white border border-[#BAC7D1] text-[#0D0D0D] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/50"
+                className="p-3 bg-white/95 hover:bg-white border border-[#E7DECD] text-[#0D0D0D] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/50"
               >
                 <AnimatedArrowLeft className="w-4 h-4" />
               </button>
@@ -85,7 +85,7 @@ export const HomePage = () => {
                 type="button"
                 onClick={() => carouselRef.current?.next()}
                 aria-label="Next product"
-                className="p-3 bg-white/95 hover:bg-white border border-[#BAC7D1] text-[#0D0D0D] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/50"
+                className="p-3 bg-white/95 hover:bg-white border border-[#E7DECD] text-[#0D0D0D] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/50"
               >
                 <AnimatedArrowRight className="w-4 h-4" />
               </button>
@@ -110,10 +110,10 @@ export const HomePage = () => {
 
       {/* =========================================================================
           CHAPTER 04: CLOSING BRAND INVITATION
-          Surface: Muted Dusty Rose / Soft Clay #EDE2E2
+          Surface: Light Cream #EDE7C7 from approved YK palette
           Clear CTA directing users toward Shop & Collections
           ========================================================================= */}
-      <section className="py-20 sm:py-24 bg-[#EDE2E2] border-b border-[#DFD1D0]">
+      <section className="py-20 sm:py-24 bg-[#EDE7C7] border-b border-[#E7DECD]">
         <Container>
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block">

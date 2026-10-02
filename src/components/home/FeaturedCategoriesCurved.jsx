@@ -324,7 +324,7 @@ export const FeaturedCategoriesCurved = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-16 sm:py-24 lg:py-28 bg-[#E2E7E1] border-b border-[#D0D7CF] overflow-hidden relative"
+      className="py-16 sm:py-24 lg:py-28 bg-[#E7DECD] border-b border-[#DFE5F3] overflow-hidden relative"
     >
       {/* Subtle atmospheric tonal accents */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
@@ -334,7 +334,7 @@ export const FeaturedCategoriesCurved = () => {
 
       <Container className="relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-10 sm:mb-14 border-b border-[#D0D7CF] gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-10 sm:mb-14 border-b border-[#DFE5F3] gap-4">
           <div>
             <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block mb-2">
               Explore Wardrobe
