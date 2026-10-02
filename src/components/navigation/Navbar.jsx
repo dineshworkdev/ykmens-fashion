@@ -74,13 +74,22 @@ export const Navbar = () => {
               </button>
             </div>
 
-            {/* Branded Identity: Confident, Distinctive */}
+            {/* Branded Identity: Distinctive Fashion-Brand Wordmark Lockup */}
             <div className="flex items-center select-none">
-              <Link to={ROUTES.HOME} className="group flex items-baseline space-x-1.5 sm:space-x-2">
-                <span className="font-serif font-bold text-xl sm:text-2xl lg:text-3xl tracking-wider text-[#0D0D0D] group-hover:text-[#8B0000] transition-colors">
+              <Link
+                to={ROUTES.HOME}
+                className="group flex items-center space-x-2 sm:space-x-2.5 transition-opacity duration-200 hover:opacity-90 active:scale-[0.98]"
+              >
+                {/* Visual Anchor: Dominant High-Character Serif Wordmark */}
+                <span className="font-serif font-bold text-2xl sm:text-[26px] lg:text-[28px] tracking-[-0.02em] leading-none text-[#200E01] group-hover:text-[#8B0000] transition-colors">
                   YK
                 </span>
-                <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] font-semibold text-[#557373] group-hover:text-[#200E01] transition-colors">
+
+                {/* Subtle Architectural Hairline Separator */}
+                <span className="w-px h-3 sm:h-3.5 bg-[#200E01]/25 self-center" aria-hidden="true" />
+
+                {/* Connected Descriptor: Clean, Controlled Letter-Spaced Sans */}
+                <span className="font-sans text-[8.5px] sm:text-[9.5px] lg:text-[10px] uppercase tracking-[0.24em] font-semibold text-[#557373] group-hover:text-[#200E01] transition-colors leading-none pt-0.5 whitespace-nowrap">
                   MENS FASHION
                 </span>
               </Link>

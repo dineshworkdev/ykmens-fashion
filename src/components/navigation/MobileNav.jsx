@@ -57,11 +57,16 @@ export const MobileNav = ({ isOpen, onClose, links = [] }) => {
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between pb-5 border-b border-[#E7DECD]">
-              <Link to={ROUTES.HOME} onClick={onClose} className="group flex items-baseline space-x-1.5">
-                <span className="font-serif font-bold text-2xl tracking-wider text-[#0D0D0D]">
+              <Link
+                to={ROUTES.HOME}
+                onClick={onClose}
+                className="group flex items-center space-x-2 sm:space-x-2.5 active:scale-[0.98] transition-transform"
+              >
+                <span className="font-serif font-bold text-2xl sm:text-[26px] tracking-[-0.02em] leading-none text-[#200E01]">
                   YK
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#557373]">
+                <span className="w-px h-3.5 bg-[#200E01]/25 self-center" aria-hidden="true" />
+                <span className="font-sans text-[9px] sm:text-[10px] uppercase tracking-[0.24em] font-semibold text-[#557373] leading-none pt-0.5 whitespace-nowrap">
                   MENS FASHION
                 </span>
               </Link>
