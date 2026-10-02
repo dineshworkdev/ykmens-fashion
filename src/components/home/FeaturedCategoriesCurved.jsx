@@ -1,15 +1,18 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'framer-motion';
 import Container from '../layout/Container';
-import { CATEGORIES } from '../../data/categories';
 import { ROUTES } from '../../utils/constants';
 import { AnimatedArrowRight } from '../common/AnimatedIcons';
 
-// Refined luxury cubic bezier curves
-const luxuryEase = [0.22, 1, 0.36, 1];
+// Spring configuration: ultra-responsive, zero lag, smooth liquid damping
+const runwaySpringConfig = {
+  stiffness: 280,
+  damping: 32,
+  mass: 0.15,
+};
 
-// Curated 4 master categories with verified assets
+// Curated 4 master categories with verified assets and enhanced runway tilt
 const CATEGORY_ITEMS = [
   {
     code: '01',
@@ -18,13 +21,13 @@ const CATEGORY_ITEMS = [
     image: 'https://images.unsplash.com/photo-1544923246-77307dd654cb?auto=format&fit=crop&w=1000&q=85',
     ctaText: 'Explore Outerwear',
     subtitle: 'Tailored overcoats & structured silhouettes',
-    // Mobile runway geometry: slightly left bias, subtle counter-clockwise tilt
-    mobileAlign: 'mr-auto ml-2 sm:ml-6',
-    mobileRotation: -2,
-    mobileShift: -14,
+    // Mobile runway geometry: left-biased with initial tilt -6°
+    mobileAlign: 'mr-auto ml-3 sm:ml-8',
+    baseRotate: -6,
+    baseShift: -16,
     // Desktop runway geometry: upper-left along the curved path
-    desktopY: '-translate-y-4',
-    desktopRotation: -2.2,
+    desktopY: '-translate-y-6',
+    desktopRotate: -5.5,
     desktopScale: 0.95,
   },
   {
@@ -34,13 +37,13 @@ const CATEGORY_ITEMS = [
     image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=1000&q=85',
     ctaText: 'Explore Shirts',
     subtitle: 'Concealed plackets & crisp luxury cotton',
-    // Mobile runway geometry: slightly right bias, subtle clockwise tilt
-    mobileAlign: 'ml-auto mr-2 sm:mr-6',
-    mobileRotation: 2.2,
-    mobileShift: 16,
+    // Mobile runway geometry: right-biased with initial tilt +5.5°
+    mobileAlign: 'ml-auto mr-3 sm:mr-8',
+    baseRotate: 5.5,
+    baseShift: 18,
     // Desktop runway geometry: center-left apex dipping into the curve
-    desktopY: 'translate-y-6',
-    desktopRotation: 1.8,
+    desktopY: 'translate-y-8',
+    desktopRotate: 4.5,
     desktopScale: 1.04,
   },
   {
@@ -50,13 +53,13 @@ const CATEGORY_ITEMS = [
     image: 'https://images.unsplash.com/photo-1479064555552-3ef4979f8908?auto=format&fit=crop&w=1000&q=85',
     ctaText: 'Explore Trousers',
     subtitle: 'High-rise pleated wool & relaxed movement',
-    // Mobile runway geometry: slightly left bias, subtle tilt
-    mobileAlign: 'mr-auto ml-3 sm:ml-8',
-    mobileRotation: -1.8,
-    mobileShift: -12,
+    // Mobile runway geometry: left-biased with initial tilt -5°
+    mobileAlign: 'mr-auto ml-4 sm:ml-10',
+    baseRotate: -5,
+    baseShift: -14,
     // Desktop runway geometry: center-right curving upwards
-    desktopY: '-translate-y-2',
-    desktopRotation: -1.6,
+    desktopY: '-translate-y-3',
+    desktopRotate: -4.5,
     desktopScale: 0.98,
   },
   {
@@ -66,61 +69,98 @@ const CATEGORY_ITEMS = [
     image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=85',
     ctaText: 'Explore Tops',
     subtitle: 'Heavyweight mercerized foundations',
-    // Mobile runway geometry: slightly right bias
-    mobileAlign: 'ml-auto mr-3 sm:mr-8',
-    mobileRotation: 1.6,
-    mobileShift: 14,
+    // Mobile runway geometry: right-biased with initial tilt +5.5°
+    mobileAlign: 'ml-auto mr-4 sm:mr-10',
+    baseRotate: 5.5,
+    baseShift: 16,
     // Desktop runway geometry: far-right settling downwards
-    desktopY: 'translate-y-8',
-    desktopRotation: 2.2,
+    desktopY: 'translate-y-10',
+    desktopRotate: 5.5,
     desktopScale: 0.94,
   },
 ];
 
 /**
  * Mobile Runway Card:
- * Responds to normal vertical scrolling as it traverses the viewport.
- * The active category enters the viewport, becomes prominent and sharp, then gently settles back.
+ * Continuous scroll-driven motion passed through a responsive spring layer.
+ * As the user scrolls vertically, each card continuously glides along the invisible curved runway:
+ * - Resting tilt (-6° or +5.5°)
+ * - Smoothly straightens toward 0° at focal position (center viewport)
+ * - Scale expands continuously (0.93 -> 0.96 -> 1.00 -> 1.025 -> 1.00 -> 0.96 -> 0.93)
+ * - Image crop & parallax drift continuously inside card
+ * - Gracefully returns to resting tilt as it leaves focal position
+ * - Zero snapping, zero pauses, zero scroll-jacking.
  */
-const MobileRunwayCard = ({ item, index, shouldReduceMotion }) => {
+const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
   const cardRef = useRef(null);
 
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: rawScrollProgress } = useScroll({
     target: cardRef,
     offset: ['start end', 'end start'],
   });
 
-  // Scroll-linked transformations along the invisible path
+  // Spring-smoothed scroll progress eliminates stickiness and jitter
+  const smoothProgress = useSpring(rawScrollProgress, runwaySpringConfig);
+
+  // Continuous multi-point scale interpolation
   const scale = useTransform(
-    scrollYProgress,
-    [0, 0.25, 0.5, 0.75, 1],
-    shouldReduceMotion ? [1, 1, 1, 1, 1] : [0.92, 0.96, 1.03, 0.96, 0.92]
-  );
-
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.5, 0.8, 1],
-    shouldReduceMotion ? [1, 1, 1, 1, 1] : [0.65, 0.9, 1, 0.9, 0.65]
-  );
-
-  const rotate = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
+    smoothProgress,
+    [0, 0.2, 0.35, 0.5, 0.65, 0.8, 1],
     shouldReduceMotion
-      ? [0, 0, 0]
-      : [`${item.mobileRotation}deg`, '0deg', `${item.mobileRotation * 0.7}deg`]
+      ? [1, 1, 1, 1, 1, 1, 1]
+      : [0.93, 0.95, 0.98, 1.025, 0.98, 0.95, 0.93]
   );
 
+  // High-visibility continuous opacity
+  const opacity = useTransform(
+    smoothProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    shouldReduceMotion ? [1, 1, 1, 1, 1] : [0.86, 0.94, 1, 0.94, 0.86]
+  );
+
+  // Continuous rotation: Starts at resting tilt, continuously travels to 0° at focus (0.5), then returns
+  const rotate = useTransform(
+    smoothProgress,
+    [0, 0.2, 0.35, 0.5, 0.65, 0.8, 1],
+    shouldReduceMotion
+      ? [0, 0, 0, 0, 0, 0, 0]
+      : [
+          `${item.baseRotate}deg`,
+          `${item.baseRotate * 0.75}deg`,
+          `${item.baseRotate * 0.35}deg`,
+          '0deg',
+          `${item.baseRotate * 0.35}deg`,
+          `${item.baseRotate * 0.75}deg`,
+          `${item.baseRotate}deg`,
+        ]
+  );
+
+  // Continuous horizontal sway along the curved runway
   const x = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    shouldReduceMotion ? [0, 0, 0] : [`${item.mobileShift}px`, '0px', `${item.mobileShift * -0.5}px`]
+    smoothProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    shouldReduceMotion
+      ? [0, 0, 0, 0, 0]
+      : [
+          `${item.baseShift}px`,
+          `${item.baseShift * 0.6}px`,
+          '0px',
+          `${item.baseShift * -0.3}px`,
+          `${item.baseShift * -0.5}px`,
+        ]
   );
 
+  // Subtle image crop & parallax reaction
   const imageScale = useTransform(
-    scrollYProgress,
-    [0.2, 0.5, 0.8],
-    shouldReduceMotion ? [1, 1, 1] : [1.05, 1, 1.05]
+    smoothProgress,
+    [0, 0.5, 1],
+    shouldReduceMotion ? [1, 1, 1] : [1.02, 1.06, 1.02]
+  );
+
+  const imageY = useTransform(
+    smoothProgress,
+    [0, 0.5, 1],
+    shouldReduceMotion ? ['0px', '0px', '0px'] : ['-6px', '0px', '6px']
   );
 
   return (
@@ -132,7 +172,7 @@ const MobileRunwayCard = ({ item, index, shouldReduceMotion }) => {
         rotate,
         x,
       }}
-      className={`w-[88%] max-w-[340px] sm:max-w-[380px] ${item.mobileAlign} relative my-6 sm:my-8`}
+      className={`w-[84%] max-w-[320px] sm:max-w-[360px] ${item.mobileAlign} relative my-6 sm:my-8 origin-center`}
     >
       <Link
         to={`${ROUTES.SHOP}?category=${item.slug}`}
@@ -141,14 +181,17 @@ const MobileRunwayCard = ({ item, index, shouldReduceMotion }) => {
         {/* Visual Frame */}
         <div className="relative aspect-[3.7/4.4] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#EDE7C7]/40 mb-3.5">
           <motion.img
-            style={{ scale: imageScale }}
+            style={{
+              scale: imageScale,
+              y: imageY,
+            }}
             src={item.image}
             alt={item.name}
-            className="w-full h-full object-cover object-top transition-transform duration-700 ease-out"
+            className="w-full h-full object-cover object-top will-change-transform"
             loading="lazy"
           />
 
-          {/* Minimal Editorial Badge */}
+          {/* Minimal Editorial Code Badge */}
           <div className="absolute top-2.5 left-2.5 px-2.5 py-1 bg-[#0D0D0D]/80 backdrop-blur-xs text-[#F2EFEA] text-[10px] tracking-[0.2em] font-mono rounded-full">
             {item.code}
           </div>
@@ -183,38 +226,41 @@ const MobileRunwayCard = ({ item, index, shouldReduceMotion }) => {
  * Desktop Runway Item:
  * Positions cards along an undulating curved editorial path across the panoramic section.
  * Center apex card is elevated, side cards are angled and scaled naturally.
- * As the user scrolls vertically through the section, the cards respond in a coordinated wave.
+ * Uses continuous spring smoothing for fluid vertical scroll response.
  */
-const DesktopRunwayItem = ({ item, index, sectionProgress, shouldReduceMotion }) => {
-  // Wave phase offset for continuous scroll-reactive progression
+const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion }) => {
+  // Staggered wave offset along the curve
   const phase = index * 0.2;
   const start = Math.max(0, phase - 0.1);
-  const peak = phase + 0.15;
-  const end = Math.min(1, phase + 0.4);
+  const peak = phase + 0.18;
+  const end = Math.min(1, phase + 0.45);
 
   const scrollScale = useTransform(
     sectionProgress,
     [start, peak, end],
     shouldReduceMotion
       ? [1, 1, 1]
-      : [item.desktopScale, item.desktopScale * 1.05, item.desktopScale]
+      : [item.desktopScale, item.desktopScale * 1.04, item.desktopScale]
   );
 
   const scrollY = useTransform(
     sectionProgress,
     [0, 0.5, 1],
-    shouldReduceMotion ? [0, 0, 0] : [index % 2 === 0 ? -12 : 12, 0, index % 2 === 0 ? 12 : -12]
+    shouldReduceMotion
+      ? [0, 0, 0]
+      : [index % 2 === 0 ? -14 : 14, 0, index % 2 === 0 ? 14 : -14]
   );
 
+  // Rotation continuously softens toward 0° at peak focus then restores
   const scrollRotate = useTransform(
     sectionProgress,
-    [0, 0.5, 1],
+    [start, peak, end],
     shouldReduceMotion
       ? [0, 0, 0]
       : [
-          `${item.desktopRotation}deg`,
-          `${item.desktopRotation * 0.4}deg`,
-          `${item.desktopRotation}deg`,
+          `${item.desktopRotate}deg`,
+          `${item.desktopRotate * 0.3}deg`,
+          `${item.desktopRotate}deg`,
         ]
   );
 
@@ -225,7 +271,7 @@ const DesktopRunwayItem = ({ item, index, sectionProgress, shouldReduceMotion })
         y: scrollY,
         rotate: scrollRotate,
       }}
-      className={`relative z-10 ${item.desktopY}`}
+      className={`relative z-10 ${item.desktopY} origin-center`}
     >
       <Link
         to={`${ROUTES.SHOP}?category=${item.slug}`}
@@ -240,7 +286,7 @@ const DesktopRunwayItem = ({ item, index, sectionProgress, shouldReduceMotion })
             loading="lazy"
           />
 
-          {/* Minimal Editorial Badge */}
+          {/* Minimal Editorial Code Badge */}
           <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#0D0D0D]/80 backdrop-blur-xs text-[#F2EFEA] text-[10px] tracking-[0.2em] font-mono rounded-full">
             {item.code}
           </div>
@@ -270,24 +316,25 @@ const DesktopRunwayItem = ({ item, index, sectionProgress, shouldReduceMotion })
 
 /**
  * YK MENS FASHION — FEATURED CATEGORIES
- * INVISIBLE CURVED EDITORIAL PATH / RUNWAY
+ * INVISIBLE CURVED EDITORIAL PATH / RUNWAY (MOTION + TILT REFINEMENT)
  * 
- * Distinct Visual Architecture:
- * - NOT a normal 4-card grid
- * - NOT a carousel or card stack
- * - The composition follows an invisible flowing S-curve runway
- * - Mobile-first: Alternating horizontal bias + subtle rotations driven by natural vertical scroll
- * - Desktop: Undulating panoramic runway where categories sit along a flowing curved geometry
- * - Driven by the user's natural vertical scroll (no scroll-jacking, no horizontal swiping)
+ * - Continuous, fluid movement: raw scroll passed through a responsive spring layer
+ * - Stronger resting tilt: -6° (Outerwear) ↘ +5.5° (Shirts) ↘ -5° (Trousers) ↘ +5.5° (Tops)
+ * - Seamless straightening toward 0° as card enters focal center
+ * - Continuous multi-point scale and image crop drift
+ * - No snapping, no discrete state toggles, no scroll-jacking
  */
 export const FeaturedCategoriesCurved = () => {
   const shouldReduceMotion = useReducedMotion();
   const sectionRef = useRef(null);
 
-  const { scrollYProgress: sectionProgress } = useScroll({
+  const { scrollYProgress: rawSectionProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   });
+
+  // Desktop smooth spring layer for the section wave
+  const smoothSectionProgress = useSpring(rawSectionProgress, runwaySpringConfig);
 
   return (
     <section
@@ -322,22 +369,21 @@ export const FeaturedCategoriesCurved = () => {
 
         {/* =========================================================================
             MOBILE RUNWAY (Screen < 1024px)
-            Flowing invisible curved path driven by normal vertical scroll:
-            Outerwear (left bias, slight tilt)
+            Continuous invisible curved path driven by spring-smoothed vertical scroll:
+            Outerwear (resting tilt -6°, left bias)
             ↓
-            Shirts (right bias, clockwise tilt)
+            Shirts (resting tilt +5.5°, right bias)
             ↓
-            Trousers (left bias, slight tilt)
+            Trousers (resting tilt -5°, left bias)
             ↓
-            T-Shirts & Tops (right bias, clockwise tilt)
-            Active card expands slightly and sharpens as it reaches viewport center.
+            T-Shirts & Tops (resting tilt +5.5°, right bias)
+            Smoothly interpolates to 0° at viewport center, then returns to resting tilt.
             ========================================================================= */}
-        <div className="flex flex-col lg:hidden relative py-2">
-          {CATEGORY_ITEMS.map((item, index) => (
+        <div className="flex flex-col lg:hidden relative py-4 overflow-hidden">
+          {CATEGORY_ITEMS.map((item) => (
             <MobileRunwayCard
               key={item.slug}
               item={item}
-              index={index}
               shouldReduceMotion={shouldReduceMotion}
             />
           ))}
@@ -346,22 +392,22 @@ export const FeaturedCategoriesCurved = () => {
         {/* =========================================================================
             DESKTOP CURVED RUNWAY (Screen >= 1024px)
             Invisible flowing S-curve runway across horizontal space:
-            Card 1 (Outerwear, upper-left)
+            Card 1 (Outerwear, upper-left, -5.5°)
                ↘
-                Card 2 (Shirts, center-left focal apex)
+                Card 2 (Shirts, center-left focal apex, +4.5°)
                ↗
-            Card 3 (Trousers, center-right)
+            Card 3 (Trousers, center-right, -4.5°)
                ↘
-                Card 4 (T-Shirts & Tops, far-right)
-            Scroll-linked continuous wave as user scrolls down.
+                Card 4 (T-Shirts & Tops, far-right, +5.5°)
+            Smooth spring-driven continuous wave as user scrolls down.
             ========================================================================= */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-6 xl:gap-8 items-center py-6 min-h-[520px]">
+        <div className="hidden lg:grid lg:grid-cols-4 gap-6 xl:gap-8 items-center py-8 min-h-[540px]">
           {CATEGORY_ITEMS.map((item, index) => (
             <DesktopRunwayItem
               key={item.slug}
               item={item}
               index={index}
-              sectionProgress={sectionProgress}
+              sectionProgress={smoothSectionProgress}
               shouldReduceMotion={shouldReduceMotion}
             />
           ))}
