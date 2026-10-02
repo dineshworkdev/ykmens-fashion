@@ -55,18 +55,18 @@ export const HomePage = () => {
 
       {/* =========================================================================
           CHAPTER 03: SHOWCASE RUNWAY (SEASONAL SHOWCASE)
-          Surface: Deep Midnight Slate #12161A for dramatic editorial contrast
+          Surface: Muted Dusty Blue-Grey #D4DEE5 for sophisticated light editorial contrast
           Showcase Rule: NO product prices on homepage showcase.
           ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#12161A] border-b border-[#20272E] text-[#F2EFEA] overflow-hidden">
+      <section className="py-20 sm:py-28 bg-[#D4DEE5] border-b border-[#BAC7D1] text-[#0D0D0D] overflow-hidden">
         <Container>
           {/* Section Header with Slider Navigation Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-6 sm:mb-8 border-b border-[#222B33] gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-6 sm:mb-8 border-b border-[#BAC7D1] gap-6">
             <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#A6445D] font-bold block mb-2">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block mb-2">
                 New Arrivals
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#F2EFEA]">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0D0D0D]">
                 Seasonal Showcase
               </h2>
             </div>
@@ -77,7 +77,7 @@ export const HomePage = () => {
                 type="button"
                 onClick={() => carouselRef.current?.prev()}
                 aria-label="Previous product"
-                className="p-3 bg-[#1C2329] hover:bg-[#252E36] border border-[#2B353F] text-[#F2EFEA] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/50"
+                className="p-3 bg-white/95 hover:bg-white border border-[#BAC7D1] text-[#0D0D0D] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/50"
               >
                 <AnimatedArrowLeft className="w-4 h-4" />
               </button>
@@ -85,13 +85,13 @@ export const HomePage = () => {
                 type="button"
                 onClick={() => carouselRef.current?.next()}
                 aria-label="Next product"
-                className="p-3 bg-[#1C2329] hover:bg-[#252E36] border border-[#2B353F] text-[#F2EFEA] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/50"
+                className="p-3 bg-white/95 hover:bg-white border border-[#BAC7D1] text-[#0D0D0D] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8B0000]/50"
               >
                 <AnimatedArrowRight className="w-4 h-4" />
               </button>
               <FashionButton
                 to={`${ROUTES.SHOP}?filter=new`}
-                variant="lightLuxe"
+                variant="dark"
                 size="sm"
                 className="ml-2"
               >
@@ -110,10 +110,10 @@ export const HomePage = () => {
 
       {/* =========================================================================
           CHAPTER 04: CLOSING BRAND INVITATION
-          Surface: Warm Stone / Ecru #F3EFE6
+          Surface: Muted Dusty Rose / Soft Clay #EDE2E2
           Clear CTA directing users toward Shop & Collections
           ========================================================================= */}
-      <section className="py-20 sm:py-24 bg-[#F3EFE6] border-b border-[#E0D9CB]">
+      <section className="py-20 sm:py-24 bg-[#EDE2E2] border-b border-[#DFD1D0]">
         <Container>
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block">
