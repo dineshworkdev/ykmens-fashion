@@ -7,9 +7,16 @@ import { useWishlist } from '../../hooks/useWishlist';
 import { ROUTES } from '../../utils/constants';
 
 /**
- * YK MENS FASHION - Mobile Navigation Drawer
- * Designed bespoke for mobile with comfortable touch targets, readable typography,
- * rounded-r-3xl container, and direct access to Wishlist and Bag.
+ * YK MENS FASHION - Floating Rounded Mobile Navigation Drawer
+ * 
+ * Strict Art Direction:
+ * - Extension of the floating rounded Navbar with matching 20-22px rounded frame.
+ * - Generous spacing with strong typography hierarchy.
+ * - NO numbered menu items (strictly HOME, SHOP, etc. — NO 01, 02).
+ * - NO card boxes around individual links — clean, uncluttered typographic list.
+ * - Subtle active page indicator.
+ * - Smooth staggered entrance animation.
+ * - Responsive micro-touch feedback (150ms).
  */
 export const MobileNav = ({ isOpen, onClose, links = [] }) => {
   const { cartCount, openDrawer } = useCart();
@@ -23,59 +30,64 @@ export const MobileNav = ({ isOpen, onClose, links = [] }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden flex" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
-          {/* Backdrop */}
+        <div
+          className="fixed inset-0 z-50 lg:hidden flex"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile Navigation"
+        >
+          {/* Backdrop with subtle dimming */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 bg-[#0D0D0D]/50 backdrop-blur-sm"
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="fixed inset-0 bg-[#0D0D0D]/40 backdrop-blur-xs pointer-events-auto"
             onClick={onClose}
             aria-hidden="true"
           />
 
-          {/* Drawer Body with rounded-r-3xl */}
+          {/* Floating Rounded Drawer Frame */}
           <motion.div
-            initial={{ x: '-100%' }}
+            initial={{ x: '-105%' }}
             animate={{ x: '0%' }}
-            exit={{ x: '-100%' }}
+            exit={{ x: '-105%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 260 }}
-            className="relative w-4/5 max-w-sm bg-[#F2EFEA] border-r border-[#DFE5F3] rounded-r-3xl h-full flex flex-col p-6 shadow-2xl z-10 overflow-y-auto"
+            className="relative pointer-events-auto m-2.5 sm:m-4 w-[calc(100%-1.25rem)] sm:w-[calc(100%-2rem)] max-w-sm bg-[#F2EFEA] border border-[#E2D7CB] rounded-[22px] shadow-2xl h-[calc(100%-1.25rem)] sm:h-[calc(100%-2rem)] flex flex-col p-6 z-10 overflow-y-auto"
           >
             {/* Drawer Header */}
-            <div className="flex items-center justify-between pb-6 border-b border-[#DFE5F3]">
-              <div>
-                <span className="font-serif text-2xl font-bold tracking-wider text-[#0D0D0D] block">
+            <div className="flex items-center justify-between pb-5 border-b border-[#E7DECD]">
+              <Link to={ROUTES.HOME} onClick={onClose} className="group flex items-baseline space-x-1.5">
+                <span className="font-serif font-bold text-2xl tracking-wider text-[#0D0D0D]">
                   YK
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.22em] text-[#557373] font-semibold">
+                <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#557373]">
                   MENS FASHION
                 </span>
-              </div>
+              </Link>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Close navigation"
-                className="w-10 h-10 rounded-full bg-[#DFE5F3]/60 hover:bg-[#DFE5F3] flex items-center justify-center text-[#0D0D0D] transition-colors"
+                className="w-9 h-9 rounded-full bg-[#E7DECD]/50 hover:bg-[#E7DECD] active:scale-90 flex items-center justify-center text-[#0D0D0D] transition-all duration-150"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Quick Shopping Bar (Wishlist & Bag) */}
-            <div className="py-4 border-b border-[#DFE5F3] grid grid-cols-2 gap-3">
+            <div className="py-4 border-b border-[#E7DECD] grid grid-cols-2 gap-2.5">
               <Link
                 to={ROUTES.WISHLIST}
                 onClick={onClose}
-                className="flex items-center justify-between p-3 rounded-xl bg-[#E7DECD]/50 border border-[#DFE5F3] text-xs font-semibold text-[#0D0D0D] hover:bg-[#E7DECD] transition-colors"
+                className="flex items-center justify-between px-3 py-2.5 rounded-xl border border-[#E7DECD] bg-[#EDE7C7]/30 text-xs font-semibold text-[#0D0D0D] hover:bg-[#EDE7C7]/60 active:scale-95 transition-all duration-150"
               >
                 <div className="flex items-center space-x-2">
-                  <Heart className="w-4 h-4 text-[#8B0000]" />
+                  <Heart className="w-3.5 h-3.5 text-[#8B0000]" />
                   <span>Wishlist</span>
                 </div>
                 {wishlistCount > 0 && (
-                  <span className="bg-[#8B0000] text-[#F2EFEA] text-[10px] font-bold px-2 py-0.5 rounded-full">
+                  <span className="bg-[#8B0000] text-[#EDE7C7] text-[10px] font-bold px-1.5 py-0.2 rounded-full">
                     {wishlistCount}
                   </span>
                 )}
@@ -84,56 +96,71 @@ export const MobileNav = ({ isOpen, onClose, links = [] }) => {
               <button
                 type="button"
                 onClick={handleOpenBag}
-                className="flex items-center justify-between p-3 rounded-xl bg-[#E7DECD]/50 border border-[#DFE5F3] text-xs font-semibold text-[#0D0D0D] hover:bg-[#E7DECD] transition-colors text-left"
+                className="flex items-center justify-between px-3 py-2.5 rounded-xl border border-[#E7DECD] bg-[#EDE7C7]/30 text-xs font-semibold text-[#0D0D0D] hover:bg-[#EDE7C7]/60 active:scale-95 transition-all duration-150 text-left"
               >
                 <div className="flex items-center space-x-2">
-                  <ShoppingBag className="w-4 h-4 text-[#142F40]" />
+                  <ShoppingBag className="w-3.5 h-3.5 text-[#142F40]" />
                   <span>Bag</span>
                 </div>
                 {cartCount > 0 && (
-                  <span className="bg-[#0D0D0D] text-[#F2EFEA] text-[10px] font-bold px-2 py-0.5 rounded-full">
+                  <span className="bg-[#0D0D0D] text-[#F2EFEA] text-[10px] font-bold px-1.5 py-0.2 rounded-full">
                     {cartCount}
                   </span>
                 )}
               </button>
             </div>
 
-            {/* Nav Route Items */}
-            <nav className="flex flex-col space-y-1.5 py-6">
+            {/* Nav Route Items — Clean Typographic List (NO NUMBERS, NO BOX CARDS) */}
+            <nav className="flex flex-col py-6 space-y-1">
               {links.map((link, idx) => (
                 <motion.div
                   key={link.name}
-                  initial={{ opacity: 0, x: -12 }}
+                  initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.03 * idx, duration: 0.2 }}
+                  transition={{ delay: 0.04 * idx, duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <NavLink
                     to={link.path}
                     onClick={onClose}
                     className={({ isActive }) =>
-                      `flex items-center justify-between text-sm uppercase tracking-wider font-semibold py-3.5 px-4 rounded-xl transition-all ${
+                      `group flex items-center justify-between py-3 px-2 text-[15px] uppercase tracking-wider transition-colors duration-150 ${
                         isActive
-                          ? 'bg-[#E7DECD] text-[#0D0D0D] font-bold shadow-sm'
-                          : 'text-[#200E01]/80 hover:text-[#0D0D0D] hover:bg-[#E7DECD]/40'
+                          ? 'text-[#0D0D0D] font-bold'
+                          : 'text-[#200E01]/75 hover:text-[#0D0D0D]'
                       }`
                     }
                   >
-                    <span>{link.name}</span>
-                    <ArrowRight className="w-3.5 h-3.5 opacity-50" />
+                    {({ isActive }) => (
+                      <>
+                        <span className="relative">
+                          {link.name}
+                          {isActive && (
+                            <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#8B0000] rounded-full" />
+                          )}
+                        </span>
+                        <ArrowRight
+                          className={`w-3.5 h-3.5 transition-all duration-150 ${
+                            isActive
+                              ? 'text-[#8B0000] opacity-100 translate-x-0.5'
+                              : 'opacity-35 group-hover:opacity-75 group-hover:translate-x-0.5'
+                          }`}
+                        />
+                      </>
+                    )}
                   </NavLink>
                 </motion.div>
               ))}
             </nav>
 
-            {/* Bottom Brand Statement without fake info */}
-            <div className="mt-auto pt-6 border-t border-[#DFE5F3] text-xs text-[#557373] space-y-1">
-              <p className="font-bold text-[#0D0D0D] uppercase tracking-wider">
+            {/* Bottom Brand Statement without fake claims */}
+            <div className="mt-auto pt-5 border-t border-[#E7DECD] text-xs text-[#557373] space-y-1">
+              <p className="font-bold text-[#0D0D0D] uppercase tracking-wider text-[11px]">
                 YK MENS FASHION
               </p>
               <p className="text-[11px] text-[#557373]">
                 Contemporary Menswear & Modern Tailoring
               </p>
-              <p className="text-[10px] text-[#557373]/70 pt-2">
+              <p className="text-[10px] text-[#557373]/70 pt-1">
                 © {new Date().getFullYear()} YK MENS FASHION. All rights reserved.
               </p>
             </div>
