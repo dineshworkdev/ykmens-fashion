@@ -59,7 +59,7 @@ export const HeroSection = () => {
       ref={heroContainerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative bg-[#F2EFEA] border-b border-[#E7DECD] pt-3 sm:pt-6 lg:pt-8 pb-10 sm:pb-14 lg:pb-16 overflow-hidden"
+      className="relative bg-[#E7DECD] border-b border-[#E7DECD] pt-3 sm:pt-6 lg:pt-8 pb-10 sm:pb-14 lg:pb-16 overflow-hidden"
     >
       {/* Subtle architectural hairline accents in approved palette */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
