@@ -21,19 +21,19 @@ export const CustomerInfoStep = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-[#F2EFEA] border border-[#DFE5F3] rounded-2xl p-6 sm:p-8 space-y-6"
+      className="bg-[#2C1E18] border border-[#3E2B21] rounded-2xl p-6 sm:p-8 space-y-6 text-[#FAF7F2]"
     >
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-[#DFE5F3]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-[#3E2B21]">
         <div>
-          <h2 className="text-sm uppercase tracking-widest font-bold text-[#0D0D0D]">
+          <h2 className="text-sm uppercase tracking-widest font-bold text-[#FAF7F2]">
             Customer Details
           </h2>
-          <p className="text-xs text-[#557373] mt-0.5">
+          <p className="text-xs text-[#C8B8AA] mt-0.5">
             Checking out as guest. We will send your order confirmation to this email.
           </p>
         </div>
 
-        <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[#DFE5F3]/70 text-[#142F40] text-xs font-medium self-start sm:self-auto">
+        <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[#3E2B21] text-[#FAF7F2] text-xs font-medium self-start sm:self-auto">
           <UserCheck className="w-3.5 h-3.5" />
           <span>Guest Checkout</span>
         </div>
@@ -87,11 +87,11 @@ export const CustomerInfoStep = ({
         />
       </div>
 
-      <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#DFE5F3]">
+      <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#3E2B21]">
         <button
           type="button"
           onClick={onPrev}
-          className="w-full sm:w-auto px-6 py-3 rounded-xl border border-[#DFE5F3] text-[#0D0D0D] hover:bg-[#DFE5F3] text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center space-x-2"
+          className="w-full sm:w-auto px-6 py-3 rounded-xl border border-[#3E2B21] text-[#FAF7F2] hover:bg-[#3E2B21] text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center space-x-2"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Cart</span>
@@ -99,7 +99,7 @@ export const CustomerInfoStep = ({
 
         <button
           type="submit"
-          className="w-full sm:w-auto px-8 py-3.5 bg-[#0D0D0D] text-[#F2EFEA] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#272401] active:scale-95 transition-all flex items-center justify-center space-x-2 shadow-md"
+          className="w-full sm:w-auto px-8 py-3.5 bg-[#FAF7F2] text-[#1D1410] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#E8DEC8] active:scale-95 transition-all flex items-center justify-center space-x-2 shadow-md"
         >
           <span>Continue to Shipping</span>
           <ArrowRight className="w-4 h-4" />

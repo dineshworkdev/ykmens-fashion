@@ -37,31 +37,31 @@ export const HomePage = () => {
   const carouselRef = useRef(null);
 
   return (
-    <div className="bg-[#F2EFEA] text-[#0D0D0D] overflow-x-hidden selection:bg-[#8B0000] selection:text-[#EDE7C7]">
+    <div className="bg-[#221712] text-[#FAF7F2] overflow-x-hidden selection:bg-[#A6445D] selection:text-[#FAF7F2]">
       {/* =========================================================================
           CHAPTER 01: HERO — EDITORIAL MODERN MENSWEAR HERO
-          Surface: Light Sand #F2EFEA + Cream #EDE7C7
-          Typography: Deep Obsidian #0D0D0D + Espresso #200E01
-          Accents: Crimson #8B0000 + Slate #557373
+          Surface: Rich Warm Brown #2C1E18 + Deep Taupe
+          Typography: Warm Cream #FAF7F2 + Antique Beige #E8DEC8
+          Accents: Velvet Rose #A6445D + Warm Taupe #D4C5B6
           ========================================================================= */}
       <HeroSection />
 
       {/* =========================================================================
           CHAPTER 02: FEATURED CATEGORIES — INVISIBLE CURVED EDITORIAL RUNWAY
-          Surface: Warm Parchment #E7DECD / Light Cream #EDE7C7
+          Surface: Deep Muted Forest Olive #202920 + Contrast Cream Cards #FAF7F2
           Composition: Flowing S-Curve Runway driven by normal vertical scroll
           ========================================================================= */}
       <FeaturedCategoriesCurved />
 
       {/* =========================================================================
           CHAPTER 03: SHOWCASE RUNWAY (SEASONAL SHOWCASE)
-          Surface: Deep Muted Petrol Teal #1E4048 — rich, saturated, visibly teal
+          Surface: Deep Muted Petrol Teal #183038 — rich, saturated, visibly teal
           Showcase Rule: NO product prices on homepage showcase.
           ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#1E4048] border-b border-[#152E34] text-[#FAF7F2] overflow-hidden">
+      <section className="py-20 sm:py-28 bg-[#183038] border-b border-[#22444E] text-[#FAF7F2] overflow-hidden">
         <Container>
           {/* Section Header with Slider Navigation Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-6 sm:mb-8 border-b border-[#2C525B] gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-6 sm:mb-8 border-b border-[#284852] gap-6">
             <div>
               <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block mb-2">
                 New Arrivals
@@ -77,7 +77,7 @@ export const HomePage = () => {
                 type="button"
                 onClick={() => carouselRef.current?.prev()}
                 aria-label="Previous product"
-                className="p-3 bg-[#2A525C] hover:bg-[#35626D] border border-[#3E727F] text-[#FAF7F2] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D99E84]/50"
+                className="p-3 bg-[#23454F] hover:bg-[#2E5865] border border-[#366674] text-[#FAF7F2] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D99E84]/50"
               >
                 <AnimatedArrowLeft className="w-4 h-4" />
               </button>
@@ -85,13 +85,13 @@ export const HomePage = () => {
                 type="button"
                 onClick={() => carouselRef.current?.next()}
                 aria-label="Next product"
-                className="p-3 bg-[#2A525C] hover:bg-[#35626D] border border-[#3E727F] text-[#FAF7F2] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D99E84]/50"
+                className="p-3 bg-[#23454F] hover:bg-[#2E5865] border border-[#366674] text-[#FAF7F2] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D99E84]/50"
               >
                 <AnimatedArrowRight className="w-4 h-4" />
               </button>
               <FashionButton
                 to={`${ROUTES.SHOP}?filter=new`}
-                variant="lightLuxe"
+                variant="cream"
                 size="sm"
                 className="ml-2"
               >
@@ -110,35 +110,35 @@ export const HomePage = () => {
 
       {/* =========================================================================
           CHAPTER 04: CLOSING BRAND INVITATION
-          Surface: Warm Sandstone / Soft Linen Clay #EFE5D8
+          Surface: Rich Deep Burgundy / Warm Wine #34151C
           Clear CTA directing users toward Shop & Collections
           ========================================================================= */}
-      <section className="py-20 sm:py-24 bg-[#EFE5D8] border-b border-[#DECFC0]">
+      <section className="py-20 sm:py-24 bg-[#34151C] border-b border-[#4A1E28]">
         <Container>
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block">
               Step Into YK Mens Fashion
             </span>
 
-            <h2 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#0D0D0D]">
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#FAF7F2]">
               Upgrade Your Everyday Wardrobe
             </h2>
 
-            <p className="text-sm sm:text-base text-[#557373] leading-relaxed max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-[#D4BFC4] leading-relaxed max-w-xl mx-auto">
               Explore our full catalog of thoughtfully designed menswear pieces. Tailored with care, delivered directly to your doorstep across India.
             </p>
 
             <div className="pt-4 flex flex-wrap justify-center gap-4">
               <FashionButton
                 to={ROUTES.SHOP}
-                variant="dark"
+                variant="cream"
                 size="lg"
               >
                 Shop Now
               </FashionButton>
               <FashionButton
                 to={ROUTES.COLLECTIONS}
-                variant="outlineDark"
+                variant="outlineLight"
                 size="lg"
                 showArrow={false}
               >

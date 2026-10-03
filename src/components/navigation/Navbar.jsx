@@ -55,9 +55,9 @@ export const Navbar = () => {
       <header className="sticky top-0 z-40 w-full pointer-events-none pt-2.5 sm:pt-3.5 lg:pt-4 px-2.5 sm:px-6 lg:px-8">
         {/* Floating Rounded Rectangular Frame */}
         <div
-          className={`pointer-events-auto max-w-7xl mx-auto w-full bg-[#F2EFEA] border border-[#E2D7CB] rounded-2xl lg:rounded-[22px] shadow-[0_4px_20px_-4px_rgba(32,14,1,0.06)] transition-all duration-300 ease-out ${
+          className={`pointer-events-auto max-w-7xl mx-auto w-full bg-[#231711] border border-[#3E2B21] rounded-2xl lg:rounded-[22px] shadow-[0_8px_30px_rgba(15,8,4,0.35)] transition-all duration-300 ease-out ${
             isScrolled
-              ? 'py-2.5 lg:py-3 px-3.5 sm:px-6 lg:px-8 border-[#D8CCBD] shadow-[0_6px_24px_-4px_rgba(32,14,1,0.08)]'
+              ? 'py-2.5 lg:py-3 px-3.5 sm:px-6 lg:px-8 border-[#4A3428] bg-[#1F130E] shadow-[0_12px_36px_rgba(15,8,4,0.5)]'
               : 'py-3 sm:py-3.5 lg:py-4 px-3.5 sm:px-6 lg:px-8'
           }`}
         >
@@ -68,7 +68,7 @@ export const Navbar = () => {
                 type="button"
                 onClick={() => setMobileMenuOpen(true)}
                 aria-label="Open navigation menu"
-                className="p-2 -ml-1 text-[#0D0D0D] hover:text-[#8B0000] active:scale-90 transition-transform duration-150 rounded-lg"
+                className="p-2 -ml-1 text-[#FAF7F2] hover:text-[#D99E84] active:scale-90 transition-transform duration-150 rounded-lg"
               >
                 <AnimatedMenuIcon className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
@@ -81,12 +81,12 @@ export const Navbar = () => {
                 className="group inline-flex items-baseline space-x-2 sm:space-x-2.5 lg:space-x-3 transition-opacity duration-200 hover:opacity-90 active:scale-[0.98]"
               >
                 {/* Visual Anchor: Monumental Roman Chisel Wordmark */}
-                <span className="font-brand font-bold text-[22px] sm:text-[25px] lg:text-[27px] tracking-[0.03em] leading-none text-[#200E01] group-hover:text-[#8B0000] transition-colors">
+                <span className="font-brand font-bold text-[22px] sm:text-[25px] lg:text-[27px] tracking-[0.03em] leading-none text-[#FAF7F2] group-hover:text-[#D99E84] transition-colors">
                   YK
                 </span>
 
                 {/* Connected Descriptor: Clean Modern Sans Baseline Partner */}
-                <span className="font-sans text-[9px] sm:text-[10px] lg:text-[10.5px] uppercase tracking-[0.22em] font-semibold text-[#200E01]/85 group-hover:text-[#8B0000] transition-colors leading-none whitespace-nowrap">
+                <span className="font-sans text-[9px] sm:text-[10px] lg:text-[10.5px] uppercase tracking-[0.22em] font-semibold text-[#E2D5C7]/90 group-hover:text-[#D99E84] transition-colors leading-none whitespace-nowrap">
                   MENS FASHION
                 </span>
               </Link>
@@ -110,8 +110,8 @@ export const Navbar = () => {
                     onMouseEnter={() => setHoveredPath(link.path)}
                     className={`relative px-3 py-1.5 text-[13px] tracking-wide font-medium transition-colors duration-200 ${
                       isActive
-                        ? 'text-[#0D0D0D] font-bold'
-                        : 'text-[#200E01]/75 hover:text-[#0D0D0D]'
+                        ? 'text-[#FAF7F2] font-bold'
+                        : 'text-[#D4C5B6] hover:text-[#FAF7F2]'
                     }`}
                   >
                     <span className="relative z-10">{link.name}</span>
@@ -120,12 +120,12 @@ export const Navbar = () => {
                     {hoveredPath === link.path && (
                       <motion.div
                         layoutId="navHoverUnderline"
-                        className="absolute bottom-0 left-2.5 right-2.5 h-[1.5px] bg-[#8B0000] rounded-full"
+                        className="absolute bottom-0 left-2.5 right-2.5 h-[1.5px] bg-[#A6445D] rounded-full"
                         transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                       />
                     )}
                     {isActive && hoveredPath === null && (
-                      <div className="absolute bottom-0 left-2.5 right-2.5 h-[1.5px] bg-[#0D0D0D] rounded-full" />
+                      <div className="absolute bottom-0 left-2.5 right-2.5 h-[1.5px] bg-[#FAF7F2] rounded-full" />
                     )}
                   </NavLink>
                 );
@@ -138,7 +138,7 @@ export const Navbar = () => {
               <Link
                 to={ROUTES.SEARCH}
                 aria-label="Search menswear catalog"
-                className="p-2 sm:p-2.5 text-[#0D0D0D] hover:text-[#8B0000] active:scale-90 transition-transform duration-150 rounded-lg"
+                className="p-2 sm:p-2.5 text-[#FAF7F2] hover:text-[#D99E84] active:scale-90 transition-transform duration-150 rounded-lg"
               >
                 <AnimatedSearchIcon className="w-4 h-4 sm:w-5 sm:h-5" />
               </Link>
@@ -147,14 +147,14 @@ export const Navbar = () => {
               <Link
                 to={ROUTES.WISHLIST}
                 aria-label="View Wishlist"
-                className="p-2 sm:p-2.5 text-[#0D0D0D] hover:text-[#8B0000] active:scale-90 transition-transform duration-150 rounded-lg relative"
+                className="p-2 sm:p-2.5 text-[#FAF7F2] hover:text-[#D99E84] active:scale-90 transition-transform duration-150 rounded-lg relative"
               >
                 <AnimatedHeartIcon
                   isFavorited={wishlistCount > 0}
                   className="w-4 h-4 sm:w-5 sm:h-5"
                 />
                 {wishlistCount > 0 && (
-                  <span className="absolute top-1 right-1 sm:top-1.5 sm:right-1.5 bg-[#8B0000] text-[#EDE7C7] text-[9px] sm:text-[10px] w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full flex items-center justify-center font-bold">
+                  <span className="absolute top-1 right-1 sm:top-1.5 sm:right-1.5 bg-[#8B0000] text-[#FAF7F2] text-[9px] sm:text-[10px] w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full flex items-center justify-center font-bold">
                     {wishlistCount}
                   </span>
                 )}
@@ -165,11 +165,11 @@ export const Navbar = () => {
                 type="button"
                 onClick={openDrawer}
                 aria-label="Open Shopping Bag"
-                className="p-2 sm:p-2.5 text-[#0D0D0D] hover:text-[#8B0000] active:scale-90 transition-transform duration-150 rounded-lg relative"
+                className="p-2 sm:p-2.5 text-[#FAF7F2] hover:text-[#D99E84] active:scale-90 transition-transform duration-150 rounded-lg relative"
               >
                 <AnimatedBagIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                 {cartCount > 0 && (
-                  <span className="absolute top-1 right-1 sm:top-1.5 sm:right-1.5 bg-[#200E01] text-[#F2EFEA] text-[9px] sm:text-[10px] w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full flex items-center justify-center font-bold">
+                  <span className="absolute top-1 right-1 sm:top-1.5 sm:right-1.5 bg-[#FAF7F2] text-[#200E01] text-[9px] sm:text-[10px] w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full flex items-center justify-center font-bold">
                     {cartCount}
                   </span>
                 )}

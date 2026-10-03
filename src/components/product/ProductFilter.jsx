@@ -89,8 +89,8 @@ export const ProductFilter = ({
                 onClick={() => onSelectCategory(cat.slug)}
                 className={`relative px-4 py-2 text-xs uppercase tracking-wider font-semibold rounded-xl whitespace-nowrap transition-all duration-200 select-none ${
                   isActive
-                    ? 'bg-[#0D0D0D] text-white shadow-xs'
-                    : 'bg-white text-[#200E01]/80 hover:text-[#0D0D0D] border border-[#DFE5F3] hover:border-[#200E01]'
+                    ? 'bg-[#FAF7F2] text-[#200E01] shadow-xs'
+                    : 'bg-[#2D1F17] text-[#D4C5B6] hover:text-[#FAF7F2] border border-[#3E2C22] hover:border-[#FAF7F2]'
                 }`}
               >
                 <span>{cat.label}</span>
@@ -101,7 +101,7 @@ export const ProductFilter = ({
       </div>
 
       {/* 2. Utility Control Bar: Filter Trigger, Sort, Active Indicators, Product Count */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white rounded-2xl border border-[#DFE5F3] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-[#231711] rounded-2xl border border-[#3E2B21] shadow-xs">
         {/* Left: Filter Toggle & Product Count */}
         <div className="flex items-center space-x-3">
           <button
@@ -109,14 +109,14 @@ export const ProductFilter = ({
             onClick={() => setFilterPanelOpen(!filterPanelOpen)}
             className={`inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider font-bold transition-all ${
               filterPanelOpen || activeFiltersCount > 0
-                ? 'bg-[#0D0D0D] text-white'
-                : 'bg-[#F2EFEA] hover:bg-[#E7DECD] text-[#0D0D0D] border border-[#DFE5F3]'
+                ? 'bg-[#FAF7F2] text-[#200E01]'
+                : 'bg-[#2D1F17] hover:bg-[#38261E] text-[#FAF7F2] border border-[#3E2B21]'
             }`}
           >
             <AnimatedFilterIcon className="w-4 h-4" />
             <span>Filters</span>
             {activeFiltersCount > 0 && (
-              <span className="w-5 h-5 rounded-full bg-[#8B0000] text-[#EDE7C7] text-[10px] flex items-center justify-center font-bold">
+              <span className="w-5 h-5 rounded-full bg-[#8B0000] text-[#FAF7F2] text-[10px] flex items-center justify-center font-bold">
                 {activeFiltersCount}
               </span>
             )}
@@ -126,13 +126,13 @@ export const ProductFilter = ({
             <button
               type="button"
               onClick={onResetFilters}
-              className="text-xs uppercase tracking-wider font-semibold text-[#8B0000] hover:underline"
+              className="text-xs uppercase tracking-wider font-semibold text-[#D99E84] hover:underline"
             >
               Clear All
             </button>
           )}
 
-          <span className="text-xs text-[#557373] font-medium pl-1">
+          <span className="text-xs text-[#C8B8AA] font-medium pl-1">
             {totalCount} {totalCount === 1 ? 'Piece' : 'Pieces'}
           </span>
         </div>
@@ -140,13 +140,13 @@ export const ProductFilter = ({
         {/* Right: Custom Animated Sort Dropdown */}
         <div className="relative">
           <div className="flex items-center space-x-2">
-            <span className="text-xs uppercase tracking-wider text-[#557373] font-semibold hidden sm:inline">
+            <span className="text-xs uppercase tracking-wider text-[#C8B8AA] font-semibold hidden sm:inline">
               Sort:
             </span>
             <button
               type="button"
               onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
-              className="px-4 py-2.5 bg-[#F2EFEA] hover:bg-[#E7DECD] border border-[#DFE5F3] rounded-xl text-xs uppercase tracking-wider font-bold text-[#0D0D0D] flex items-center justify-between space-x-3 min-w-[170px] transition-colors"
+              className="px-4 py-2.5 bg-[#2D1F17] hover:bg-[#38261E] border border-[#3E2B21] rounded-xl text-xs uppercase tracking-wider font-bold text-[#FAF7F2] flex items-center justify-between space-x-3 min-w-[170px] transition-colors"
             >
               <span>{sortLabels[sortBy] || 'Featured'}</span>
               <motion.span
@@ -166,7 +166,7 @@ export const ProductFilter = ({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.15 }}
-                className="absolute right-0 top-full mt-2 w-52 bg-white rounded-2xl border border-[#DFE5F3] shadow-xl py-2 z-30 overflow-hidden"
+                className="absolute right-0 top-full mt-2 w-52 bg-[#231711] rounded-2xl border border-[#3E2B21] shadow-xl py-2 z-30 overflow-hidden text-[#FAF7F2]"
               >
                 {Object.entries(sortLabels).map(([key, label]) => (
                   <button
@@ -178,13 +178,13 @@ export const ProductFilter = ({
                     }}
                     className={`w-full px-4 py-2.5 text-left text-xs uppercase tracking-wider transition-colors flex items-center justify-between ${
                       sortBy === key
-                        ? 'bg-[#EDE7C7]/50 text-[#0D0D0D] font-bold'
-                        : 'text-[#557373] hover:text-[#0D0D0D] hover:bg-[#F2EFEA]'
+                        ? 'bg-[#2E1E17] text-[#FAF7F2] font-bold'
+                        : 'text-[#D4C5B6] hover:text-[#FAF7F2] hover:bg-[#2E1E17]'
                     }`}
                   >
                     <span>{label}</span>
                     {sortBy === key && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#8B0000]" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#A6445D]" />
                     )}
                   </button>
                 ))}
@@ -204,15 +204,15 @@ export const ProductFilter = ({
             transition={{ duration: 0.25, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            <div className="p-6 sm:p-8 bg-white rounded-3xl border border-[#DFE5F3] shadow-md space-y-6 sm:space-y-8">
-              <div className="flex items-center justify-between pb-4 border-b border-[#DFE5F3]">
-                <h3 className="font-serif text-lg sm:text-xl font-bold text-[#0D0D0D]">
+            <div className="p-6 sm:p-8 bg-[#231711] rounded-3xl border border-[#3E2B21] shadow-md space-y-6 sm:space-y-8 text-[#FAF7F2]">
+              <div className="flex items-center justify-between pb-4 border-b border-[#3E2B21]">
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-[#FAF7F2]">
                   Refine Menswear Catalog
                 </h3>
                 <button
                   type="button"
                   onClick={() => setFilterPanelOpen(false)}
-                  className="p-1.5 text-[#557373] hover:text-[#0D0D0D] transition-colors"
+                  className="p-1.5 text-[#C8B8AA] hover:text-[#FAF7F2] transition-colors"
                   aria-label="Close filters"
                 >
                   <AnimatedCloseIcon className="w-5 h-5" />
@@ -222,7 +222,7 @@ export const ProductFilter = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 {/* Filter 1: Size */}
                 <div className="space-y-3">
-                  <span className="text-xs uppercase tracking-wider font-bold text-[#0D0D0D] block">
+                  <span className="text-xs uppercase tracking-wider font-bold text-[#FAF7F2] block">
                     Size
                   </span>
                   <div className="flex flex-wrap gap-1.5">
@@ -231,8 +231,8 @@ export const ProductFilter = ({
                       onClick={() => onSelectSize('all')}
                       className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-colors ${
                         selectedSize === 'all'
-                          ? 'bg-[#0D0D0D] text-white border-[#0D0D0D]'
-                          : 'bg-[#F2EFEA] text-[#0D0D0D] border-[#DFE5F3] hover:border-[#200E01]'
+                          ? 'bg-[#FAF7F2] text-[#200E01] border-[#FAF7F2]'
+                          : 'bg-[#2D1F17] text-[#FAF7F2] border-[#3E2B21] hover:border-[#FAF7F2]'
                       }`}
                     >
                       All
@@ -244,8 +244,8 @@ export const ProductFilter = ({
                         onClick={() => onSelectSize(sz)}
                         className={`px-2.5 py-1.5 text-xs font-medium rounded-lg border transition-colors ${
                           selectedSize === sz
-                            ? 'bg-[#0D0D0D] text-white border-[#0D0D0D] font-bold'
-                            : 'bg-white text-[#200E01] border-[#DFE5F3] hover:border-[#200E01]'
+                            ? 'bg-[#FAF7F2] text-[#200E01] border-[#FAF7F2] font-bold'
+                            : 'bg-[#2D1F17] text-[#D4C5B6] border-[#3E2B21] hover:border-[#FAF7F2]'
                         }`}
                       >
                         {sz}
@@ -256,7 +256,7 @@ export const ProductFilter = ({
 
                 {/* Filter 2: Color Palette */}
                 <div className="space-y-3">
-                  <span className="text-xs uppercase tracking-wider font-bold text-[#0D0D0D] block">
+                  <span className="text-xs uppercase tracking-wider font-bold text-[#FAF7F2] block">
                     Color Palette
                   </span>
                   <div className="flex flex-wrap gap-2">
@@ -265,8 +265,8 @@ export const ProductFilter = ({
                       onClick={() => onSelectColor('all')}
                       className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-colors ${
                         selectedColor === 'all'
-                          ? 'bg-[#0D0D0D] text-white border-[#0D0D0D]'
-                          : 'bg-[#F2EFEA] text-[#0D0D0D] border-[#DFE5F3] hover:border-[#200E01]'
+                          ? 'bg-[#FAF7F2] text-[#200E01] border-[#FAF7F2]'
+                          : 'bg-[#2D1F17] text-[#FAF7F2] border-[#3E2B21] hover:border-[#FAF7F2]'
                       }`}
                     >
                       All
@@ -278,12 +278,12 @@ export const ProductFilter = ({
                         onClick={() => onSelectColor(col.name)}
                         className={`px-2.5 py-1.5 text-xs font-medium rounded-lg border transition-colors flex items-center space-x-1.5 ${
                           selectedColor.toLowerCase() === col.name.toLowerCase()
-                            ? 'bg-[#EDE7C7] text-[#0D0D0D] border-[#200E01] font-bold'
-                            : 'bg-white text-[#557373] border-[#DFE5F3] hover:border-[#200E01]'
+                            ? 'bg-[#FAF7F2] text-[#200E01] border-[#FAF7F2] font-bold'
+                            : 'bg-[#2D1F17] text-[#D4C5B6] border-[#3E2B21] hover:border-[#FAF7F2]'
                         }`}
                       >
                         <span
-                          className="w-2.5 h-2.5 rounded-full border border-black/10 inline-block"
+                          className="w-2.5 h-2.5 rounded-full border border-white/20 inline-block"
                           style={{ backgroundColor: col.hex }}
                         />
                         <span>{col.name}</span>
@@ -294,7 +294,7 @@ export const ProductFilter = ({
 
                 {/* Filter 3: Price Tier (INR) */}
                 <div className="space-y-3">
-                  <span className="text-xs uppercase tracking-wider font-bold text-[#0D0D0D] block">
+                  <span className="text-xs uppercase tracking-wider font-bold text-[#FAF7F2] block">
                     Price Range (₹)
                   </span>
                   <div className="space-y-1.5">
@@ -310,12 +310,12 @@ export const ProductFilter = ({
                           onClick={() => onChangePriceRange(tier.range)}
                           className={`w-full px-3 py-2 text-left text-xs font-medium rounded-lg border transition-colors flex items-center justify-between ${
                             isSelected
-                              ? 'bg-[#0D0D0D] text-white border-[#0D0D0D] font-bold'
-                              : 'bg-white text-[#200E01] border-[#DFE5F3] hover:border-[#200E01]'
+                              ? 'bg-[#FAF7F2] text-[#200E01] border-[#FAF7F2] font-bold'
+                              : 'bg-[#2D1F17] text-[#D4C5B6] border-[#3E2B21] hover:border-[#FAF7F2]'
                           }`}
                         >
                           <span>{tier.label}</span>
-                          {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#8B0000]" />}
+                          {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#A6445D]" />}
                         </button>
                       );
                     })}
@@ -324,17 +324,17 @@ export const ProductFilter = ({
 
                 {/* Filter 4: Availability */}
                 <div className="space-y-3">
-                  <span className="text-xs uppercase tracking-wider font-bold text-[#0D0D0D] block">
+                  <span className="text-xs uppercase tracking-wider font-bold text-[#FAF7F2] block">
                     Availability
                   </span>
-                  <label className="flex items-center space-x-3 p-3 bg-[#F2EFEA] rounded-xl border border-[#DFE5F3] cursor-pointer hover:border-[#200E01] transition-colors">
+                  <label className="flex items-center space-x-3 p-3 bg-[#2D1F17] rounded-xl border border-[#3E2B21] cursor-pointer hover:border-[#FAF7F2] transition-colors">
                     <input
                       type="checkbox"
                       checked={inStockOnly}
                       onChange={(e) => onToggleInStock(e.target.checked)}
-                      className="w-4 h-4 rounded text-[#0D0D0D] focus:ring-0 cursor-pointer"
+                      className="w-4 h-4 rounded text-[#A6445D] focus:ring-0 cursor-pointer"
                     />
-                    <span className="text-xs font-semibold text-[#0D0D0D]">
+                    <span className="text-xs font-semibold text-[#FAF7F2]">
                       In Stock Pieces Only
                     </span>
                   </label>
@@ -342,8 +342,8 @@ export const ProductFilter = ({
               </div>
 
               {/* Bottom Actions Row */}
-              <div className="pt-4 border-t border-[#DFE5F3] flex items-center justify-between">
-                <span className="text-xs text-[#557373]">
+              <div className="pt-4 border-t border-[#3E2B21] flex items-center justify-between">
+                <span className="text-xs text-[#C8B8AA]">
                   Showing {totalCount} matching pieces
                 </span>
                 <div className="flex items-center space-x-3">
@@ -351,7 +351,7 @@ export const ProductFilter = ({
                     <button
                       type="button"
                       onClick={onResetFilters}
-                      className="px-4 py-2 text-xs uppercase tracking-wider font-bold text-[#557373] hover:text-[#0D0D0D] transition-colors"
+                      className="px-4 py-2 text-xs uppercase tracking-wider font-bold text-[#C8B8AA] hover:text-[#FAF7F2] transition-colors"
                     >
                       Reset All
                     </button>
@@ -359,7 +359,7 @@ export const ProductFilter = ({
                   <button
                     type="button"
                     onClick={() => setFilterPanelOpen(false)}
-                    className="px-6 py-2.5 bg-[#0D0D0D] text-white rounded-xl text-xs uppercase tracking-wider font-bold hover:bg-[#200E01] transition-colors"
+                    className="px-6 py-2.5 bg-[#FAF7F2] text-[#200E01] rounded-xl text-xs uppercase tracking-wider font-bold hover:bg-[#EDE7C7] transition-colors"
                   >
                     Apply Filters
                   </button>

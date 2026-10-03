@@ -176,10 +176,10 @@ const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
     >
       <Link
         to={`${ROUTES.SHOP}?category=${item.slug}`}
-        className="group block bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 border border-[#E7DECD] shadow-md active:scale-[0.98] transition-all duration-300"
+        className="group block bg-[#FAF7F2] rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 border border-[#E2D7C8] shadow-md active:scale-[0.98] transition-all duration-300"
       >
         {/* Visual Frame */}
-        <div className="relative aspect-[3.7/4.4] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#EDE7C7]/40 mb-3.5">
+        <div className="relative aspect-[3.7/4.4] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#EDE7DC]/70 mb-3.5">
           <motion.img
             style={{
               scale: imageScale,
@@ -192,7 +192,7 @@ const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
           />
 
           {/* Minimal Editorial Code Badge */}
-          <div className="absolute top-2.5 left-2.5 px-2.5 py-1 bg-[#0D0D0D]/80 backdrop-blur-xs text-[#F2EFEA] text-[10px] tracking-[0.2em] font-mono rounded-full">
+          <div className="absolute top-2.5 left-2.5 px-2.5 py-1 bg-[#202920]/90 backdrop-blur-xs text-[#FAF7F2] text-[10px] tracking-[0.2em] font-mono rounded-full">
             {item.code}
           </div>
         </div>
@@ -200,19 +200,19 @@ const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
         {/* Category Information */}
         <div className="px-1 pb-1">
           <div className="flex items-center justify-between mb-1">
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#0D0D0D] tracking-tight group-hover:text-[#8B0000] transition-colors">
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#182018] tracking-tight group-hover:text-[#A6445D] transition-colors">
               {item.name}
             </h3>
-            <span className="text-[10px] font-mono text-[#557373]">
+            <span className="text-[10px] font-mono text-[#5A6858]">
               WARDROBE
             </span>
           </div>
 
-          <p className="text-xs text-[#557373] line-clamp-1 mb-2.5">
+          <p className="text-xs text-[#5A6858] line-clamp-1 mb-2.5">
             {item.subtitle}
           </p>
 
-          <div className="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-[#200E01] group-hover:text-[#8B0000] transition-colors">
+          <div className="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-[#283628] group-hover:text-[#A6445D] transition-colors">
             <span>{item.ctaText}</span>
             <AnimatedArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
@@ -262,10 +262,10 @@ const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion })
     >
       <Link
         to={`${ROUTES.SHOP}?category=${item.slug}`}
-        className="group block bg-white rounded-[1.75rem] p-4 border border-[#E7DECD] hover:border-[#0D0D0D] shadow-sm hover:shadow-xl transition-all duration-500 ease-out"
+        className="group block bg-[#FAF7F2] rounded-[1.75rem] p-4 border border-[#E2D7C8] hover:border-[#182018] shadow-md hover:shadow-xl transition-all duration-500 ease-out"
       >
         {/* Visual Frame */}
-        <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-[#EDE7C7]/40 mb-4">
+        <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-[#EDE7DC]/70 mb-4">
           <img
             src={item.image}
             alt={item.name}
@@ -274,24 +274,24 @@ const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion })
           />
 
           {/* Minimal Editorial Code Badge */}
-          <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#0D0D0D]/80 backdrop-blur-xs text-[#F2EFEA] text-[10px] tracking-[0.2em] font-mono rounded-full">
+          <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#202920]/90 backdrop-blur-xs text-[#FAF7F2] text-[10px] tracking-[0.2em] font-mono rounded-full">
             {item.code}
           </div>
         </div>
 
         {/* Category Information */}
         <div className="px-1">
-          <span className="text-[10px] font-mono text-[#557373] uppercase tracking-wider block mb-1">
+          <span className="text-[10px] font-mono text-[#5A6858] uppercase tracking-wider block mb-1">
             Wardrobe / {item.code}
           </span>
-          <h3 className="font-serif text-2xl font-bold text-[#0D0D0D] tracking-tight group-hover:text-[#8B0000] transition-colors mb-1.5">
+          <h3 className="font-serif text-2xl font-bold text-[#182018] tracking-tight group-hover:text-[#A6445D] transition-colors mb-1.5">
             {item.name}
           </h3>
-          <p className="text-xs text-[#557373] line-clamp-1 mb-3">
+          <p className="text-xs text-[#5A6858] line-clamp-1 mb-3">
             {item.subtitle}
           </p>
 
-          <div className="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-[#200E01] group-hover:text-[#8B0000] transition-colors">
+          <div className="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-[#283628] group-hover:text-[#A6445D] transition-colors">
             <span>{item.ctaText}</span>
             <AnimatedArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
@@ -307,7 +307,7 @@ const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion })
  * 
  * - Mobile: Continuous flowing curved path with spring-smoothed scroll physics & subtle tilt
  * - Desktop: Upright, stable, premium cards arranged along an undulating curved wave layout
- * - Background: Rich warm parchment surface (#ECE6DA) providing tactile section separation
+ * - Background: Rich deep muted forest olive (#202920) with warm cream contrast cards
  */
 export const FeaturedCategoriesCurved = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -324,28 +324,28 @@ export const FeaturedCategoriesCurved = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-16 sm:py-24 lg:py-28 bg-[#E7DECD] border-b border-[#D5C7B6] overflow-hidden relative"
+      className="py-16 sm:py-24 lg:py-28 bg-[#202920] border-b border-[#2E3A2E] overflow-hidden relative"
     >
       {/* Subtle atmospheric tonal accents */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
-        <div className="absolute -top-32 left-1/3 w-96 h-96 rounded-full bg-[#EDE7C7] blur-3xl" />
-        <div className="absolute -bottom-32 right-1/4 w-96 h-96 rounded-full bg-[#DFE5F3] blur-3xl" />
+        <div className="absolute -top-32 left-1/3 w-96 h-96 rounded-full bg-[#2E3B2E] blur-3xl" />
+        <div className="absolute -bottom-32 right-1/4 w-96 h-96 rounded-full bg-[#344434] blur-3xl" />
       </div>
 
       <Container className="relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-10 sm:mb-14 border-b border-[#D5C7B6] gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-10 sm:mb-14 border-b border-[#2E3A2E] gap-4">
           <div>
-            <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block mb-2">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block mb-2">
               Explore Wardrobe
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0D0D0D]">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAF7F2]">
               Featured Categories
             </h2>
           </div>
           <Link
             to={ROUTES.SHOP}
-            className="inline-flex items-center space-x-2 text-xs uppercase tracking-wider font-bold text-[#200E01] hover:text-[#8B0000] transition-colors group"
+            className="inline-flex items-center space-x-2 text-xs uppercase tracking-wider font-bold text-[#E8DDD2] hover:text-[#FAF7F2] transition-colors group"
           >
             <span>View All Categories</span>
             <AnimatedArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

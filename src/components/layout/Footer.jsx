@@ -18,8 +18,8 @@ export const Footer = () => {
   const { openDrawer } = useCart();
 
   return (
-    <footer className="mt-auto bg-[#2F2018] text-[#FAF7F2] border-t border-[#453025]">
-      {/* Main Footer Links & Architecture on Rich Earthy Chocolate #2F2018 */}
+    <footer className="mt-auto bg-[#1D1410] text-[#FAF7F2] border-t border-[#2C1E18]">
+      {/* Main Footer Links & Architecture on Deepest Warm Brown / Charcoal #1D1410 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12">
           {/* Brand Info */}
@@ -112,7 +112,7 @@ export const Footer = () => {
         </div>
 
         {/* Sub-bar Copyright */}
-        <div className="mt-12 pt-8 border-t border-[#453025] flex flex-col sm:flex-row justify-between items-center text-xs text-[#9C8C7E] gap-4">
+        <div className="mt-12 pt-8 border-t border-[#2C1E18] flex flex-col sm:flex-row justify-between items-center text-xs text-[#9C8C7E] gap-4">
           <p>© {new Date().getFullYear()} YK MENS FASHION. All rights reserved.</p>
           <p className="text-[11px] text-[#9C8C7E]/80">
             Contemporary Men's Fashion & Tailoring

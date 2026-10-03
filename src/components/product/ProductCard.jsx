@@ -74,13 +74,13 @@ export const ProductCard = ({
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`group relative flex flex-col bg-white border border-[#E7DECD] hover:border-[#200E01] rounded-2xl shadow-xs hover:shadow-md transition-all duration-300 p-3.5 sm:p-5 active:scale-[0.99] ${
+      className={`group relative flex flex-col bg-[#FAF7F2] border border-[#E8DEC8] hover:border-[#A6445D] rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-3.5 sm:p-5 active:scale-[0.99] ${
         isFeatured ? 'md:col-span-2' : ''
       } ${className}`}
     >
       {/* Product Image Stage with Rounded Corners & Secondary Image Reveal */}
       <div
-        className={`relative w-full rounded-xl overflow-hidden bg-[#F2EFEA] mb-3.5 select-none ${
+        className={`relative w-full rounded-xl overflow-hidden bg-[#EFEAE2] mb-3.5 select-none ${
           isFeatured ? 'aspect-[4/3] sm:aspect-[16/11]' : 'aspect-[3/4]'
         }`}
       >
@@ -96,7 +96,7 @@ export const ProductCard = ({
               loading="lazy"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-[#557373] text-xs">
+            <div className="w-full h-full flex items-center justify-center text-[#6A5C52] text-xs">
               Menswear Visual
             </div>
           )}
@@ -116,7 +116,7 @@ export const ProductCard = ({
 
         {/* Category Pill Tag */}
         <div className="absolute top-3 left-3 flex items-center space-x-1.5 z-10 pointer-events-none">
-          <span className="px-2.5 py-1 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-wider font-semibold text-[#200E01] rounded-lg shadow-xs">
+          <span className="px-2.5 py-1 bg-[#FAF7F2]/95 backdrop-blur-xs text-[10px] uppercase tracking-wider font-semibold text-[#1D1410] rounded-lg shadow-xs">
             {product.category}
           </span>
         </div>
@@ -126,7 +126,7 @@ export const ProductCard = ({
           type="button"
           onClick={handleWishlistToggle}
           aria-label={isFavorited ? 'Remove from saved' : 'Save piece'}
-          className="absolute top-3 right-3 p-2.5 bg-white/95 hover:bg-white rounded-full text-[#200E01] shadow-xs z-10 transition-transform active:scale-90"
+          className="absolute top-3 right-3 p-2.5 bg-[#FAF7F2]/95 hover:bg-white rounded-full text-[#1D1410] shadow-xs z-10 transition-transform active:scale-90"
         >
           <AnimatedHeartIcon isFavorited={isFavorited} className="w-4 h-4" />
         </button>
@@ -145,7 +145,7 @@ export const ProductCard = ({
                 <button
                   type="button"
                   onClick={handleQuickViewClick}
-                  className="flex-1 py-2.5 bg-white/95 hover:bg-white text-[#0D0D0D] rounded-xl text-xs uppercase tracking-wider font-bold shadow-md transition-colors flex items-center justify-center space-x-1.5"
+                  className="flex-1 py-2.5 bg-[#FAF7F2]/95 hover:bg-white text-[#1D1410] rounded-xl text-xs uppercase tracking-wider font-bold shadow-md transition-colors flex items-center justify-center space-x-1.5"
                 >
                   <span>Quick View</span>
                 </button>
@@ -154,7 +154,7 @@ export const ProductCard = ({
                   onClick={handleAddToCart}
                   disabled={isOutOfStock}
                   aria-label="Add to bag"
-                  className="p-2.5 bg-[#0D0D0D] hover:bg-[#200E01] text-white rounded-xl shadow-md transition-colors"
+                  className="p-2.5 bg-[#1D1410] hover:bg-[#34151C] text-[#FAF7F2] rounded-xl shadow-md transition-colors"
                 >
                   <AnimatedBagIcon className="w-4 h-4" />
                 </button>
@@ -167,28 +167,28 @@ export const ProductCard = ({
       {/* Product Content & Typography */}
       <div className="flex-1 flex flex-col justify-between pt-1">
         <div>
-          <h3 className="font-serif text-base sm:text-lg font-bold text-[#0D0D0D] tracking-wide mb-1 leading-snug">
-            <Link to={`/product/${product.slug}`} className="hover:text-[#8B0000] transition-colors">
+          <h3 className="font-serif text-base sm:text-lg font-bold text-[#1D1410] tracking-wide mb-1 leading-snug">
+            <Link to={`/product/${product.slug}`} className="hover:text-[#A6445D] transition-colors">
               {product.name}
             </Link>
           </h3>
 
-          <p className="text-xs text-[#557373] line-clamp-2 leading-relaxed mb-3">
+          <p className="text-xs text-[#6A5C52] line-clamp-2 leading-relaxed mb-3">
             {product.description}
           </p>
         </div>
 
         {/* Action Row: Showcase mode vs Catalog mode */}
-        <div className="pt-3 border-t border-[#DFE5F3] flex items-center justify-between">
+        <div className="pt-3 border-t border-[#E8DEC8] flex items-center justify-between">
           {showcase ? (
             /* Homepage Showcase: Clean CTA, No price clutter */
             <div className="w-full flex items-center justify-between">
-              <span className="text-[11px] uppercase tracking-wider font-semibold text-[#557373]">
+              <span className="text-[11px] uppercase tracking-wider font-semibold text-[#6A5C52]">
                 Showcase Piece
               </span>
               <Link
                 to={`/product/${product.slug}`}
-                className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-wider font-bold text-[#0D0D0D] hover:text-[#8B0000] transition-colors group/link"
+                className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-wider font-bold text-[#1D1410] hover:text-[#A6445D] transition-colors group/link"
               >
                 <span>View Product</span>
                 <AnimatedArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
@@ -200,15 +200,15 @@ export const ProductCard = ({
               <div className="flex items-baseline space-x-2">
                 {product.salePrice ? (
                   <>
-                    <span className="font-serif text-base sm:text-lg font-bold text-[#8B0000]">
+                    <span className="font-serif text-base sm:text-lg font-bold text-[#A6445D]">
                       {formatCurrency(product.salePrice)}
                     </span>
-                    <span className="text-xs text-[#557373] line-through">
+                    <span className="text-xs text-[#6A5C52] line-through">
                       {formatCurrency(product.price)}
                     </span>
                   </>
                 ) : (
-                  <span className="font-serif text-base sm:text-lg font-bold text-[#0D0D0D]">
+                  <span className="font-serif text-base sm:text-lg font-bold text-[#1D1410]">
                     {formatCurrency(product.price)}
                   </span>
                 )}
@@ -219,14 +219,14 @@ export const ProductCard = ({
                   <button
                     type="button"
                     onClick={handleQuickViewClick}
-                    className="sm:hidden text-[11px] uppercase tracking-wider font-bold text-[#557373] hover:text-[#0D0D0D] px-2 py-1"
+                    className="sm:hidden text-[11px] uppercase tracking-wider font-bold text-[#6A5C52] hover:text-[#1D1410] px-2 py-1"
                   >
                     Quick View
                   </button>
                 )}
                 <Link
                   to={`/product/${product.slug}`}
-                  className="inline-flex items-center space-x-1 text-xs uppercase tracking-wider font-bold text-[#200E01] hover:text-[#8B0000] transition-colors"
+                  className="inline-flex items-center space-x-1 text-xs uppercase tracking-wider font-bold text-[#1D1410] hover:text-[#A6445D] transition-colors"
                 >
                   <span>View</span>
                   <AnimatedArrowRight className="w-3 h-3" />

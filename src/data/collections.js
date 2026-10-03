@@ -12,6 +12,7 @@ export const COLLECTIONS = [
     image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=85',
     palette: {
       bg: '#DFE5F3',
+      darkBg: '#183038',
       text: '#142F40',
       accent: '#62929E',
     },
@@ -26,6 +27,7 @@ export const COLLECTIONS = [
     image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=1200&q=85',
     palette: {
       bg: '#E7DECD',
+      darkBg: '#202920',
       text: '#393A10',
       accent: '#272401',
     },
@@ -40,6 +42,7 @@ export const COLLECTIONS = [
     image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1200&q=85',
     palette: {
       bg: '#EDE7C7',
+      darkBg: '#34151C',
       text: '#5B0202',
       accent: '#8B0000',
     },
@@ -54,6 +57,7 @@ export const COLLECTIONS = [
     image: 'https://images.unsplash.com/photo-1544923246-77307dd654cb?auto=format&fit=crop&w=1200&q=85',
     palette: {
       bg: '#F2EFEA',
+      darkBg: '#2C1E18',
       text: '#0D0D0D',
       accent: '#557373',
     },

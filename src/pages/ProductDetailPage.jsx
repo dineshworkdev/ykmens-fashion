@@ -65,18 +65,18 @@ export const ProductDetailPage = () => {
   // Not Found State
   if (!product) {
     return (
-      <div className="bg-[#F2EFEA] min-h-[75vh] flex items-center justify-center py-20">
+      <div className="bg-[#241812] text-[#FAF7F2] min-h-[75vh] flex items-center justify-center py-20">
         <Container className="text-center max-w-lg">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#EDE7C7]/60 flex items-center justify-center text-[#200E01]">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#3E2B21] flex items-center justify-center text-[#FAF7F2]">
             <span className="font-serif text-2xl font-bold">YK</span>
           </div>
-          <h1 className="font-serif text-3xl font-bold text-[#0D0D0D] mb-3">
+          <h1 className="font-serif text-3xl font-bold text-[#FAF7F2] mb-3">
             Piece Not Found
           </h1>
-          <p className="text-xs sm:text-sm text-[#557373] leading-relaxed mb-8">
+          <p className="text-xs sm:text-sm text-[#C8B8AA] leading-relaxed mb-8">
             The menswear item you are searching for is currently unavailable or has been archived. Explore our active collection.
           </p>
-          <FashionButton to={ROUTES.SHOP} variant="dark" size="lg">
+          <FashionButton to={ROUTES.SHOP} variant="cream" size="lg">
             Explore All Menswear
           </FashionButton>
         </Container>
@@ -107,36 +107,34 @@ export const ProductDetailPage = () => {
   };
 
   return (
-    <div className="bg-[#F2EFEA] min-h-screen py-6 sm:py-10">
+    <div className="bg-[#241812] text-[#FAF7F2] min-h-screen py-6 sm:py-10">
       <Container>
         {/* Breadcrumbs */}
-        <nav className="text-[11px] sm:text-xs uppercase tracking-wider text-[#557373] mb-6 sm:mb-10 flex items-center space-x-2">
-          <Link to={ROUTES.HOME} className="hover:text-[#0D0D0D] transition-colors">
+        <nav className="text-[11px] sm:text-xs uppercase tracking-wider text-[#C8B8AA] mb-6 sm:mb-10 flex items-center space-x-2">
+          <Link to={ROUTES.HOME} className="hover:text-[#FAF7F2] transition-colors">
             Home
           </Link>
           <span>/</span>
-          <Link to={ROUTES.SHOP} className="hover:text-[#0D0D0D] transition-colors">
+          <Link to={ROUTES.SHOP} className="hover:text-[#FAF7F2] transition-colors">
             Shop
           </Link>
           <span>/</span>
           <Link
             to={`${ROUTES.SHOP}?category=${product.category}`}
-            className="hover:text-[#0D0D0D] transition-colors"
+            className="hover:text-[#FAF7F2] transition-colors"
           >
             {product.category}
           </Link>
           <span>/</span>
-          <span className="text-[#0D0D0D] font-bold truncate max-w-[200px] sm:max-w-none">
+          <span className="text-[#FAF7F2] font-bold truncate max-w-[200px] sm:max-w-none">
             {product.name}
           </span>
         </nav>
 
         {/* Desktop Two-Column Layout / Mobile Vertical Flow */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 pb-16 border-b border-[#DFE5F3]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 pb-16 border-b border-[#3E2B21]">
           {/* =========================================================================
               LEFT COLUMN: PRODUCT IMAGE GALLERY
-              Desktop: Dominant primary image with subtle zoom + thumbnails
-              Mobile: Swipeable gallery with pill image counter
               ========================================================================= */}
           <div className="lg:col-span-7 space-y-4">
             {/* Primary Image Stage */}
@@ -144,7 +142,7 @@ export const ProductDetailPage = () => {
               onMouseEnter={() => setIsZoomed(true)}
               onMouseLeave={() => setIsZoomed(false)}
               onMouseMove={handleMouseMove}
-              className="relative aspect-[3/4] w-full bg-white rounded-3xl border border-[#E7DECD] overflow-hidden shadow-sm group select-none cursor-crosshair"
+              className="relative aspect-[3/4] w-full bg-[#FAF7F2] rounded-3xl border border-[#E8DEC8] overflow-hidden shadow-xl group select-none cursor-crosshair"
             >
               {product.images && product.images[activeImageIndex] ? (
                 <div className="w-full h-full relative overflow-hidden">
@@ -166,14 +164,14 @@ export const ProductDetailPage = () => {
                   </AnimatePresence>
                 </div>
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-[#557373] text-xs">
+                <div className="w-full h-full flex items-center justify-center text-[#6A5C52] text-xs">
                   Menswear Visual
                 </div>
               )}
 
               {/* Category Tag */}
               <div className="absolute top-4 left-4 flex items-center space-x-2 z-10 pointer-events-none">
-                <span className="px-3 py-1.5 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-wider font-semibold text-[#200E01] rounded-lg shadow-xs">
+                <span className="px-3 py-1.5 bg-[#FAF7F2]/95 backdrop-blur-xs text-[10px] uppercase tracking-wider font-semibold text-[#1D1410] rounded-lg shadow-xs">
                   {product.category}
                 </span>
               </div>
@@ -194,10 +192,10 @@ export const ProductDetailPage = () => {
                     key={idx}
                     type="button"
                     onClick={() => setActiveImageIndex(idx)}
-                    className={`relative w-20 sm:w-24 aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all shrink-0 ${
+                    className={`relative w-20 sm:w-24 aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all shrink-0 bg-[#FAF7F2] ${
                       activeImageIndex === idx
-                        ? 'border-[#200E01] opacity-100 shadow-sm'
-                        : 'border-[#DFE5F3] opacity-60 hover:opacity-100'
+                        ? 'border-[#FAF7F2] opacity-100 shadow-md'
+                        : 'border-[#3E2B21] opacity-60 hover:opacity-100'
                     }`}
                   >
                     <img
@@ -218,14 +216,14 @@ export const ProductDetailPage = () => {
             <div className="lg:sticky lg:top-28 space-y-6">
               {/* Product Header */}
               <div className="space-y-3">
-                <div className="flex items-center justify-between text-xs uppercase tracking-wider font-semibold text-[#557373]">
+                <div className="flex items-center justify-between text-xs uppercase tracking-wider font-semibold text-[#C8B8AA]">
                   <span>Collection: {product.collection}</span>
-                  <span className={isOutOfStock ? 'text-[#8B0000]' : 'text-[#393A10]'}>
+                  <span className={isOutOfStock ? 'text-[#A6445D]' : 'text-[#68BB76]'}>
                     {isOutOfStock ? 'Sold Out' : 'In Stock'}
                   </span>
                 </div>
 
-                <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#0D0D0D] leading-tight">
+                <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#FAF7F2] leading-tight">
                   {product.name}
                 </h1>
 
@@ -233,18 +231,18 @@ export const ProductDetailPage = () => {
                 <div className="flex items-baseline space-x-3 pt-1">
                   {product.salePrice ? (
                     <>
-                      <span className="font-serif text-2xl sm:text-3xl font-bold text-[#8B0000]">
+                      <span className="font-serif text-2xl sm:text-3xl font-bold text-[#A6445D]">
                         {formatCurrency(product.salePrice)}
                       </span>
-                      <span className="text-base text-[#557373] line-through font-normal">
+                      <span className="text-base text-[#C8B8AA] line-through font-normal">
                         {formatCurrency(product.price)}
                       </span>
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#8B0000] bg-[#8B0000]/10 px-2 py-0.5 rounded-md">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#A6445D] bg-[#A6445D]/15 px-2 py-0.5 rounded-md">
                         Sale
                       </span>
                     </>
                   ) : (
-                    <span className="font-serif text-2xl sm:text-3xl font-bold text-[#0D0D0D]">
+                    <span className="font-serif text-2xl sm:text-3xl font-bold text-[#FAF7F2]">
                       {formatCurrency(product.price)}
                     </span>
                   )}
@@ -252,16 +250,16 @@ export const ProductDetailPage = () => {
               </div>
 
               {/* Short Description */}
-              <p className="text-xs sm:text-sm text-[#557373] leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#C8B8AA] leading-relaxed">
                 {product.description}
               </p>
 
               {/* Color Selection */}
               {product.colors && product.colors.length > 0 && (
                 <div className="space-y-2.5 pt-2">
-                  <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#0D0D0D]">
+                  <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#FAF7F2]">
                     <span>
-                      Color: <span className="font-normal text-[#557373]">{selectedColor}</span>
+                      Color: <span className="font-normal text-[#C8B8AA]">{selectedColor}</span>
                     </span>
                   </div>
 
@@ -275,8 +273,8 @@ export const ProductDetailPage = () => {
                           onClick={() => setSelectedColor(c.name)}
                           className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors flex items-center space-x-2 ${
                             isSelected
-                              ? 'border-[#200E01] bg-[#EDE7C7]/50 text-[#0D0D0D] font-bold shadow-xs'
-                              : 'border-[#DFE5F3] bg-white text-[#557373] hover:border-[#200E01]'
+                              ? 'border-[#FAF7F2] bg-[#FAF7F2] text-[#1D1410] font-bold shadow-xs'
+                              : 'border-[#3E2B21] bg-[#2C1E18] text-[#FAF7F2] hover:border-[#FAF7F2]'
                           }`}
                         >
                           <span
@@ -294,14 +292,14 @@ export const ProductDetailPage = () => {
               {/* Size Selection & Size Guide */}
               {product.sizes && product.sizes.length > 0 && (
                 <div className="space-y-2.5 pt-2">
-                  <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#0D0D0D]">
+                  <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#FAF7F2]">
                     <span>
-                      Size: <span className="font-normal text-[#557373]">{selectedSize}</span>
+                      Size: <span className="font-normal text-[#C8B8AA]">{selectedSize}</span>
                     </span>
                     <button
                       type="button"
                       onClick={() => setSizeGuideOpen(true)}
-                      className="text-[11px] uppercase tracking-wider text-[#200E01] hover:text-[#8B0000] underline font-semibold transition-colors"
+                      className="text-[11px] uppercase tracking-wider text-[#D99E84] hover:text-[#FAF7F2] underline font-semibold transition-colors"
                     >
                       Size Guide
                     </button>
@@ -317,8 +315,8 @@ export const ProductDetailPage = () => {
                           onClick={() => setSelectedSize(s)}
                           className={`min-w-[48px] px-3.5 py-2.5 rounded-xl text-xs font-semibold border transition-all ${
                             isSelected
-                              ? 'border-[#0D0D0D] bg-[#0D0D0D] text-white shadow-xs'
-                              : 'border-[#DFE5F3] bg-white text-[#0D0D0D] hover:border-[#200E01]'
+                              ? 'border-[#FAF7F2] bg-[#FAF7F2] text-[#1D1410] shadow-xs'
+                              : 'border-[#3E2B21] bg-[#2C1E18] text-[#FAF7F2] hover:border-[#FAF7F2]'
                           }`}
                         >
                           {s}
@@ -332,24 +330,24 @@ export const ProductDetailPage = () => {
               {/* Quantity Selector & Wishlist */}
               <div className="flex items-center space-x-4 pt-2">
                 <div className="space-y-1">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#0D0D0D] block">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#FAF7F2] block">
                     Quantity
                   </span>
-                  <div className="flex items-center border border-[#DFE5F3] rounded-xl overflow-hidden bg-white shadow-xs">
+                  <div className="flex items-center border border-[#3E2B21] rounded-xl overflow-hidden bg-[#2C1E18] shadow-xs">
                     <button
                       type="button"
                       onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                      className="px-3.5 py-2 text-sm text-[#0D0D0D] hover:bg-[#F2EFEA] transition-colors"
+                      className="px-3.5 py-2 text-sm text-[#FAF7F2] hover:bg-[#3E2B21] transition-colors"
                     >
                       −
                     </button>
-                    <span className="px-4 py-2 text-xs font-bold text-[#0D0D0D]">
+                    <span className="px-4 py-2 text-xs font-bold text-[#FAF7F2]">
                       {quantity}
                     </span>
                     <button
                       type="button"
                       onClick={() => setQuantity((q) => q + 1)}
-                      className="px-3.5 py-2 text-sm text-[#0D0D0D] hover:bg-[#F2EFEA] transition-colors"
+                      className="px-3.5 py-2 text-sm text-[#FAF7F2] hover:bg-[#3E2B21] transition-colors"
                     >
                       +
                     </button>
@@ -357,7 +355,7 @@ export const ProductDetailPage = () => {
                 </div>
 
                 <div className="space-y-1 flex-1">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#0D0D0D] block">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#FAF7F2] block">
                     Save Piece
                   </span>
                   <button
@@ -366,8 +364,8 @@ export const ProductDetailPage = () => {
                     aria-label={isFavorited ? 'Remove from saved' : 'Save piece to wishlist'}
                     className={`w-full py-2.5 px-4 rounded-xl border transition-colors flex items-center justify-center space-x-2 text-xs uppercase tracking-wider font-semibold ${
                       isFavorited
-                        ? 'border-[#8B0000] bg-[#8B0000]/10 text-[#8B0000]'
-                        : 'border-[#DFE5F3] bg-white text-[#200E01] hover:border-[#200E01]'
+                        ? 'border-[#A6445D] bg-[#A6445D]/20 text-[#A6445D]'
+                        : 'border-[#3E2B21] bg-[#2C1E18] text-[#FAF7F2] hover:border-[#FAF7F2]'
                     }`}
                   >
                     <AnimatedHeartIcon isFavorited={isFavorited} className="w-4 h-4" />
@@ -384,15 +382,15 @@ export const ProductDetailPage = () => {
                   onClick={handleAddToCart}
                   className={`w-full py-4 rounded-xl text-xs sm:text-sm uppercase tracking-wider font-bold transition-all duration-300 flex items-center justify-center space-x-2.5 shadow-md ${
                     isAdded
-                      ? 'bg-[#393A10] text-white'
+                      ? 'bg-[#2E5835] text-[#FAF7F2]'
                       : isOutOfStock
-                      ? 'bg-[#E7DECD] text-[#557373] cursor-not-allowed'
-                      : 'bg-[#0D0D0D] hover:bg-[#200E01] text-white active:scale-[0.99]'
+                      ? 'bg-[#3E2B21] text-[#C8B8AA] cursor-not-allowed'
+                      : 'bg-[#FAF7F2] hover:bg-[#E8DEC8] text-[#1D1410] active:scale-[0.99]'
                   }`}
                 >
                   {isAdded ? (
                     <>
-                      <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+                      <span className="w-2 h-2 rounded-full bg-[#FAF7F2] animate-ping" />
                       <span>Added to Shopping Bag ✓</span>
                     </>
                   ) : (
@@ -405,20 +403,20 @@ export const ProductDetailPage = () => {
               </div>
 
               {/* Expandable Product Information Accordions */}
-              <div className="pt-4 border-t border-[#DFE5F3] space-y-3">
+              <div className="pt-4 border-t border-[#3E2B21] space-y-3">
                 {/* Accordion 1: Product Specifications & Details */}
-                <div className="border border-[#DFE5F3] rounded-2xl overflow-hidden bg-white">
+                <div className="border border-[#3E2B21] rounded-2xl overflow-hidden bg-[#2C1E18]">
                   <button
                     type="button"
                     onClick={() => toggleAccordion('details')}
-                    className="w-full p-4 text-left flex items-center justify-between text-xs uppercase tracking-wider font-bold text-[#0D0D0D] hover:bg-[#F2EFEA]/50 transition-colors"
+                    className="w-full p-4 text-left flex items-center justify-between text-xs uppercase tracking-wider font-bold text-[#FAF7F2] hover:bg-[#341F17] transition-colors"
                   >
                     <span>Product Specifications</span>
                     <motion.span
                       animate={{ rotate: openAccordions.details ? 90 : 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <AnimatedChevronRight className="w-3.5 h-3.5" />
+                      <AnimatedChevronRight className="w-3.5 h-3.5 text-[#C8B8AA]" />
                     </motion.span>
                   </button>
 
@@ -429,29 +427,29 @@ export const ProductDetailPage = () => {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="px-4 pb-4 pt-1 border-t border-[#DFE5F3] text-xs text-[#557373] space-y-2.5"
+                        className="px-4 pb-4 pt-1 border-t border-[#3E2B21] text-xs text-[#C8B8AA] space-y-2.5"
                       >
                         {product.specifications?.material && (
-                          <div className="flex justify-between py-1 border-b border-[#DFE5F3]/50">
-                            <span className="font-semibold text-[#0D0D0D]">Material:</span>
+                          <div className="flex justify-between py-1 border-b border-[#3E2B21]/50">
+                            <span className="font-semibold text-[#FAF7F2]">Material:</span>
                             <span className="text-right">{product.specifications.material}</span>
                           </div>
                         )}
                         {product.specifications?.fit && (
-                          <div className="flex justify-between py-1 border-b border-[#DFE5F3]/50">
-                            <span className="font-semibold text-[#0D0D0D]">Fit:</span>
+                          <div className="flex justify-between py-1 border-b border-[#3E2B21]/50">
+                            <span className="font-semibold text-[#FAF7F2]">Fit:</span>
                             <span className="text-right">{product.specifications.fit}</span>
                           </div>
                         )}
                         {product.specifications?.care && (
-                          <div className="flex justify-between py-1 border-b border-[#DFE5F3]/50">
-                            <span className="font-semibold text-[#0D0D0D]">Care Instructions:</span>
+                          <div className="flex justify-between py-1 border-b border-[#3E2B21]/50">
+                            <span className="font-semibold text-[#FAF7F2]">Care Instructions:</span>
                             <span className="text-right">{product.specifications.care}</span>
                           </div>
                         )}
                         {product.specifications?.details && (
                           <div className="pt-1 leading-relaxed">
-                            <span className="font-semibold text-[#0D0D0D] block mb-1">Tailoring Details:</span>
+                            <span className="font-semibold text-[#FAF7F2] block mb-1">Tailoring Details:</span>
                             <span>{product.specifications.details}</span>
                           </div>
                         )}
@@ -461,18 +459,18 @@ export const ProductDetailPage = () => {
                 </div>
 
                 {/* Accordion 2: Size & Fit */}
-                <div className="border border-[#DFE5F3] rounded-2xl overflow-hidden bg-white">
+                <div className="border border-[#3E2B21] rounded-2xl overflow-hidden bg-[#2C1E18]">
                   <button
                     type="button"
                     onClick={() => toggleAccordion('sizing')}
-                    className="w-full p-4 text-left flex items-center justify-between text-xs uppercase tracking-wider font-bold text-[#0D0D0D] hover:bg-[#F2EFEA]/50 transition-colors"
+                    className="w-full p-4 text-left flex items-center justify-between text-xs uppercase tracking-wider font-bold text-[#FAF7F2] hover:bg-[#341F17] transition-colors"
                   >
                     <span>Size & Fit Guide</span>
                     <motion.span
                       animate={{ rotate: openAccordions.sizing ? 90 : 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <AnimatedChevronRight className="w-3.5 h-3.5" />
+                      <AnimatedChevronRight className="w-3.5 h-3.5 text-[#C8B8AA]" />
                     </motion.span>
                   </button>
 
@@ -483,7 +481,7 @@ export const ProductDetailPage = () => {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="px-4 pb-4 pt-1 border-t border-[#DFE5F3] text-xs text-[#557373] space-y-2 leading-relaxed"
+                        className="px-4 pb-4 pt-1 border-t border-[#3E2B21] text-xs text-[#C8B8AA] space-y-2 leading-relaxed"
                       >
                         <p>Designed with a contemporary relaxed fit. Fits true to Indian and international standard sizing.</p>
                         <p>For a sharper tailored break, choose your regular chest size. For an oversized drape, consider sizing up.</p>
@@ -493,18 +491,18 @@ export const ProductDetailPage = () => {
                 </div>
 
                 {/* Accordion 3: Shipping & Logistics */}
-                <div className="border border-[#DFE5F3] rounded-2xl overflow-hidden bg-white">
+                <div className="border border-[#3E2B21] rounded-2xl overflow-hidden bg-[#2C1E18]">
                   <button
                     type="button"
                     onClick={() => toggleAccordion('shipping')}
-                    className="w-full p-4 text-left flex items-center justify-between text-xs uppercase tracking-wider font-bold text-[#0D0D0D] hover:bg-[#F2EFEA]/50 transition-colors"
+                    className="w-full p-4 text-left flex items-center justify-between text-xs uppercase tracking-wider font-bold text-[#FAF7F2] hover:bg-[#341F17] transition-colors"
                   >
                     <span>Shipping & Dispatch</span>
                     <motion.span
                       animate={{ rotate: openAccordions.shipping ? 90 : 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <AnimatedChevronRight className="w-3.5 h-3.5" />
+                      <AnimatedChevronRight className="w-3.5 h-3.5 text-[#C8B8AA]" />
                     </motion.span>
                   </button>
 
@@ -515,7 +513,7 @@ export const ProductDetailPage = () => {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="px-4 pb-4 pt-1 border-t border-[#DFE5F3] text-xs text-[#557373] space-y-2 leading-relaxed"
+                        className="px-4 pb-4 pt-1 border-t border-[#3E2B21] text-xs text-[#C8B8AA] space-y-2 leading-relaxed"
                       >
                         <p>Orders are dispatched within 24 to 48 hours via premium express couriers across India.</p>
                         <p>Standard delivery arrives within 3 to 5 business days depending on city and state.</p>
@@ -533,19 +531,19 @@ export const ProductDetailPage = () => {
             ========================================================================= */}
         {relatedProducts.length > 0 && (
           <div className="pt-16 sm:pt-20">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-10 border-b border-[#DFE5F3] gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-10 border-b border-[#3E2B21] gap-4">
               <div>
-                <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block mb-1">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block mb-1">
                   Styling Curation
                 </span>
-                <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#0D0D0D]">
+                <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#FAF7F2]">
                   Complete The Look
                 </h2>
               </div>
 
               <Link
                 to={ROUTES.SHOP}
-                className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-wider font-bold text-[#200E01] hover:text-[#8B0000] transition-colors"
+                className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-wider font-bold text-[#FAF7F2] hover:text-[#D99E84] transition-colors"
               >
                 <span>View Full Catalog</span>
                 <AnimatedArrowRight className="w-3.5 h-3.5" />
@@ -582,7 +580,7 @@ export const ProductDetailPage = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-[#0D0D0D]/50 backdrop-blur-xs"
+                className="fixed inset-0 bg-black/70 backdrop-blur-xs"
                 onClick={() => setSizeGuideOpen(false)}
               />
 
@@ -590,16 +588,16 @@ export const ProductDetailPage = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 border border-[#DFE5F3] shadow-2xl z-10 space-y-6"
+                className="relative w-full max-w-lg bg-[#241812] rounded-3xl p-6 sm:p-8 border border-[#3E2B21] shadow-2xl z-10 space-y-6 text-[#FAF7F2]"
               >
-                <div className="flex items-center justify-between pb-3 border-b border-[#DFE5F3]">
-                  <h3 className="font-serif text-xl font-bold text-[#0D0D0D]">
+                <div className="flex items-center justify-between pb-3 border-b border-[#3E2B21]">
+                  <h3 className="font-serif text-xl font-bold text-[#FAF7F2]">
                     Menswear Sizing Matrix
                   </h3>
                   <button
                     type="button"
                     onClick={() => setSizeGuideOpen(false)}
-                    className="p-1.5 text-[#557373] hover:text-[#0D0D0D]"
+                    className="p-1.5 text-[#C8B8AA] hover:text-[#FAF7F2]"
                   >
                     <AnimatedCloseIcon className="w-5 h-5" />
                   </button>
@@ -608,14 +606,14 @@ export const ProductDetailPage = () => {
                 <div className="overflow-x-auto text-xs">
                   <table className="w-full text-left border-collapse">
                     <thead>
-                      <tr className="border-b border-[#DFE5F3] text-[#557373] font-semibold uppercase tracking-wider">
+                      <tr className="border-b border-[#3E2B21] text-[#C8B8AA] font-semibold uppercase tracking-wider">
                         <th className="py-2.5">Size</th>
                         <th className="py-2.5">Chest (in)</th>
                         <th className="py-2.5">Waist (in)</th>
                         <th className="py-2.5">Shoulder (in)</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#DFE5F3]/60 text-[#0D0D0D]">
+                    <tbody className="divide-y divide-[#3E2B21]/60 text-[#FAF7F2]">
                       <tr>
                         <td className="py-2.5 font-bold">S / 38</td>
                         <td className="py-2.5">38 - 40</td>
@@ -644,7 +642,7 @@ export const ProductDetailPage = () => {
                   </table>
                 </div>
 
-                <div className="pt-2 text-[11px] text-[#557373] leading-relaxed">
+                <div className="pt-2 text-[11px] text-[#C8B8AA] leading-relaxed">
                   All measurements represent body guidelines in inches. For customized fit assistance, reach out via our client concierge.
                 </div>
               </motion.div>

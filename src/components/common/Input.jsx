@@ -25,9 +25,9 @@ export const Input = ({
       {label && (
         <label
           htmlFor={inputId}
-          className="block text-xs uppercase tracking-wider font-semibold text-[#0D0D0D] mb-2"
+          className="block text-xs uppercase tracking-wider font-semibold text-[#FAF7F2] mb-2"
         >
-          {label} {required && <span className="text-[#8B0000]">*</span>}
+          {label} {required && <span className="text-[#A6445D]">*</span>}
         </label>
       )}
       <input
@@ -39,13 +39,13 @@ export const Input = ({
         placeholder={placeholder}
         required={required}
         autoComplete={autoComplete}
-        className={`w-full px-4 py-3 bg-[#F2EFEA] border rounded-xl text-[#0D0D0D] placeholder-[#557373]/60 text-sm focus:outline-none focus:ring-2 focus:ring-[#142F40]/30 focus:border-[#142F40] transition-all ${
-          error ? 'border-[#8B0000] ring-1 ring-[#8B0000]/40' : 'border-[#DFE5F3]'
+        className={`w-full px-4 py-3 bg-[#1D1410] border rounded-xl text-[#FAF7F2] placeholder-[#C8B8AA]/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#D99E84]/30 focus:border-[#D99E84] transition-all ${
+          error ? 'border-[#A6445D] ring-1 ring-[#A6445D]/40' : 'border-[#3E2B21]'
         }`}
         {...props}
       />
       {error && (
-        <p className="mt-1.5 text-xs text-[#8B0000] font-medium flex items-center gap-1">
+        <p className="mt-1.5 text-xs text-[#A6445D] font-medium flex items-center gap-1">
           <span>•</span>
           <span>{error}</span>
         </p>

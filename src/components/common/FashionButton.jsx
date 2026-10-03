@@ -51,6 +51,12 @@ export const FashionButton = ({
 
     // Soft outline for light cards
     outlineSoft: 'bg-transparent text-[#200E01] border border-[#200E01]/25 hover:border-[#200E01] hover:bg-[#EDE7C7]/50',
+
+    // Warm Cream Surface Button (for dark background sections)
+    cream: 'bg-[#FAF7F2] text-[#200E01] border border-[#FAF7F2] hover:bg-[#EDE7C7] hover:border-[#EDE7C7] shadow-sm',
+
+    // Warm Light Outline (for dark background sections)
+    outlineLight: 'bg-transparent text-[#FAF7F2] border border-[#FAF7F2]/40 hover:border-[#FAF7F2] hover:bg-white/10',
   };
 
   const content = (

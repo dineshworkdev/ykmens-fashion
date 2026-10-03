@@ -10,20 +10,32 @@
   --yk-sand: #F2EFEA;
   --yk-dark: #0D0D0D;
 
-  /* Semantic Mappings */
-  --bg-primary: var(--yk-sand);
-  --bg-secondary: var(--yk-ice);
-  --bg-contrast: var(--yk-dark);
+  /* Dark Editorial Palette */
+  --yk-dark-espresso: #231711;
+  --yk-dark-warm-brown: #2C1E18;
+  --yk-dark-olive: #202920;
+  --yk-dark-teal: #183038;
+  --yk-dark-burgundy: #34151C;
+  --yk-dark-charcoal: #1D1410;
+  --yk-warm-cream: #FAF7F2;
+  --yk-soft-beige: #E8DEC8;
+  --yk-muted-taupe: #C8B8AA;
 
-  --text-primary: var(--yk-dark);
-  --text-secondary: var(--yk-slate);
-  --text-accent: var(--yk-olive);
-  --text-inverse: var(--yk-sand);
+  /* Semantic Mappings for Dark Editorial Experiment */
+  --bg-primary: var(--yk-dark-espresso);
+  --bg-secondary: var(--yk-dark-warm-brown);
+  --bg-contrast: var(--yk-warm-cream);
 
-  --border-light: var(--yk-ice);
-  --border-medium: var(--yk-slate);
-  --border-dark: var(--yk-olive);
+  --text-primary: var(--yk-warm-cream);
+  --text-secondary: var(--yk-muted-taupe);
+  --text-accent: var(--yk-soft-beige);
+  --text-inverse: var(--yk-dark-espresso);
 
-  --brand-primary: var(--yk-olive);
-  --brand-secondary: var(--yk-slate);
+  --border-light: rgba(250, 247, 242, 0.1);
+  --border-medium: rgba(250, 247, 242, 0.18);
+  --border-dark: rgba(200, 184, 170, 0.25);
+
+  --brand-primary: var(--yk-warm-cream);
+  --brand-secondary: var(--yk-muted-taupe);
 }
+

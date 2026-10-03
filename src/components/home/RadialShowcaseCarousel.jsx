@@ -490,8 +490,8 @@ export const RadialShowcaseCarousel = forwardRef(function RadialShowcaseCarousel
               aria-label={`Go to slide ${idx + 1}: ${item.name}`}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 isActive
-                  ? 'w-6 bg-[#8B0000]'
-                  : 'w-1.5 bg-[#DFE5F3] hover:bg-[#557373]'
+                  ? 'w-6 bg-[#D99E84]'
+                  : 'w-1.5 bg-[#FAF7F2]/25 hover:bg-[#FAF7F2]/50'
               }`}
             />
           );

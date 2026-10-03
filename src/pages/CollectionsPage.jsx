@@ -15,7 +15,7 @@ import { COLLECTIONS } from '../data/collections';
  */
 export const CollectionsPage = () => {
   return (
-    <div className="bg-[#F2EFEA] min-h-screen py-10 sm:py-16">
+    <div className="bg-[#241812] text-[#FAF7F2] min-h-screen py-10 sm:py-16">
       <Container>
         {/* Header */}
         <div className="mb-10 sm:mb-14 max-w-2xl">
@@ -25,13 +25,13 @@ export const CollectionsPage = () => {
             transition={{ duration: 0.5 }}
             className="space-y-2"
           >
-            <span className="text-xs uppercase tracking-[0.25em] text-[#8B0000] font-bold block">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block">
               Curated Series
             </span>
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#0D0D0D]">
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#FAF7F2]">
               Menswear Collections
             </h1>
-            <p className="text-xs sm:text-sm text-[#557373] leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#C8B8AA] leading-relaxed">
               Explore our thematic design chapters. From architectural wool overcoats and precision tailoring to tactile knitwear and daily essentials.
             </p>
           </motion.div>

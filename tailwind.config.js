@@ -28,6 +28,17 @@ export default {
           crimson: '#8B0000',
           wine: '#5B0202',
           espresso: '#200E01',
+
+          // Dark Editorial Experiment Palette (Rich, Deep, Warm, Non-black)
+          darkEspresso: '#231711',
+          darkWarmBrown: '#2C1E18',
+          darkOlive: '#202920',
+          darkTeal: '#183038',
+          darkBurgundy: '#34151C',
+          darkCharcoal: '#1D1410',
+          warmCream: '#FAF7F2',
+          softBeige: '#E8DEC8',
+          mutedTaupe: '#C8B8AA',
         },
       },
       fontFamily: {
