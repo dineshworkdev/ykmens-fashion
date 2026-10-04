@@ -58,9 +58,11 @@ export const PaymentStep = ({
                     {gw.name}
                   </span>
                   <span className="text-[11px] text-[#C8B8AA]">
-                    {gw.id === 'razorpay'
+                    {gw.description || (gw.id === 'cashfree'
+                      ? 'UPI, Cards, NetBanking via Cashfree Sandbox'
+                      : gw.id === 'razorpay'
                       ? 'UPI, NetBanking & Indian Debit/Credit Cards'
-                      : 'International & Domestic Card Hosted Checkout'}
+                      : 'International & Domestic Card Hosted Checkout')}
                   </span>
                 </div>
               </div>
@@ -75,13 +77,19 @@ export const PaymentStep = ({
         <AlertCircle className="w-5 h-5 text-[#D99E84] flex-shrink-0 mt-0.5" />
         <div className="text-xs text-[#C8B8AA] leading-relaxed space-y-1">
           <p className="font-bold uppercase tracking-wider text-[#FAF7F2]">
-            Payment Gateway Integration Notice
+            {selectedGateway === 'cashfree'
+              ? 'Cashfree Sandbox Hosted Checkout'
+              : 'Payment Gateway Integration Notice'}
           </p>
           <p className="text-[#C8B8AA]">
-            Payment processing will be available once the live payment gateway keys are connected.
+            {selectedGateway === 'cashfree'
+              ? 'Clicking Place Order securely creates an order on the backend and launches the Cashfree Hosted Checkout session.'
+              : 'Payment processing will be available once the live payment gateway keys are connected.'}
           </p>
           <p className="text-[#A8988B]">
-            This frontend demonstration records the order as <strong className="text-[#FAF7F2]">Payment Pending</strong> without charging live funds or collecting card numbers.
+            {selectedGateway === 'cashfree'
+              ? 'All transactions run in secure test/sandbox mode without charging real funds.'
+              : 'This frontend demonstration records the order as Payment Pending without charging live funds or collecting card numbers.'}
           </p>
         </div>
       </div>

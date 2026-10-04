@@ -6,6 +6,8 @@
  * - Preserves existing client-side routes, styling, animations, and frontend features.
  */
 
+import { handleCreateCashfreeOrder } from './cashfree.js';
+
 export default {
   /**
    * Main Worker fetch handler
@@ -55,11 +57,14 @@ export default {
  * @returns {Promise<Response>}
  */
 async function handleApiRequest(request, env, ctx, url) {
+  const origin = request.headers.get('Origin') || '*';
+
   // Common CORS headers for cross-origin or local dev testing
   const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With, x-api-version',
+    'Access-Control-Max-Age': '86400',
   };
 
   // Preflight OPTIONS requests
@@ -70,8 +75,11 @@ async function handleApiRequest(request, env, ctx, url) {
     });
   }
 
+  // Normalize path by stripping trailing slashes for consistent matching
+  const pathname = url.pathname.replace(/\/+$/, '') || '/';
+
   // API Health Check
-  if (url.pathname === '/api/health') {
+  if (pathname === '/api/health') {
     return new Response(
       JSON.stringify({
         status: 'healthy',
@@ -88,12 +96,16 @@ async function handleApiRequest(request, env, ctx, url) {
     );
   }
 
-  // Placeholder/stub for Cashfree or future payment endpoints
-  // Note: Cashfree integration logic will be configured in subsequent phase as requested
-  if (url.pathname.startsWith('/api/payment/') || url.pathname.startsWith('/api/cashfree/')) {
+  // Cashfree Sandbox Order Creation
+  if (pathname === '/api/cashfree/create-order') {
+    return handleCreateCashfreeOrder(request, env, ctx, corsHeaders);
+  }
+
+  // Placeholder for future payment / verification endpoints
+  if (pathname.startsWith('/api/payment') || pathname.startsWith('/api/cashfree')) {
     return new Response(
       JSON.stringify({
-        message: 'Payment API gateway initialized. Ready for provider implementation.',
+        message: 'Endpoint recognized. Additional payment services will be enabled in the next step.',
       }),
       {
         status: 501,

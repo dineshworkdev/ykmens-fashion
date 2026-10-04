@@ -26,7 +26,7 @@ export const CheckoutProvider = ({ children }) => {
     deliveryInstructions: '',
   });
 
-  const [selectedPaymentGateway, setSelectedPaymentGateway] = useState('stripe');
+  const [selectedPaymentGateway, setSelectedPaymentGateway] = useState('cashfree');
   const [errors, setErrors] = useState({});
   const [isProcessing, setIsProcessing] = useState(false);
   const [completedOrder, setCompletedOrder] = useState(null);
