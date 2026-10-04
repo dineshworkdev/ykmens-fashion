@@ -1,0 +1,122 @@
+/**
+ * Cloudflare Full-Stack Worker Entrypoint for YK Men's Fashion
+ * 
+ * - Serves existing React/Vite static assets from `./dist` with SPA fallback.
+ * - Handles server-side API routes under `/api/*`.
+ * - Preserves existing client-side routes, styling, animations, and frontend features.
+ */
+
+export default {
+  /**
+   * Main Worker fetch handler
+   * @param {Request} request
+   * @param {Record<string, any>} env
+   * @param {ExecutionContext} ctx
+   * @returns {Promise<Response>}
+   */
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+
+    // 1. Server-side API routing (/api/*)
+    if (url.pathname.startsWith('/api/')) {
+      return handleApiRequest(request, env, ctx, url);
+    }
+
+    // 2. Serve static assets via Cloudflare Assets binding
+    if (env.ASSETS) {
+      try {
+        const response = await env.ASSETS.fetch(request);
+
+        // Fallback for SPA routing if an unmatched GET route returns 404
+        if (response.status === 404 && request.method === 'GET' && !url.pathname.includes('.')) {
+          return env.ASSETS.fetch(new Request(new URL('/', request.url), request));
+        }
+
+        return response;
+      } catch (err) {
+        console.error('Static asset serving error:', err);
+        return new Response('Internal Server Error', { status: 500 });
+      }
+    }
+
+    return new Response('Static assets binding (ASSETS) is not available.', {
+      status: 500,
+      headers: { 'Content-Type': 'text/plain' },
+    });
+  },
+};
+
+/**
+ * Server-side API router
+ * @param {Request} request
+ * @param {Record<string, any>} env
+ * @param {ExecutionContext} ctx
+ * @param {URL} url
+ * @returns {Promise<Response>}
+ */
+async function handleApiRequest(request, env, ctx, url) {
+  // Common CORS headers for cross-origin or local dev testing
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+  };
+
+  // Preflight OPTIONS requests
+  if (request.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 204,
+      headers: corsHeaders,
+    });
+  }
+
+  // API Health Check
+  if (url.pathname === '/api/health') {
+    return new Response(
+      JSON.stringify({
+        status: 'healthy',
+        service: 'yk-mens-fashion-worker',
+        timestamp: new Date().toISOString(),
+      }),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        },
+      }
+    );
+  }
+
+  // Placeholder/stub for Cashfree or future payment endpoints
+  // Note: Cashfree integration logic will be configured in subsequent phase as requested
+  if (url.pathname.startsWith('/api/payment/') || url.pathname.startsWith('/api/cashfree/')) {
+    return new Response(
+      JSON.stringify({
+        message: 'Payment API gateway initialized. Ready for provider implementation.',
+      }),
+      {
+        status: 501,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        },
+      }
+    );
+  }
+
+  // 404 for unknown API endpoints
+  return new Response(
+    JSON.stringify({
+      error: 'Not Found',
+      message: `Endpoint ${url.pathname} not found on this Worker`,
+    }),
+    {
+      status: 404,
+      headers: {
+        'Content-Type': 'application/json',
+        ...corsHeaders,
+      },
+    }
+  );
+}
