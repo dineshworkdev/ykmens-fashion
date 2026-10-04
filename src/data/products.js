@@ -12,7 +12,7 @@ export const PRODUCTS = [
     category: 'outerwear',
     collection: 'architectural-outerwear',
     description: 'An architectural double-breasted overcoat tailored with sharp peak lapels, horn buttons, and a clean back vent for structured everyday movement.',
-    price: 8999,
+    price: 1,
     salePrice: null,
     images: [
       'https://images.unsplash.com/photo-1544923246-77307dd654cb?auto=format&fit=crop&w=1000&q=80',
