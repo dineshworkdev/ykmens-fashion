@@ -78,14 +78,21 @@ export const orderService = {
   },
 
   /**
-   * Retrieves an order by its unique ID.
+   * Retrieves an order by its unique ID (or gateway order ID).
    * @param {string} orderId
    * @returns {object|null}
    */
   getOrderById(orderId) {
     if (!orderId) return null;
     const orders = safeStorage.get(STORAGE_KEYS.ORDERS, []);
-    return orders.find((o) => o.orderId === orderId) || null;
+    return (
+      orders.find(
+        (o) =>
+          o.orderId === orderId ||
+          o.cashfreeOrderId === orderId ||
+          o.cfOrderId === orderId
+      ) || null
+    );
   },
 
   /**
@@ -103,7 +110,9 @@ export const orderService = {
    */
   updateOrderStatus(orderId, status) {
     const orders = safeStorage.get(STORAGE_KEYS.ORDERS, []);
-    const updated = orders.map((o) => (o.orderId === orderId ? { ...o, orderStatus: status } : o));
+    const updated = orders.map((o) =>
+      o.orderId === orderId || o.cashfreeOrderId === orderId ? { ...o, orderStatus: status } : o
+    );
     safeStorage.set(STORAGE_KEYS.ORDERS, updated);
   },
 
@@ -115,15 +124,28 @@ export const orderService = {
    */
   updatePaymentStatus(orderId, paymentStatus, transactionId = null) {
     const orders = safeStorage.get(STORAGE_KEYS.ORDERS, []);
-    const updated = orders.map((o) =>
-      o.orderId === orderId
-        ? {
-            ...o,
-            paymentStatus,
-            transactionId: transactionId || o.transactionId,
-          }
-        : o
-    );
+    let modifiedOrder = null;
+    const updated = orders.map((o) => {
+      if (o.orderId === orderId || o.cashfreeOrderId === orderId || o.cfOrderId === orderId) {
+        modifiedOrder = {
+          ...o,
+          paymentStatus,
+          transactionId: transactionId || o.transactionId,
+        };
+        return modifiedOrder;
+      }
+      return o;
+    });
     safeStorage.set(STORAGE_KEYS.ORDERS, updated);
+
+    // Also sync with LAST_ORDER if it matches
+    const lastOrder = safeStorage.get(STORAGE_KEYS.LAST_ORDER, null);
+    if (lastOrder && (lastOrder.orderId === orderId || lastOrder.cashfreeOrderId === orderId)) {
+      safeStorage.set(STORAGE_KEYS.LAST_ORDER, {
+        ...lastOrder,
+        paymentStatus,
+        transactionId: transactionId || lastOrder.transactionId,
+      });
+    }
   },
 };

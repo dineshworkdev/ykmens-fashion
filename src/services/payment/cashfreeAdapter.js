@@ -175,15 +175,58 @@ export class CashfreePaymentAdapter extends PaymentGatewayInterface {
   }
 
   /**
-   * Stub for payment verification (handled in subsequent backend step).
-   * @param {object} payload
-   * @returns {Promise<{ isSuccessful: boolean, transactionId?: string, error?: string }>}
+   * Verifies the payment status of an order via the Worker verification API.
+   * @param {string|object} payload - Either orderId string or object containing orderId
+   * @returns {Promise<{ isSuccessful: boolean, status: string, paymentStatus?: string, transactionId?: string, error?: string, raw?: object }>}
    */
   async verifyPayment(payload) {
-    return {
-      isSuccessful: false,
-      error: 'Payment verification will be processed by backend verification service.',
-    };
+    const orderId = typeof payload === 'string' ? payload : payload?.orderId || payload?.order_id;
+    if (!orderId) {
+      return {
+        isSuccessful: false,
+        status: 'FAILED',
+        error: 'Missing order ID for verification',
+      };
+    }
+
+    try {
+      const response = await fetch(`/api/cashfree/verify-order/${encodeURIComponent(orderId)}`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok || !data) {
+        return {
+          isSuccessful: false,
+          status: data?.status || 'FAILED',
+          error: data?.message || data?.error || 'Verification check failed',
+          raw: data,
+        };
+      }
+
+      const isPaid = data.status === 'PAID';
+
+      return {
+        isSuccessful: isPaid,
+        status: data.status, // 'PAID', 'PENDING', or 'FAILED'
+        paymentStatus: data.payment_status,
+        transactionId: data.transaction_id,
+        amount: data.payment_amount,
+        message: data.payment_message,
+        raw: data,
+      };
+    } catch (err) {
+      console.error('Error during Cashfree verification fetch:', err);
+      return {
+        isSuccessful: false,
+        status: 'PENDING',
+        error: err.message || 'Unable to connect to verification service',
+      };
+    }
   }
 }
 

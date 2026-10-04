@@ -1,25 +1,156 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Container from '../components/layout/Container';
-import { Check, ShoppingBag, ArrowRight, MapPin, Mail, Clock } from '../assets/icons';
+import { Check, ShoppingBag, ArrowRight, MapPin, Mail, Clock, AlertCircle } from '../assets/icons';
 import { orderService } from '../services/orders/orderService';
+import { paymentService } from '../services/payment';
+import { useCart } from '../hooks/useCart';
 import { formatCurrency, formatDate } from '../utils/formatters';
-import { ROUTES } from '../utils/constants';
+import { ROUTES, PAYMENT_STATUS } from '../utils/constants';
 
 /**
  * Order Confirmation Page (/order-confirmation)
  * Reassuring, polished confirmation screen with restrained success animation,
- * truthful order details, and complete item breakdown.
+ * truthful order details, server-side Cashfree payment verification, and complete item breakdown.
  */
 export const OrderConfirmationPage = () => {
   const location = useLocation();
-  const orderId = location.state?.orderId;
+  const { emptyCart } = useCart();
 
-  // Retrieve order by ID from location state or fallback to most recent order
-  const order = orderId
-    ? orderService.getOrderById(orderId)
-    : orderService.getLastOrder();
+  // Extract order_id from URL query params (Cashfree return redirect) or router state
+  const searchParams = new URLSearchParams(location.search);
+  const urlOrderId = searchParams.get('order_id') || searchParams.get('orderId');
+  const initialOrderId = location.state?.orderId || urlOrderId;
+
+  // Retrieve order from storage or fallback to most recent order
+  const [order, setOrder] = useState(() => {
+    return initialOrderId
+      ? orderService.getOrderById(initialOrderId) || orderService.getLastOrder()
+      : orderService.getLastOrder();
+  });
+
+  const [verificationState, setVerificationState] = useState({
+    loading: Boolean(initialOrderId),
+    status: order?.paymentStatus || 'pending', // 'paid' | 'pending' | 'failed'
+    transactionId: order?.transactionId || null,
+    message: null,
+    error: null,
+  });
+
+  // Verify payment status with server-side Cashfree API
+  useEffect(() => {
+    let isMounted = true;
+    const targetOrderId = initialOrderId || order?.orderId;
+
+    if (!targetOrderId) {
+      setVerificationState((prev) => ({ ...prev, loading: false }));
+      return;
+    }
+
+    async function runVerification() {
+      setVerificationState((prev) => ({ ...prev, loading: true }));
+
+      try {
+        const cashfreeGateway = paymentService.getGateway('cashfree');
+        const verification = await cashfreeGateway.verifyPayment(targetOrderId);
+
+        if (!isMounted) return;
+
+        if (verification.isSuccessful || verification.status === 'PAID') {
+          // Payment successfully verified by Cashfree
+          orderService.updatePaymentStatus(
+            order?.orderId || targetOrderId,
+            PAYMENT_STATUS.PAID,
+            verification.transactionId
+          );
+          emptyCart(); // Clear cart now that payment is verified
+
+          setVerificationState({
+            loading: false,
+            status: 'paid',
+            transactionId: verification.transactionId,
+            message: verification.message || 'Payment successfully verified via Cashfree Sandbox.',
+            error: null,
+          });
+
+          setOrder((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  paymentStatus: PAYMENT_STATUS.PAID,
+                  transactionId: verification.transactionId || prev.transactionId,
+                }
+              : prev
+          );
+        } else if (verification.status === 'PENDING') {
+          orderService.updatePaymentStatus(
+            order?.orderId || targetOrderId,
+            PAYMENT_STATUS.PENDING,
+            verification.transactionId
+          );
+
+          setVerificationState({
+            loading: false,
+            status: 'pending',
+            transactionId: verification.transactionId,
+            message: verification.message || 'Payment is currently pending confirmation from bank.',
+            error: null,
+          });
+
+          setOrder((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  paymentStatus: PAYMENT_STATUS.PENDING,
+                  transactionId: verification.transactionId || prev.transactionId,
+                }
+              : prev
+          );
+        } else {
+          // Status is FAILED
+          orderService.updatePaymentStatus(
+            order?.orderId || targetOrderId,
+            PAYMENT_STATUS.FAILED,
+            verification.transactionId
+          );
+
+          setVerificationState({
+            loading: false,
+            status: 'failed',
+            transactionId: verification.transactionId,
+            message: verification.message || verification.error || 'Payment was not completed.',
+            error: verification.error || 'Payment failed or was cancelled.',
+          });
+
+          setOrder((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  paymentStatus: PAYMENT_STATUS.FAILED,
+                  transactionId: verification.transactionId || prev.transactionId,
+                }
+              : prev
+          );
+        }
+      } catch (err) {
+        if (!isMounted) return;
+        setVerificationState({
+          loading: false,
+          status: 'pending',
+          transactionId: null,
+          message: 'Unable to reach payment verification service.',
+          error: err.message,
+        });
+      }
+    }
+
+    runVerification();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [initialOrderId]);
 
   if (!order) {
     return (
@@ -47,6 +178,11 @@ export const OrderConfirmationPage = () => {
     );
   }
 
+  const isPaid = verificationState.status === 'paid';
+  const isPending = verificationState.status === 'pending';
+  const isFailed = verificationState.status === 'failed';
+  const isLoading = verificationState.loading;
+
   return (
     <div className="bg-[#241812] text-[#FAF7F2] py-10 md:py-16 min-h-[75vh]">
       <Container>
@@ -56,26 +192,43 @@ export const OrderConfirmationPage = () => {
           transition={{ duration: 0.35 }}
           className="max-w-3xl mx-auto bg-[#2C1E18] border border-[#3E2B21] rounded-3xl p-6 sm:p-10 lg:p-12 shadow-xl space-y-8"
         >
-          {/* Refined Success Header with Controlled Motion */}
+          {/* Refined Header with Controlled Motion and Status Icon */}
           <div className="text-center space-y-3 pb-8 border-b border-[#3E2B21]">
-            {/* Elegant Circle & Check Reveal */}
             <motion.div
               initial={{ scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="w-16 h-16 rounded-full bg-[#FAF7F2] text-[#1D1410] flex items-center justify-center mx-auto shadow-md"
+              className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto shadow-md ${
+                isPaid
+                  ? 'bg-[#FAF7F2] text-[#1D1410]'
+                  : isPending
+                  ? 'bg-[#3E2B21] text-[#D99E84]'
+                  : 'bg-[#34151C] text-[#E892A2]'
+              }`}
             >
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.15, duration: 0.25 }}
               >
-                <Check className="w-8 h-8 stroke-[2.5]" />
+                {isPaid ? (
+                  <Check className="w-8 h-8 stroke-[2.5]" />
+                ) : isPending ? (
+                  <Clock className="w-8 h-8" />
+                ) : (
+                  <AlertCircle className="w-8 h-8" />
+                )}
               </motion.div>
             </motion.div>
 
             <span className="text-xs uppercase tracking-widest text-[#D99E84] font-bold block pt-2">
-              Order Confirmed
+              {isLoading
+                ? 'Verifying Payment Status'
+                : isPaid
+                ? 'Payment Verified & Order Confirmed'
+                : isPending
+                ? 'Payment Processing'
+                : 'Payment Unsuccessful'}
             </span>
 
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#FAF7F2]">
@@ -83,8 +236,21 @@ export const OrderConfirmationPage = () => {
             </h1>
 
             <p className="text-xs sm:text-sm text-[#C8B8AA] max-w-md mx-auto">
-              Your order has been received and logged in our system. A summary has been dispatched to{' '}
-              <strong className="text-[#FAF7F2] font-semibold">{order.customer.email}</strong>.
+              {isLoading ? (
+                'Connecting to Cashfree to confirm your transaction...'
+              ) : isPaid ? (
+                <>
+                  Your order has been verified and confirmed. A summary has been dispatched to{' '}
+                  <strong className="text-[#FAF7F2] font-semibold">{order.customer.email}</strong>.
+                </>
+              ) : isPending ? (
+                <>
+                  Your transaction is pending bank confirmation. Order summary recorded for{' '}
+                  <strong className="text-[#FAF7F2] font-semibold">{order.customer.email}</strong>.
+                </>
+              ) : (
+                'Your payment was not completed or was cancelled. You may retry your payment below.'
+              )}
             </p>
           </div>
 
@@ -100,9 +266,23 @@ export const OrderConfirmationPage = () => {
             </div>
             <div>
               <span className="text-[#C8B8AA] block mb-1">Payment Status</span>
-              <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#202920] text-[#71B57A] font-semibold capitalize text-[11px] border border-[#2E3A2E]">
-                {order.paymentStatus || 'Pending'}
-              </span>
+              {isLoading ? (
+                <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#342416] text-[#D99E84] font-semibold text-[11px] border border-[#4A3423] animate-pulse">
+                  Verifying...
+                </span>
+              ) : isPaid ? (
+                <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#202920] text-[#71B57A] font-semibold capitalize text-[11px] border border-[#2E3A2E]">
+                  Paid (Verified)
+                </span>
+              ) : isPending ? (
+                <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#342416] text-[#D99E84] font-semibold capitalize text-[11px] border border-[#4A3423]">
+                  Pending
+                </span>
+              ) : (
+                <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#34151C] text-[#E892A2] font-semibold capitalize text-[11px] border border-[#5A2530]">
+                  Failed
+                </span>
+              )}
             </div>
             <div>
               <span className="text-[#C8B8AA] block mb-1">Order Status</span>
@@ -197,11 +377,19 @@ export const OrderConfirmationPage = () => {
             </div>
           </div>
 
-          {/* Action CTA */}
-          <div className="pt-4 text-center">
+          {/* Action CTAs */}
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+            {isFailed && (
+              <Link
+                to={ROUTES.CHECKOUT}
+                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 bg-[#D99E84] text-[#1D1410] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#E8DEC8] active:scale-95 transition-all shadow-md space-x-2"
+              >
+                <span>Retry Checkout</span>
+              </Link>
+            )}
             <Link
               to={ROUTES.SHOP}
-              className="inline-flex items-center justify-center px-8 py-3.5 bg-[#FAF7F2] text-[#1D1410] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#E8DEC8] active:scale-95 transition-all shadow-md space-x-2"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 bg-[#FAF7F2] text-[#1D1410] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#E8DEC8] active:scale-95 transition-all shadow-md space-x-2"
             >
               <span>Continue Shopping</span>
               <ArrowRight className="w-4 h-4" />

@@ -242,3 +242,198 @@ export async function handleCreateCashfreeOrder(request, env, ctx, corsHeaders) 
     );
   }
 }
+
+/**
+ * Handle GET /api/cashfree/verify-order/:orderId
+ * Calls Cashfree Sandbox Payments API: GET https://sandbox.cashfree.com/pg/orders/{order_id}/payments
+ * 
+ * Determines payment status according to Cashfree's documented logic:
+ * - If any transaction has payment_status === "SUCCESS", final status = PAID
+ * - Else if any transaction has payment_status === "PENDING", final status = PENDING
+ * - Otherwise final status = FAILED
+ * 
+ * @param {Request} request
+ * @param {Record<string, any>} env
+ * @param {ExecutionContext} ctx
+ * @param {string} orderId
+ * @param {Record<string, string>} corsHeaders
+ * @returns {Promise<Response>}
+ */
+export async function handleVerifyCashfreeOrder(request, env, ctx, orderId, corsHeaders) {
+  // 1. Only allow GET requests
+  if (request.method !== 'GET') {
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: 'Method Not Allowed',
+        message: 'Only GET requests are supported for order verification.',
+      }),
+      {
+        status: 405,
+        headers: {
+          'Content-Type': 'application/json',
+          Allow: 'GET, OPTIONS',
+          ...corsHeaders,
+        },
+      }
+    );
+  }
+
+  // 2. Validate order ID parameter
+  const trimmedOrderId = (orderId || '').trim();
+  if (!trimmedOrderId) {
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: 'Bad Request',
+        message: 'order_id is required for verification.',
+      }),
+      {
+        status: 400,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        },
+      }
+    );
+  }
+
+  // 3. Validate Worker environment secrets
+  const appId = env.CASHFREE_APP_ID;
+  const secretKey = env.CASHFREE_SECRET_KEY;
+
+  if (!appId || !secretKey) {
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: 'Configuration Error',
+        message: 'Cashfree credentials (CASHFREE_APP_ID, CASHFREE_SECRET_KEY) are not configured in the Worker environment.',
+      }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        },
+      }
+    );
+  }
+
+  // 4. Query Cashfree Sandbox Payments endpoint
+  const paymentsUrl = `https://sandbox.cashfree.com/pg/orders/${encodeURIComponent(trimmedOrderId)}/payments`;
+
+  try {
+    const cfResponse = await fetch(paymentsUrl, {
+      method: 'GET',
+      headers: {
+        'x-client-id': appId,
+        'x-client-secret': secretKey,
+        'x-api-version': CASHFREE_API_VERSION,
+        Accept: 'application/json',
+      },
+      signal: AbortSignal.timeout(15000),
+    });
+
+    const data = await cfResponse.json().catch(() => null);
+
+    // If Cashfree returns a non-200 response (e.g. 404 order not found or 400/500)
+    if (!cfResponse.ok) {
+      const is404 = cfResponse.status === 404;
+      return new Response(
+        JSON.stringify({
+          success: false,
+          status: 'FAILED',
+          error: is404 ? 'Order Not Found' : (data?.message || 'Cashfree verification failed'),
+          code: data?.code || 'CASHFREE_VERIFY_ERROR',
+          message: is404
+            ? `No order or payment records found for order ID: ${trimmedOrderId}`
+            : (data?.message || 'Unable to verify payment with gateway.'),
+        }),
+        {
+          status: is404 ? 404 : (cfResponse.status >= 400 && cfResponse.status < 600 ? cfResponse.status : 502),
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          },
+        }
+      );
+    }
+
+    // 5. Evaluate payments array according to required logic
+    // - If any transaction has payment_status === "SUCCESS", final status = PAID
+    // - Else if any transaction has payment_status === "PENDING", final status = PENDING
+    // - Otherwise final status = FAILED
+    const paymentsList = Array.isArray(data) ? data : [];
+    let finalStatus = 'FAILED';
+    let paymentStatus = 'NOT_ATTEMPTED';
+    let successfulTx = null;
+    let latestTx = null;
+
+    if (paymentsList.length > 0) {
+      latestTx = paymentsList[paymentsList.length - 1];
+      const successMatch = paymentsList.find((p) => p.payment_status === 'SUCCESS');
+      const pendingMatch = paymentsList.find((p) => p.payment_status === 'PENDING');
+
+      if (successMatch) {
+        finalStatus = 'PAID';
+        paymentStatus = 'SUCCESS';
+        successfulTx = successMatch;
+      } else if (pendingMatch) {
+        finalStatus = 'PENDING';
+        paymentStatus = 'PENDING';
+      } else {
+        finalStatus = 'FAILED';
+        paymentStatus = latestTx?.payment_status || 'FAILED';
+      }
+    } else {
+      // Order created but no payment attempt recorded yet
+      finalStatus = 'PENDING';
+      paymentStatus = 'PENDING';
+    }
+
+    const primaryTx = successfulTx || latestTx;
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        order_id: trimmedOrderId,
+        status: finalStatus,
+        payment_status: paymentStatus,
+        transaction_id: primaryTx?.cf_payment_id ? String(primaryTx.cf_payment_id) : null,
+        payment_amount: primaryTx?.payment_amount ?? null,
+        payment_currency: primaryTx?.payment_currency || 'INR',
+        payment_time: primaryTx?.payment_time || null,
+        payment_message: primaryTx?.payment_message || null,
+        payment_group: primaryTx?.payment_group || null,
+        environment: 'sandbox',
+      }),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        },
+      }
+    );
+  } catch (err) {
+    const isTimeout = err.name === 'TimeoutError';
+    return new Response(
+      JSON.stringify({
+        success: false,
+        status: 'FAILED',
+        error: isTimeout ? 'Gateway Timeout' : 'Bad Gateway',
+        message: isTimeout
+          ? 'Timed out connecting to Cashfree payment verification service.'
+          : 'Unable to connect to Cashfree payment verification service.',
+      }),
+      {
+        status: isTimeout ? 504 : 502,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        },
+      }
+    );
+  }
+}
+

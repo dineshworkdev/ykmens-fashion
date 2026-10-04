@@ -6,7 +6,7 @@
  * - Preserves existing client-side routes, styling, animations, and frontend features.
  */
 
-import { handleCreateCashfreeOrder } from './cashfree.js';
+import { handleCreateCashfreeOrder, handleVerifyCashfreeOrder } from './cashfree.js';
 
 export default {
   /**
@@ -99,6 +99,14 @@ async function handleApiRequest(request, env, ctx, url) {
   // Cashfree Sandbox Order Creation
   if (pathname === '/api/cashfree/create-order') {
     return handleCreateCashfreeOrder(request, env, ctx, corsHeaders);
+  }
+
+  // Cashfree Sandbox Order Verification (GET /api/cashfree/verify-order/:orderId)
+  if (pathname.startsWith('/api/cashfree/verify-order/') || pathname === '/api/cashfree/verify-order') {
+    const routeOrderId = pathname.startsWith('/api/cashfree/verify-order/')
+      ? pathname.replace('/api/cashfree/verify-order/', '').trim()
+      : (url.searchParams.get('order_id') || url.searchParams.get('orderId') || '').trim();
+    return handleVerifyCashfreeOrder(request, env, ctx, routeOrderId, corsHeaders);
   }
 
   // Placeholder for future payment / verification endpoints
