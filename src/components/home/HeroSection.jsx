@@ -283,6 +283,11 @@ export const HeroSection = () => {
                 View Collections
               </FashionButton>
             </motion.div>
+
+            {/* Interactive YK Brand Pet: Sir Kip (Desktop Hero Placement — open space below CTAs, above the fold) */}
+            <div className="self-start ml-8 pt-1">
+              <InteractiveBrandPet />
+            </div>
           </div>
 
           {/* Right Column: Dominant Editorial Fashion Artwork (7 Columns) */}
@@ -373,11 +378,6 @@ export const HeroSection = () => {
                 </motion.div>
               </div>
             </motion.div>
-
-            {/* Interactive YK Brand Pet: Sir Kip (Desktop Hero Placement) */}
-            <div className="absolute -bottom-8 -left-6 z-30 pointer-events-auto">
-              <InteractiveBrandPet />
-            </div>
           </div>
         </div>
       </Container>

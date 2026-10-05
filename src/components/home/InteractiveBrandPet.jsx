@@ -48,6 +48,11 @@ const petAnimationData = {
       ty: 4,
       nm: 'CollarGlint',
       sr: 1,
+      ip: 0,
+      op: 180,
+      st: 0,
+      bm: 0,
+      ao: 0,
       ks: {
         o: {
           a: 1,
@@ -82,7 +87,7 @@ const petAnimationData = {
               r: { a: 0, k: 45 },
             },
             { ty: 'fl', c: { a: 0, k: C_WHITE }, o: { a: 0, k: 100 } },
-            { ty: 'tr', p: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] } },
+            { ty: 'tr', p: { a: 0, k: [0, 0] }, a: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] }, r: { a: 0, k: 0 }, o: { a: 0, k: 100 }, sk: { a: 0, k: 0 }, sa: { a: 0, k: 0 } },
           ],
         },
       ],
@@ -95,6 +100,11 @@ const petAnimationData = {
       ty: 4,
       nm: 'HeadAssembly',
       sr: 1,
+      ip: 0,
+      op: 180,
+      st: 0,
+      bm: 0,
+      ao: 0,
       ks: {
         o: { a: 0, k: 100 },
         r: {
@@ -163,7 +173,7 @@ const petAnimationData = {
               },
             },
             { ty: 'fl', c: { a: 0, k: C_ESPRESSO }, o: { a: 0, k: 100 } },
-            { ty: 'tr', p: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] } },
+            { ty: 'tr', p: { a: 0, k: [0, 0] }, a: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] }, r: { a: 0, k: 0 }, o: { a: 0, k: 100 }, sk: { a: 0, k: 0 }, sa: { a: 0, k: 0 } },
           ],
         },
         // Eye (Almond with natural blink keyframes)
@@ -188,7 +198,7 @@ const petAnimationData = {
               p: { a: 0, k: [126, 64] },
             },
             { ty: 'fl', c: { a: 0, k: C_WHITE }, o: { a: 0, k: 100 } },
-            { ty: 'tr', p: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] } },
+            { ty: 'tr', p: { a: 0, k: [0, 0] }, a: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] }, r: { a: 0, k: 0 }, o: { a: 0, k: 100 }, sk: { a: 0, k: 0 }, sa: { a: 0, k: 0 } },
           ],
         },
         // Eye Pupil
@@ -210,7 +220,7 @@ const petAnimationData = {
               },
             },
             { ty: 'fl', c: { a: 0, k: C_DARK }, o: { a: 0, k: 100 } },
-            { ty: 'tr', p: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] } },
+            { ty: 'tr', p: { a: 0, k: [0, 0] }, a: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] }, r: { a: 0, k: 0 }, o: { a: 0, k: 100 }, sk: { a: 0, k: 0 }, sa: { a: 0, k: 0 } },
           ],
         },
         // Sleek Folded Hound Ear
@@ -245,7 +255,7 @@ const petAnimationData = {
               },
             },
             { ty: 'fl', c: { a: 0, k: C_MOCHA }, o: { a: 0, k: 100 } },
-            { ty: 'tr', p: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] } },
+            { ty: 'tr', p: { a: 0, k: [0, 0] }, a: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] }, r: { a: 0, k: 0 }, o: { a: 0, k: 100 }, sk: { a: 0, k: 0 }, sa: { a: 0, k: 0 } },
           ],
         },
       ],
@@ -258,6 +268,11 @@ const petAnimationData = {
       ty: 4,
       nm: 'TailoredCollar',
       sr: 1,
+      ip: 0,
+      op: 180,
+      st: 0,
+      bm: 0,
+      ao: 0,
       ks: {
         o: { a: 0, k: 100 },
         r: { a: 0, k: 0 },
@@ -297,7 +312,7 @@ const petAnimationData = {
               },
             },
             { ty: 'fl', c: { a: 0, k: C_CREAM }, o: { a: 0, k: 100 } },
-            { ty: 'tr', p: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] } },
+            { ty: 'tr', p: { a: 0, k: [0, 0] }, a: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] }, r: { a: 0, k: 0 }, o: { a: 0, k: 100 }, sk: { a: 0, k: 0 }, sa: { a: 0, k: 0 } },
           ],
         },
         // Polished Brass Button
@@ -311,7 +326,7 @@ const petAnimationData = {
               p: { a: 0, k: [110, 96] },
             },
             { ty: 'fl', c: { a: 0, k: C_BRASS }, o: { a: 0, k: 100 } },
-            { ty: 'tr', p: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] } },
+            { ty: 'tr', p: { a: 0, k: [0, 0] }, a: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] }, r: { a: 0, k: 0 }, o: { a: 0, k: 100 }, sk: { a: 0, k: 0 }, sa: { a: 0, k: 0 } },
           ],
         },
       ],
@@ -324,6 +339,11 @@ const petAnimationData = {
       ty: 4,
       nm: 'BodyTorso',
       sr: 1,
+      ip: 0,
+      op: 180,
+      st: 0,
+      bm: 0,
+      ao: 0,
       ks: {
         o: { a: 0, k: 100 },
         r: {
@@ -387,7 +407,7 @@ const petAnimationData = {
               },
             },
             { ty: 'fl', c: { a: 0, k: C_ESPRESSO }, o: { a: 0, k: 100 } },
-            { ty: 'tr', p: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] } },
+            { ty: 'tr', p: { a: 0, k: [0, 0] }, a: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] }, r: { a: 0, k: 0 }, o: { a: 0, k: 100 }, sk: { a: 0, k: 0 }, sa: { a: 0, k: 0 } },
           ],
         },
       ],
@@ -400,6 +420,11 @@ const petAnimationData = {
       ty: 4,
       nm: 'FrontLegs',
       sr: 1,
+      ip: 0,
+      op: 180,
+      st: 0,
+      bm: 0,
+      ao: 0,
       ks: {
         o: { a: 0, k: 100 },
         r: {
@@ -449,7 +474,7 @@ const petAnimationData = {
               },
             },
             { ty: 'fl', c: { a: 0, k: C_MOCHA }, o: { a: 0, k: 100 } },
-            { ty: 'tr', p: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] } },
+            { ty: 'tr', p: { a: 0, k: [0, 0] }, a: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] }, r: { a: 0, k: 0 }, o: { a: 0, k: 100 }, sk: { a: 0, k: 0 }, sa: { a: 0, k: 0 } },
           ],
         },
       ],
@@ -462,6 +487,11 @@ const petAnimationData = {
       ty: 4,
       nm: 'TailWag',
       sr: 1,
+      ip: 0,
+      op: 180,
+      st: 0,
+      bm: 0,
+      ao: 0,
       ks: {
         o: { a: 0, k: 100 },
         r: {
@@ -527,13 +557,44 @@ const petAnimationData = {
               lc: 2,
               lj: 2,
             },
-            { ty: 'tr', p: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] } },
+            { ty: 'tr', p: { a: 0, k: [0, 0] }, a: { a: 0, k: [0, 0] }, s: { a: 0, k: [100, 100] }, r: { a: 0, k: 0 }, o: { a: 0, k: 100 }, sk: { a: 0, k: 0 }, sa: { a: 0, k: 0 } },
           ],
         },
       ],
     },
   ],
 };
+
+/**
+ * Bodymovin keyframes require bezier easing handles (`i` / `o`) on every
+ * keyframe except the last. Without them lottie-web cannot interpolate and
+ * produces invalid values (e.g. -999999 positions / giant ellipses), which
+ * made the pet render as nothing / an off-canvas blob.
+ * This adds standard ease handles to any animated property missing them.
+ */
+const withKeyframeEasing = (node) => {
+  if (Array.isArray(node)) {
+    node.forEach(withKeyframeEasing);
+    return node;
+  }
+  if (!node || typeof node !== 'object') return node;
+
+  if (node.a === 1 && Array.isArray(node.k) && node.k.length && typeof node.k[0] === 'object' && 't' in node.k[0]) {
+    node.k.forEach((kf, idx) => {
+      if (idx < node.k.length - 1) {
+        if (!kf.o) kf.o = { x: 0.333, y: 0 };
+        if (!kf.i) kf.i = { x: 0.667, y: 1 };
+      }
+    });
+    return node;
+  }
+
+  Object.values(node).forEach(withKeyframeEasing);
+  return node;
+};
+
+// Lottie mutates animationData during parsing, so each instance gets its own normalized copy
+const createPetAnimationData = () => withKeyframeEasing(JSON.parse(JSON.stringify(petAnimationData)));
 
 // Hero vantage positions (Desktop coordinates relative to anchor)
 const VANTAGE_POSITIONS = [
@@ -561,7 +622,7 @@ export const InteractiveBrandPet = ({ className = '' }) => {
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      animationData: petAnimationData,
+      animationData: createPetAnimationData(),
     });
 
     // Start with IDLE breathing loop (frames 0 to 60)
@@ -645,26 +706,29 @@ export const InteractiveBrandPet = ({ className = '' }) => {
       aria-label="Interactive YK Fashion Brand Pet — Sir Kip"
     >
       {/* Brand Statement Bubble (revealed upon click/tap) */}
-      <AnimatePresence>
-        {showMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: 6, scale: 0.92 }}
-            animate={{ opacity: 1, y: -10, scale: 1 }}
-            exit={{ opacity: 0, y: -4, scale: 0.95 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute -top-16 left-1/2 -translate-x-1/2 pointer-events-none z-50 whitespace-nowrap bg-[#33251F] text-[#FAF7F2] px-3.5 py-1.5 rounded-xl shadow-xl border border-[#4A3A32] flex flex-col items-center text-center"
-          >
-            <span className="font-serif font-bold text-xs tracking-wide text-[#FAF7F2]">
-              YK MENS FASHION
-            </span>
-            <span className="text-[10px] font-sans text-[#EADFD4]/90 tracking-normal mt-0.5">
-              Built for everyday confidence.
-            </span>
-            {/* Small speech arrow */}
-            <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-[#33251F]" />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Positioning lives on a static wrapper so framer-motion's transform can't override the centering translate */}
+      <div className="absolute bottom-[78%] right-0 lg:right-auto lg:left-1/2 lg:-translate-x-1/2 pointer-events-none z-50">
+        <AnimatePresence>
+          {showMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: 6, scale: 0.92 }}
+              animate={{ opacity: 1, y: -6, scale: 1 }}
+              exit={{ opacity: 0, y: -2, scale: 0.95 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="relative whitespace-nowrap bg-[#33251F] text-[#FAF7F2] px-3.5 py-1.5 rounded-xl shadow-xl border border-[#4A3A32] flex flex-col items-center text-center origin-bottom-right lg:origin-bottom"
+            >
+              <span className="font-serif font-bold text-xs tracking-wide text-[#FAF7F2]">
+                YK MENS FASHION
+              </span>
+              <span className="text-[10px] font-sans text-[#EADFD4]/90 tracking-normal mt-0.5">
+                Built for everyday confidence.
+              </span>
+              {/* Small speech arrow */}
+              <div className="absolute top-full right-7 lg:right-auto lg:left-1/2 lg:-translate-x-1/2 border-[5px] border-transparent border-t-[#33251F]" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* Lottie Vector Runtime Container */}
       <div
