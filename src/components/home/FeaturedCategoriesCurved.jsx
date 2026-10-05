@@ -109,6 +109,13 @@ const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
     offset: ['start end', 'end start'],
   });
 
+  // Spring-smoothed scroll progress for organic, jitter-free secondary life
+  const smoothProgress = useSpring(rawScrollProgress, {
+    stiffness: 240,
+    damping: 30,
+    mass: 0.2,
+  });
+
   // Track scroll progress to trigger one-way settled latch when focal zone is reached
   useMotionValueEvent(rawScrollProgress, 'change', (val) => {
     if (!isSettled && val >= 0.36) {
@@ -152,6 +159,26 @@ const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
     opacity: 1,
   };
 
+  // Subtle secondary re-entry animations: operates INSIDE the established card
+  // The card frame itself remains 100% straight and centered at 0° without replaying entrance motion.
+  const imageY = useTransform(
+    smoothProgress,
+    [0, 0.5, 1],
+    shouldReduceMotion ? ['0px', '0px', '0px'] : ['-6px', '0px', '6px']
+  );
+
+  const imageScale = useTransform(
+    smoothProgress,
+    [0, 0.5, 1],
+    shouldReduceMotion ? [1, 1, 1] : [1.02, 1.05, 1.02]
+  );
+
+  const subtitleY = useTransform(
+    smoothProgress,
+    [0, 0.5, 1],
+    shouldReduceMotion ? ['0px', '0px', '0px'] : ['1.5px', '0px', '-1.5px']
+  );
+
   return (
     <motion.div
       ref={cardRef}
@@ -171,9 +198,13 @@ const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
             : 'border-[#D8C8BA] shadow-md'
         }`}
       >
-        {/* Visual Frame */}
+        {/* Visual Frame with Subtle Internal Parallax */}
         <div className="relative aspect-[3.7/4.4] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#FAF7F2] mb-3.5">
-          <img
+          <motion.img
+            style={{
+              y: imageY,
+              scale: imageScale,
+            }}
             src={item.image}
             alt={item.name}
             className="w-full h-full object-cover object-top will-change-transform group-hover:scale-105 transition-transform duration-500 ease-out"
@@ -197,9 +228,12 @@ const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
             </span>
           </div>
 
-          <p className="text-xs text-[#6B5549] line-clamp-1 mb-2.5">
+          <motion.p
+            style={{ y: subtitleY }}
+            className="text-xs text-[#6B5549] line-clamp-1 mb-2.5"
+          >
             {item.subtitle}
-          </p>
+          </motion.p>
 
           <div className="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-[#4A3A32] group-hover:text-[#33251F] transition-colors">
             <span>{item.ctaText}</span>
@@ -215,7 +249,7 @@ const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
  * Desktop Runway Item:
  * Positions cards along an undulating curved editorial path across the panoramic section.
  * Center apex card is elevated, side cards are angled and scaled naturally.
- * Uses continuous spring smoothing for fluid vertical scroll response.
+ * Includes subtle internal image parallax and restrained hover response.
  */
 const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion }) => {
   // Staggered wave offset along the curve
@@ -240,6 +274,18 @@ const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion })
       : [index % 2 === 0 ? -14 : 14, 0, index % 2 === 0 ? 14 : -14]
   );
 
+  const desktopImageY = useTransform(
+    sectionProgress,
+    [0, 0.5, 1],
+    shouldReduceMotion ? ['0px', '0px', '0px'] : ['-8px', '0px', '8px']
+  );
+
+  const desktopImageScale = useTransform(
+    sectionProgress,
+    [0, 0.5, 1],
+    shouldReduceMotion ? [1, 1, 1] : [1.02, 1.05, 1.02]
+  );
+
   return (
     <motion.div
       style={{
@@ -255,10 +301,14 @@ const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion })
       >
         {/* Visual Frame */}
         <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-[#FAF7F2] mb-4">
-          <img
+          <motion.img
+            style={{
+              y: desktopImageY,
+              scale: desktopImageScale,
+            }}
             src={item.image}
             alt={item.name}
-            className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover object-top will-change-transform transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"
           />
 

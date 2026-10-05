@@ -5,7 +5,7 @@ import Container from '../components/layout/Container';
 import HeroSection from '../components/home/HeroSection';
 import FeaturedCategoriesCurved from '../components/home/FeaturedCategoriesCurved';
 import RadialShowcaseCarousel from '../components/home/RadialShowcaseCarousel';
-import MobileClothingRack from '../components/home/MobileClothingRack';
+import GarmentRackShowcase from '../components/home/GarmentRackShowcase';
 import FashionButton from '../components/common/FashionButton';
 import { useProducts } from '../hooks/useProducts';
 import { ROUTES } from '../utils/constants';
@@ -73,7 +73,7 @@ export const HomePage = () => {
 
             {/* Slider Action Buttons */}
             <div className="flex items-center space-x-3">
-              <div className="hidden lg:flex items-center space-x-3">
+              <div className="hidden sm:flex items-center space-x-3">
                 <button
                   type="button"
                   onClick={() => carouselRef.current?.prev()}
@@ -102,18 +102,11 @@ export const HomePage = () => {
             </div>
           </div>
 
-          {/* Mobile Clothing Rack (Mobile < lg) */}
-          <div className="block lg:hidden">
-            <MobileClothingRack products={newArrivals} />
-          </div>
-
-          {/* Desktop Radial Carousel (Desktop >= lg) */}
-          <div className="hidden lg:block">
-            <RadialShowcaseCarousel
-              ref={carouselRef}
-              products={newArrivals}
-            />
-          </div>
+          {/* Seasonal Showcase: Realistic Garment Rack (Mobile & Desktop) */}
+          <GarmentRackShowcase
+            ref={carouselRef}
+            products={newArrivals}
+          />
         </Container>
       </section>
 

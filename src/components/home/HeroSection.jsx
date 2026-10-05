@@ -6,6 +6,7 @@ import FashionButton from '../common/FashionButton';
 import { ROUTES } from '../../utils/constants';
 import { PRODUCTS } from '../../data/products';
 import { AnimatedArrowRight } from '../common/AnimatedIcons';
+import InteractiveBrandPet from './InteractiveBrandPet';
 
 // Refined luxury cubic bezier curves
 const luxuryEase = [0.22, 1, 0.36, 1];
@@ -126,16 +127,21 @@ export const HeroSection = () => {
             </div>
           </motion.div>
 
-          {/* 2. Mobile Brand Label */}
-          <motion.div
-            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.12, ease: luxuryEase }}
-            className="flex items-center space-x-2 text-xs uppercase tracking-[0.25em] text-[#6B5549] font-semibold pt-0.5"
-          >
-            <span className="w-4 h-[2px] bg-[#4A3A32] rounded-full" />
-            <span>YK Mens Fashion</span>
-          </motion.div>
+          {/* 2. Mobile Brand Label & Interactive Brand Pet */}
+          <div className="flex items-center justify-between pt-0.5">
+            <motion.div
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.12, ease: luxuryEase }}
+              className="flex items-center space-x-2 text-xs uppercase tracking-[0.25em] text-[#6B5549] font-semibold"
+            >
+              <span className="w-4 h-[2px] bg-[#4A3A32] rounded-full" />
+              <span>YK Mens Fashion</span>
+            </motion.div>
+
+            {/* Interactive Brand Pet: Sir Kip (Mobile Hero Anchor) */}
+            <InteractiveBrandPet className="shrink-0 -my-3" />
+          </div>
 
           {/* 3. Mobile Campaign Headline */}
           <div className="space-y-0.5">
@@ -367,6 +373,11 @@ export const HeroSection = () => {
                 </motion.div>
               </div>
             </motion.div>
+
+            {/* Interactive YK Brand Pet: Sir Kip (Desktop Hero Placement) */}
+            <div className="absolute -bottom-8 -left-6 z-30 pointer-events-auto">
+              <InteractiveBrandPet />
+            </div>
           </div>
         </div>
       </Container>
