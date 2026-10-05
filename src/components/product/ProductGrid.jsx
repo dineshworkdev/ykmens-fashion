@@ -21,14 +21,14 @@ export const ProductGrid = ({
 }) => {
   if (!products || products.length === 0) {
     return (
-      <div className="py-20 text-center bg-white rounded-2xl border border-[#DFE5F3] p-8 max-w-lg mx-auto shadow-xs my-8">
-        <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-[#EDE7C7]/60 flex items-center justify-center text-[#200E01]">
+      <div className="py-20 text-center bg-[#FFFFFF] rounded-2xl border border-[#E4D7CC] p-8 max-w-lg mx-auto shadow-xs my-8">
+        <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-[#EADFD4] flex items-center justify-center text-[#33251F]">
           <span className="font-serif text-xl font-bold">YK</span>
         </div>
-        <h3 className="font-serif text-xl font-bold text-[#0D0D0D] mb-2">
+        <h3 className="font-serif text-xl font-bold text-[#33251F] mb-2">
           No Results Found
         </h3>
-        <p className="text-xs sm:text-sm text-[#557373] leading-relaxed mb-6">
+        <p className="text-xs sm:text-sm text-[#6B5549] leading-relaxed mb-6">
           {emptyMessage}
         </p>
         {onResetFilters && (

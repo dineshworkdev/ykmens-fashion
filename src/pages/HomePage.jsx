@@ -5,6 +5,7 @@ import Container from '../components/layout/Container';
 import HeroSection from '../components/home/HeroSection';
 import FeaturedCategoriesCurved from '../components/home/FeaturedCategoriesCurved';
 import RadialShowcaseCarousel from '../components/home/RadialShowcaseCarousel';
+import MobileClothingRack from '../components/home/MobileClothingRack';
 import FashionButton from '../components/common/FashionButton';
 import { useProducts } from '../hooks/useProducts';
 import { ROUTES } from '../utils/constants';
@@ -37,61 +38,62 @@ export const HomePage = () => {
   const carouselRef = useRef(null);
 
   return (
-    <div className="bg-[#221712] text-[#FAF7F2] overflow-x-hidden selection:bg-[#A6445D] selection:text-[#FAF7F2]">
+    <div className="bg-[#FAF7F2] text-[#4A3A32] overflow-x-hidden selection:bg-[#EADFD4] selection:text-[#33251F]">
       {/* =========================================================================
           CHAPTER 01: HERO — EDITORIAL MODERN MENSWEAR HERO
-          Surface: Rich Warm Brown #2C1E18 + Deep Taupe
-          Typography: Warm Cream #FAF7F2 + Antique Beige #E8DEC8
-          Accents: Velvet Rose #A6445D + Warm Taupe #D4C5B6
+          Surface: Warm Ivory #FAF7F2
+          Typography: Deep Espresso #33251F + Mocha Brown #4A3A32
           ========================================================================= */}
       <HeroSection />
 
       {/* =========================================================================
           CHAPTER 02: FEATURED CATEGORIES — INVISIBLE CURVED EDITORIAL RUNWAY
-          Surface: Deep Muted Forest Olive #202920 + Contrast Cream Cards #FAF7F2
+          Surface: Cream Latte #EADFD4 + Pure White #FFFFFF Cards
           Composition: Flowing S-Curve Runway driven by normal vertical scroll
           ========================================================================= */}
       <FeaturedCategoriesCurved />
 
       {/* =========================================================================
           CHAPTER 03: SHOWCASE RUNWAY (SEASONAL SHOWCASE)
-          Surface: Deep Muted Petrol Teal #183038 — rich, saturated, visibly teal
+          Surface: Soft Warm Cream #F5EFE8
           Showcase Rule: NO product prices on homepage showcase.
           ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#183038] border-b border-[#22444E] text-[#FAF7F2] overflow-hidden">
+      <section className="py-20 sm:py-28 bg-[#F5EFE8] border-b border-[#E4D7CC] text-[#4A3A32] overflow-hidden">
         <Container>
           {/* Section Header with Slider Navigation Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-6 sm:mb-8 border-b border-[#284852] gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-6 sm:mb-8 border-b border-[#E4D7CC] gap-6">
             <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block mb-2">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#6B5549] font-bold block mb-2">
                 New Arrivals
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAF7F2]">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#33251F]">
                 Seasonal Showcase
               </h2>
             </div>
 
             {/* Slider Action Buttons */}
             <div className="flex items-center space-x-3">
-              <button
-                type="button"
-                onClick={() => carouselRef.current?.prev()}
-                aria-label="Previous product"
-                className="p-3 bg-[#23454F] hover:bg-[#2E5865] border border-[#366674] text-[#FAF7F2] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D99E84]/50"
-              >
-                <AnimatedArrowLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => carouselRef.current?.next()}
-                aria-label="Next product"
-                className="p-3 bg-[#23454F] hover:bg-[#2E5865] border border-[#366674] text-[#FAF7F2] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D99E84]/50"
-              >
-                <AnimatedArrowRight className="w-4 h-4" />
-              </button>
+              <div className="hidden lg:flex items-center space-x-3">
+                <button
+                  type="button"
+                  onClick={() => carouselRef.current?.prev()}
+                  aria-label="Previous product"
+                  className="p-3 bg-[#FFFFFF] hover:bg-[#FAF7F2] border border-[#D8C8BA] text-[#33251F] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#4A3A32]/30"
+                >
+                  <AnimatedArrowLeft className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => carouselRef.current?.next()}
+                  aria-label="Next product"
+                  className="p-3 bg-[#FFFFFF] hover:bg-[#FAF7F2] border border-[#D8C8BA] text-[#33251F] rounded-xl transition-colors shadow-xs active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#4A3A32]/30"
+                >
+                  <AnimatedArrowRight className="w-4 h-4" />
+                </button>
+              </div>
               <FashionButton
                 to={`${ROUTES.SHOP}?filter=new`}
-                variant="cream"
+                variant="dark"
                 size="sm"
                 className="ml-2"
               >
@@ -100,45 +102,52 @@ export const HomePage = () => {
             </div>
           </div>
 
-          {/* Radial Carousel (Invisible Donut / Upper Front Arc Geometry) */}
-          <RadialShowcaseCarousel
-            ref={carouselRef}
-            products={newArrivals}
-          />
+          {/* Mobile Clothing Rack (Mobile < lg) */}
+          <div className="block lg:hidden">
+            <MobileClothingRack products={newArrivals} />
+          </div>
+
+          {/* Desktop Radial Carousel (Desktop >= lg) */}
+          <div className="hidden lg:block">
+            <RadialShowcaseCarousel
+              ref={carouselRef}
+              products={newArrivals}
+            />
+          </div>
         </Container>
       </section>
 
       {/* =========================================================================
           CHAPTER 04: CLOSING BRAND INVITATION
-          Surface: Rich Deep Burgundy / Warm Wine #34151C
+          Surface: Cream Latte #EADFD4
           Clear CTA directing users toward Shop & Collections
           ========================================================================= */}
-      <section className="py-20 sm:py-24 bg-[#34151C] border-b border-[#4A1E28]">
+      <section className="py-20 sm:py-24 bg-[#EADFD4] border-b border-[#D8C8BA]">
         <Container>
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#6B5549] font-bold block">
               Step Into YK Mens Fashion
             </span>
 
-            <h2 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#FAF7F2]">
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#33251F]">
               Upgrade Your Everyday Wardrobe
             </h2>
 
-            <p className="text-sm sm:text-base text-[#D4BFC4] leading-relaxed max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-[#4A3A32] leading-relaxed max-w-xl mx-auto">
               Explore our full catalog of thoughtfully designed menswear pieces. Tailored with care, delivered directly to your doorstep across India.
             </p>
 
             <div className="pt-4 flex flex-wrap justify-center gap-4">
               <FashionButton
                 to={ROUTES.SHOP}
-                variant="cream"
+                variant="dark"
                 size="lg"
               >
                 Shop Now
               </FashionButton>
               <FashionButton
                 to={ROUTES.COLLECTIONS}
-                variant="outlineLight"
+                variant="outlineDark"
                 size="lg"
                 showArrow={false}
               >

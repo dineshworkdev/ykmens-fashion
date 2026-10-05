@@ -8,21 +8,21 @@ import { ROUTES } from '../utils/constants';
  */
 export const NotFoundPage = () => {
   return (
-    <div className="py-24 bg-[#241812] text-[#FAF7F2] min-h-[60vh] flex items-center">
+    <div className="py-24 bg-[#FAF7F2] text-[#4A3A32] min-h-[60vh] flex items-center">
       <Container className="text-center space-y-4">
-        <span className="text-xs uppercase tracking-widest text-[#D99E84] font-semibold">
+        <span className="text-xs uppercase tracking-widest text-[#8B7768] font-semibold">
           Error 404
         </span>
-        <h1 className="text-3xl font-bold tracking-tight text-[#FAF7F2]">
+        <h1 className="text-3xl font-bold tracking-tight text-[#33251F]">
           Page Not Found
         </h1>
-        <p className="text-xs sm:text-sm text-[#C8B8AA] max-w-md mx-auto">
+        <p className="text-xs sm:text-sm text-[#6B5549] max-w-md mx-auto">
           The page or garment you are looking for does not exist in our current catalog.
         </p>
         <div className="pt-4">
           <Link
             to={ROUTES.HOME}
-            className="inline-block px-8 py-3 bg-[#FAF7F2] text-[#1D1410] text-xs uppercase tracking-widest font-semibold hover:bg-[#E8DEC8] transition-colors rounded-xl shadow-md"
+            className="inline-block px-8 py-3 bg-[#4A3A32] text-[#FAF7F2] text-xs uppercase tracking-widest font-semibold hover:bg-[#33251F] transition-colors rounded-xl shadow-md"
           >
             Return to Home
           </Link>

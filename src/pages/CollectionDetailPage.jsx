@@ -31,15 +31,15 @@ export const CollectionDetailPage = () => {
 
   if (!collection) {
     return (
-      <div className="bg-[#F2EFEA] min-h-[70vh] flex items-center justify-center py-20">
+      <div className="bg-[#FAF7F2] text-[#4A3A32] min-h-[70vh] flex items-center justify-center py-20">
         <Container className="text-center max-w-md">
-          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[#EDE7C7]/60 flex items-center justify-center text-[#200E01]">
+          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[#EADFD4] flex items-center justify-center text-[#33251F]">
             <span className="font-serif text-xl font-bold">YK</span>
           </div>
-          <h1 className="font-serif text-2xl font-bold text-[#0D0D0D] mb-3">
+          <h1 className="font-serif text-2xl font-bold text-[#33251F] mb-3">
             Collection Not Found
           </h1>
-          <p className="text-xs text-[#557373] leading-relaxed mb-6">
+          <p className="text-xs text-[#6B5549] leading-relaxed mb-6">
             The requested menswear collection is unavailable or has been archived.
           </p>
           <FashionButton to={ROUTES.COLLECTIONS} variant="dark" size="md">
@@ -65,26 +65,26 @@ export const CollectionDetailPage = () => {
   };
 
   return (
-    <div className="bg-[#241812] text-[#FAF7F2] min-h-screen">
+    <div className="bg-[#FAF7F2] text-[#4A3A32] min-h-screen">
       {/* =========================================================================
           COLLECTION HERO: EDITORIAL ART DIRECTION
           ========================================================================= */}
       <section
-        style={{ backgroundColor: collection.palette?.darkBg || '#2A1E18' }}
-        className="py-12 sm:py-20 border-b border-[#3E2B21] transition-colors"
+        style={{ backgroundColor: collection.palette?.bg || '#EADFD4' }}
+        className="py-12 sm:py-20 border-b border-[#D8C8BA] transition-colors"
       >
         <Container>
           {/* Breadcrumb */}
-          <nav className="text-[11px] sm:text-xs uppercase tracking-wider text-[#C8B8AA] mb-8 flex items-center space-x-2">
-            <Link to={ROUTES.HOME} className="hover:text-[#FAF7F2] transition-colors">
+          <nav className="text-[11px] sm:text-xs uppercase tracking-wider text-[#6B5549] mb-8 flex items-center space-x-2">
+            <Link to={ROUTES.HOME} className="hover:text-[#33251F] transition-colors">
               Home
             </Link>
             <span>/</span>
-            <Link to={ROUTES.COLLECTIONS} className="hover:text-[#FAF7F2] transition-colors">
+            <Link to={ROUTES.COLLECTIONS} className="hover:text-[#33251F] transition-colors">
               Collections
             </Link>
             <span>/</span>
-            <span className="text-[#FAF7F2] font-bold">{collection.name}</span>
+            <span className="text-[#33251F] font-bold">{collection.name}</span>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -96,26 +96,26 @@ export const CollectionDetailPage = () => {
               className="lg:col-span-6 space-y-4"
             >
               <div className="flex items-center space-x-2">
-                <span className="px-3 py-1 bg-[#FAF7F2]/95 text-[10px] uppercase tracking-wider font-semibold text-[#1D1410] rounded-lg shadow-xs">
+                <span className="px-3 py-1 bg-[#FAF7F2]/95 text-[10px] uppercase tracking-wider font-semibold text-[#4A3A32] rounded-lg shadow-xs">
                   {collection.season}
                 </span>
-                <span className="text-xs text-[#C8B8AA] font-medium">
+                <span className="text-xs text-[#6B5549] font-medium">
                   • {collectionProducts.length} Curated Pieces
                 </span>
               </div>
 
-              <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#FAF7F2] leading-tight">
+              <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#33251F] leading-tight">
                 {collection.name}
               </h1>
 
-              <p className="text-xs sm:text-sm text-[#E8DEC8] leading-relaxed max-w-lg">
+              <p className="text-xs sm:text-sm text-[#6B5549] leading-relaxed max-w-lg">
                 {collection.description}
               </p>
 
               <div className="pt-2">
                 <a
                   href="#collection-products"
-                  className="inline-flex items-center space-x-2 px-6 py-3.5 bg-[#FAF7F2] hover:bg-[#E8DEC8] text-[#1D1410] rounded-xl text-xs uppercase tracking-wider font-bold transition-colors shadow-sm"
+                  className="inline-flex items-center space-x-2 px-6 py-3.5 bg-[#4A3A32] hover:bg-[#33251F] text-[#FAF7F2] rounded-xl text-xs uppercase tracking-wider font-bold transition-colors shadow-sm"
                 >
                   <span>Shop Collection</span>
                   <AnimatedArrowRight className="w-4 h-4" />
@@ -130,8 +130,8 @@ export const CollectionDetailPage = () => {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="lg:col-span-6"
             >
-              <div className="aspect-[16/10] sm:aspect-[16/9] bg-[#FAF7F2] rounded-3xl p-3 border border-[#E8DEC8] shadow-xl overflow-hidden">
-                <div className="w-full h-full rounded-2xl overflow-hidden bg-[#EFEAE2]">
+              <div className="aspect-[16/10] sm:aspect-[16/9] bg-[#FFFFFF] rounded-3xl p-3 border border-[#E4D7CC] shadow-xl overflow-hidden">
+                <div className="w-full h-full rounded-2xl overflow-hidden bg-[#FAF7F2]">
                   <img
                     src={collection.image}
                     alt={collection.name}
@@ -147,19 +147,19 @@ export const CollectionDetailPage = () => {
       {/* =========================================================================
           COLLECTION PRODUCTS GRID
           ========================================================================= */}
-      <section id="collection-products" className="py-14 sm:py-20 bg-[#241812]">
+      <section id="collection-products" className="py-14 sm:py-20 bg-[#FAF7F2]">
         <Container>
-          <div className="flex items-center justify-between pb-6 mb-10 border-b border-[#3E2B21]">
+          <div className="flex items-center justify-between pb-6 mb-10 border-b border-[#E4D7CC]">
             <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block mb-1">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#8B7768] font-bold block mb-1">
                 Wardrobe Edit
               </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#FAF7F2]">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#33251F]">
                 Pieces in This Collection
               </h2>
             </div>
 
-            <span className="text-xs text-[#C8B8AA]">
+            <span className="text-xs text-[#8B7768]">
               {collectionProducts.length} {collectionProducts.length === 1 ? 'Item' : 'Items'}
             </span>
           </div>
@@ -177,21 +177,21 @@ export const CollectionDetailPage = () => {
           OTHER COLLECTIONS TO EXPLORE
           ========================================================================= */}
       {otherCollections.length > 0 && (
-        <section className="py-14 sm:py-20 border-t border-[#3E2B21] bg-[#1D1410]">
+        <section className="py-14 sm:py-20 border-t border-[#E4D7CC] bg-[#F5EFE8]">
           <Container>
-            <div className="flex items-center justify-between pb-6 mb-10 border-b border-[#3E2B21]">
+            <div className="flex items-center justify-between pb-6 mb-10 border-b border-[#D8C8BA]">
               <div>
-                <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block mb-1">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#8B7768] font-bold block mb-1">
                   Discover More
                 </span>
-                <h3 className="font-serif text-2xl font-bold text-[#FAF7F2]">
+                <h3 className="font-serif text-2xl font-bold text-[#33251F]">
                   Other Collections
                 </h3>
               </div>
 
               <Link
                 to={ROUTES.COLLECTIONS}
-                className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-wider font-bold text-[#FAF7F2] hover:text-[#D99E84] transition-colors"
+                className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-wider font-bold text-[#4A3A32] hover:text-[#33251F] transition-colors"
               >
                 <span>All Collections</span>
                 <AnimatedArrowRight className="w-3.5 h-3.5" />

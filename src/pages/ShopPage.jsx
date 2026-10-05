@@ -92,7 +92,7 @@ export const ShopPage = () => {
   const currentHeading = categoryHeadings[selectedCategory] || categoryHeadings.all;
 
   return (
-    <div className="bg-[#241812] text-[#FAF7F2] min-h-screen py-10 sm:py-16">
+    <div className="bg-[#FAF7F2] text-[#4A3A32] min-h-screen py-10 sm:py-16">
       <Container>
         {/* Shop Header: Confident, Distinctive, Balanced */}
         <div className="mb-8 sm:mb-12">
@@ -102,13 +102,13 @@ export const ShopPage = () => {
             transition={{ duration: 0.5 }}
             className="space-y-2 max-w-2xl"
           >
-            <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#6B5549] font-bold block">
               Menswear Catalog
             </span>
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAF7F2]">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#33251F]">
               {onlyNewArrivals ? 'New Arrivals' : currentHeading.title}
             </h1>
-            <p className="text-xs sm:text-sm text-[#C8B8AA] leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#4A3A32] leading-relaxed">
               {currentHeading.subtitle}
             </p>
           </motion.div>

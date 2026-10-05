@@ -13,7 +13,7 @@ export const Header = () => {
   const isHome = location.pathname === '/';
 
   return (
-    <header className={`w-full ${isHome ? 'bg-[#2C1E18]' : 'bg-[#221712]'}`}>
+    <header className="w-full bg-[#FAF7F2]">
       <Navbar />
     </header>
   );

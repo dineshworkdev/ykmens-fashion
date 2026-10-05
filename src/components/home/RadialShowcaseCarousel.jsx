@@ -169,7 +169,7 @@ const RadialCard = memo(function RadialCard({
       onClick={handleClick}
       className="origin-center"
     >
-      <div className="relative w-full rounded-2xl shadow-xl shadow-[#200E01]/10">
+      <div className="relative w-full rounded-2xl shadow-xl shadow-[#3E3029]/25">
         <ProductCard
           product={product}
           showcase={true}
@@ -449,7 +449,7 @@ export const RadialShowcaseCarousel = forwardRef(function RadialShowcaseCarousel
       style={{
         touchAction: 'pan-y', // Native vertical scrolling, captures horizontal gestures
       }}
-      className={`relative w-full overflow-hidden select-none outline-none focus-visible:ring-1 focus-visible:ring-[#8B0000]/30 rounded-3xl ${className}`}
+      className={`relative w-full overflow-hidden select-none outline-none focus-visible:ring-1 focus-visible:ring-[#EADFD4]/30 rounded-3xl ${className}`}
     >
       {/* 3D Perspective Visual Stage (Cards are attached to the upper front arc of the invisible ring) */}
       <div
@@ -490,8 +490,8 @@ export const RadialShowcaseCarousel = forwardRef(function RadialShowcaseCarousel
               aria-label={`Go to slide ${idx + 1}: ${item.name}`}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 isActive
-                  ? 'w-6 bg-[#D99E84]'
-                  : 'w-1.5 bg-[#FAF7F2]/25 hover:bg-[#FAF7F2]/50'
+                  ? 'w-6 bg-[#4A3A32]'
+                  : 'w-1.5 bg-[#4A3A32]/25 hover:bg-[#4A3A32]/50'
               }`}
             />
           );

@@ -33,11 +33,11 @@ export const LoadingScreen = ({ onComplete }) => {
           ease: [0.22, 1, 0.36, 1], // Smooth luxury deceleration
         },
       }}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#2C1E18] select-none"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#FAF7F2] select-none"
       aria-label="YK MENS FASHION Loading Intro"
     >
-      {/* Centered natural presentation matching the #2C1E18 stage */}
-      <div className="relative w-[85vw] max-w-[420px] aspect-square flex items-center justify-center">
+      {/* Centered luxury editorial card container compatible with light creamy palette */}
+      <div className="relative w-[85vw] max-w-[420px] aspect-square flex items-center justify-center rounded-3xl overflow-hidden shadow-[0_24px_60px_rgba(74,58,50,0.14)] border border-[#E4D7CC] bg-[#2C1E18]">
         <img
           src="/videos/animation.svg"
           alt="YK MENS FASHION"

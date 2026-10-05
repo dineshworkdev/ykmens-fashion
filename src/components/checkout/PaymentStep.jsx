@@ -21,12 +21,12 @@ export const PaymentStep = ({
   const supportedGateways = paymentService.getSupportedGateways();
 
   return (
-    <div className="bg-[#2C1E18] border border-[#3E2B21] rounded-2xl p-6 sm:p-8 space-y-6 text-[#FAF7F2]">
-      <div className="pb-4 border-b border-[#3E2B21]">
-        <h2 className="text-sm uppercase tracking-widest font-bold text-[#FAF7F2]">
+    <div className="bg-[#FFFFFF] border border-[#E4D7CC] rounded-2xl p-6 sm:p-8 space-y-6 text-[#4A3A32]">
+      <div className="pb-4 border-b border-[#E4D7CC]">
+        <h2 className="text-sm uppercase tracking-widest font-bold text-[#33251F]">
           Payment Method
         </h2>
-        <p className="text-xs text-[#C8B8AA] mt-0.5">
+        <p className="text-xs text-[#6B5549] mt-0.5">
           Select your preferred payment gateway adapter for this order.
         </p>
       </div>
@@ -40,8 +40,8 @@ export const PaymentStep = ({
               key={gw.id}
               className={`flex items-start sm:items-center justify-between p-4 sm:p-5 rounded-xl border cursor-pointer transition-all ${
                 isSelected
-                  ? 'border-[#FAF7F2] bg-[#341F17] shadow-sm'
-                  : 'border-[#3E2B21] bg-[#1D1410] hover:border-[#C8B8AA]/40'
+                  ? 'border-[#4A3A32] bg-[#FAF7F2] shadow-sm'
+                  : 'border-[#D8C8BA] bg-[#FFFFFF] hover:border-[#4A3A32]'
               }`}
             >
               <div className="flex items-start sm:items-center space-x-3.5">
@@ -51,13 +51,13 @@ export const PaymentStep = ({
                   value={gw.id}
                   checked={isSelected}
                   onChange={() => onSelectGateway(gw.id)}
-                  className="mt-0.5 sm:mt-0 text-[#FAF7F2] focus:ring-[#D99E84] accent-[#D99E84]"
+                  className="mt-0.5 sm:mt-0 text-[#4A3A32] focus:ring-[#4A3A32] accent-[#4A3A32]"
                 />
                 <div>
-                  <span className="text-xs sm:text-sm font-bold text-[#FAF7F2] block">
+                  <span className="text-xs sm:text-sm font-bold text-[#33251F] block">
                     {gw.name}
                   </span>
-                  <span className="text-[11px] text-[#C8B8AA]">
+                  <span className="text-[11px] text-[#6B5549]">
                     {gw.description || (gw.id === 'cashfree'
                       ? 'UPI, Cards, NetBanking via Cashfree Sandbox'
                       : gw.id === 'razorpay'
@@ -66,27 +66,27 @@ export const PaymentStep = ({
                   </span>
                 </div>
               </div>
-              <CreditCard className="w-5 h-5 text-[#D99E84] flex-shrink-0 ml-2 mt-0.5 sm:mt-0" />
+              <CreditCard className="w-5 h-5 text-[#4A3A32] flex-shrink-0 ml-2 mt-0.5 sm:mt-0" />
             </label>
           );
         })}
       </div>
 
       {/* Truthful Gateway Readiness Notice */}
-      <div className="p-4 sm:p-5 bg-[#341F17] border border-[#3E2B21] rounded-xl flex items-start space-x-3.5">
-        <AlertCircle className="w-5 h-5 text-[#D99E84] flex-shrink-0 mt-0.5" />
-        <div className="text-xs text-[#C8B8AA] leading-relaxed space-y-1">
-          <p className="font-bold uppercase tracking-wider text-[#FAF7F2]">
+      <div className="p-4 sm:p-5 bg-[#FAF7F2] border border-[#D8C8BA] rounded-xl flex items-start space-x-3.5">
+        <AlertCircle className="w-5 h-5 text-[#4A3A32] flex-shrink-0 mt-0.5" />
+        <div className="text-xs text-[#6B5549] leading-relaxed space-y-1">
+          <p className="font-bold uppercase tracking-wider text-[#33251F]">
             {selectedGateway === 'cashfree'
               ? 'Cashfree Sandbox Hosted Checkout'
               : 'Payment Gateway Integration Notice'}
           </p>
-          <p className="text-[#C8B8AA]">
+          <p className="text-[#6B5549]">
             {selectedGateway === 'cashfree'
               ? 'Clicking Place Order securely creates an order on the backend and launches the Cashfree Hosted Checkout session.'
               : 'Payment processing will be available once the live payment gateway keys are connected.'}
           </p>
-          <p className="text-[#A8988B]">
+          <p className="text-[#8B7768]">
             {selectedGateway === 'cashfree'
               ? 'All transactions run in secure test/sandbox mode without charging real funds.'
               : 'This frontend demonstration records the order as Payment Pending without charging live funds or collecting card numbers.'}
@@ -95,19 +95,19 @@ export const PaymentStep = ({
       </div>
 
       {error && (
-        <div className="p-4 bg-[#34151C] border border-[#A6445D]/50 rounded-xl text-xs text-[#E892A2] font-medium flex items-center space-x-2">
+        <div className="p-4 bg-[#FAF7F2] border border-[#6B5549] rounded-xl text-xs text-[#6B5549] font-medium flex items-center space-x-2">
           <AlertCircle className="w-4 h-4 flex-shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {/* Actions */}
-      <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#3E2B21]">
+      <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#E4D7CC]">
         <button
           type="button"
           onClick={onPrev}
           disabled={isProcessing}
-          className="w-full sm:w-auto px-6 py-3 rounded-xl border border-[#3E2B21] text-[#FAF7F2] hover:bg-[#341F17] text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center space-x-2 disabled:opacity-50"
+          className="w-full sm:w-auto px-6 py-3 rounded-xl border border-[#D8C8BA] text-[#33251F] hover:bg-[#FAF7F2] text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center space-x-2 disabled:opacity-50"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Review</span>
@@ -117,7 +117,7 @@ export const PaymentStep = ({
           type="button"
           onClick={onInitiatePayment}
           disabled={isProcessing}
-          className="w-full sm:w-auto px-8 py-3.5 bg-[#FAF7F2] text-[#1D1410] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#E8DEC8] active:scale-95 transition-all flex items-center justify-center space-x-2 shadow-md disabled:opacity-50"
+          className="w-full sm:w-auto px-8 py-3.5 bg-[#4A3A32] text-[#FAF7F2] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#33251F] active:scale-95 transition-all flex items-center justify-center space-x-2 shadow-md disabled:opacity-50"
         >
           {isProcessing ? (
             <span>Placing Order...</span>

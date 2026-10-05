@@ -71,21 +71,21 @@ export const CheckoutPage = () => {
   // If cart is empty and no order in progress
   if (items.length === 0 && currentStep !== CHECKOUT_STEPS.CONFIRMATION) {
     return (
-      <div className="bg-[#241812] text-[#FAF7F2] py-20 md:py-28 min-h-[60vh] flex items-center justify-center">
+      <div className="bg-[#FAF7F2] text-[#4A3A32] py-20 md:py-28 min-h-[60vh] flex items-center justify-center">
         <Container>
-          <div className="max-w-md mx-auto text-center bg-[#2C1E18] border border-[#3E2B21] rounded-3xl p-10 md:p-12 shadow-xl">
-            <div className="w-16 h-16 rounded-full bg-[#3E2B21] text-[#FAF7F2] flex items-center justify-center mx-auto mb-5">
+          <div className="max-w-md mx-auto text-center bg-[#FFFFFF] border border-[#E4D7CC] rounded-3xl p-10 md:p-12 shadow-xl">
+            <div className="w-16 h-16 rounded-full bg-[#EADFD4] text-[#33251F] flex items-center justify-center mx-auto mb-5">
               <ShoppingBag className="w-8 h-8" />
             </div>
-            <h1 className="text-xl md:text-2xl font-bold tracking-tight text-[#FAF7F2] uppercase mb-2">
+            <h1 className="text-xl md:text-2xl font-bold tracking-tight text-[#33251F] uppercase mb-2">
               Your Bag is Empty
             </h1>
-            <p className="text-xs md:text-sm text-[#C8B8AA] mb-8">
+            <p className="text-xs md:text-sm text-[#6B5549] mb-8">
               Add pieces to your bag before proceeding to checkout.
             </p>
             <Link
               to={ROUTES.SHOP}
-              className="inline-flex items-center justify-center px-8 py-3.5 bg-[#FAF7F2] text-[#1D1410] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#E8DEC8] active:scale-95 transition-all shadow-md"
+              className="inline-flex items-center justify-center px-8 py-3.5 bg-[#4A3A32] text-[#FAF7F2] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#33251F] active:scale-95 transition-all shadow-md"
             >
               Continue Shopping
             </Link>
@@ -96,25 +96,25 @@ export const CheckoutPage = () => {
   }
 
   return (
-    <div className="bg-[#241812] text-[#FAF7F2] py-8 md:py-14 min-h-[75vh]">
+    <div className="bg-[#FAF7F2] text-[#4A3A32] py-8 md:py-14 min-h-[75vh]">
       <Container>
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-[#3E2B21]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-[#E4D7CC]">
           <div>
-            <div className="flex items-center space-x-2 text-xs uppercase tracking-widest text-[#C8B8AA] font-semibold mb-1">
-              <Link to={ROUTES.CART} className="hover:text-[#FAF7F2]">
+            <div className="flex items-center space-x-2 text-xs uppercase tracking-widest text-[#6B5549] font-semibold mb-1">
+              <Link to={ROUTES.CART} className="hover:text-[#33251F]">
                 Shopping Bag
               </Link>
               <span>/</span>
-              <span className="text-[#FAF7F2]">Checkout</span>
+              <span className="text-[#33251F]">Checkout</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#FAF7F2]">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#33251F]">
               Checkout
             </h1>
           </div>
 
-          <div className="flex items-center space-x-2 text-xs text-[#C8B8AA]">
-            <Lock className="w-3.5 h-3.5 text-[#D99E84]" />
+          <div className="flex items-center space-x-2 text-xs text-[#6B5549]">
+            <Lock className="w-3.5 h-3.5 text-[#4A3A32]" />
             <span className="font-medium">Direct Checkout Process</span>
           </div>
         </div>
@@ -123,24 +123,24 @@ export const CheckoutPage = () => {
         <CheckoutStepIndicator currentStep={currentStep} />
 
         {/* Mobile Collapsible Order Summary Bar */}
-        <div className="lg:hidden mb-6 bg-[#2C1E18] border border-[#3E2B21] rounded-2xl overflow-hidden shadow-md">
+        <div className="lg:hidden mb-6 bg-[#FFFFFF] border border-[#E4D7CC] rounded-2xl overflow-hidden shadow-md">
           <button
             type="button"
             onClick={() => setMobileSummaryOpen((prev) => !prev)}
             className="w-full p-4 flex items-center justify-between text-left"
           >
             <div className="flex items-center space-x-2">
-              <ShoppingBag className="w-4 h-4 text-[#FAF7F2]" />
-              <span className="text-xs uppercase tracking-wider font-bold text-[#FAF7F2]">
+              <ShoppingBag className="w-4 h-4 text-[#4A3A32]" />
+              <span className="text-xs uppercase tracking-wider font-bold text-[#33251F]">
                 Order Summary ({cartCount} {cartCount === 1 ? 'item' : 'items'})
               </span>
               {mobileSummaryOpen ? (
-                <ChevronUp className="w-4 h-4 text-[#C8B8AA]" />
+                <ChevronUp className="w-4 h-4 text-[#6B5549]" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-[#C8B8AA]" />
+                <ChevronDown className="w-4 h-4 text-[#6B5549]" />
               )}
             </div>
-            <span className="text-sm font-bold text-[#FAF7F2]">
+            <span className="text-sm font-bold text-[#33251F]">
               {formatCurrency(total || subtotal)}
             </span>
           </button>
@@ -152,7 +152,7 @@ export const CheckoutPage = () => {
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="px-4 pb-4 border-t border-[#3E2B21] pt-3"
+                className="px-4 pb-4 border-t border-[#E4D7CC] pt-3"
               >
                 <CartSummary
                   subtotal={subtotal}

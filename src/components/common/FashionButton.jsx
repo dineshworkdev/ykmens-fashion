@@ -31,32 +31,32 @@ export const FashionButton = ({
   };
 
   const variantStyles = {
-    // Primary High-Contrast Dark on Light
-    dark: 'bg-[#0D0D0D] text-[#F2EFEA] border border-[#0D0D0D] hover:bg-[#200E01]',
+    // Primary High-Contrast Dark on Light (Mocha Brown with Warm Ivory text)
+    dark: 'bg-[#4A3A32] text-[#FAF7F2] border border-[#4A3A32] hover:bg-[#33251F]',
 
-    // Crimson / Burgundy luxury statement
-    crimson: 'bg-[#8B0000] text-[#EDE7C7] border border-[#5B0202] hover:bg-[#5B0202]',
+    // Deep Espresso luxury statement
+    crimson: 'bg-[#33251F] text-[#FAF7F2] border border-[#33251F] hover:bg-[#4A3A32]',
 
-    // Deep Midnight Navy
-    navy: 'bg-[#142F40] text-[#E7DECD] border border-[#142F40] hover:bg-[#200E01]',
+    // Coffee Brown
+    navy: 'bg-[#6B5549] text-[#FAF7F2] border border-[#6B5549] hover:bg-[#33251F]',
 
-    // Olive Deep Accent
-    olive: 'bg-[#393A10] text-[#EDE7C7] border border-[#272401] hover:bg-[#272401]',
+    // Rich Mocha
+    olive: 'bg-[#4A3A32] text-[#FAF7F2] border border-[#4A3A32] hover:bg-[#33251F]',
 
-    // Hairline Outline with Dark Obsidian text
-    outlineDark: 'bg-transparent text-[#0D0D0D] border border-[#0D0D0D] hover:bg-[#0D0D0D] hover:text-[#F2EFEA]',
+    // Hairline Outline with Mocha Brown text
+    outlineDark: 'bg-transparent text-[#4A3A32] border border-[#4A3A32] hover:bg-[#4A3A32] hover:text-[#FAF7F2]',
 
-    // Refined Light Luxury Surface Button
-    lightLuxe: 'bg-[#EDE7C7] text-[#200E01] border border-[#E7DECD] hover:bg-[#E7DECD] shadow-sm',
+    // Refined Pure White Luxury Surface Button with warm beige border
+    lightLuxe: 'bg-[#FFFFFF] text-[#33251F] border border-[#D8C8BA] hover:bg-[#FAF7F2] shadow-sm',
 
     // Soft outline for light cards
-    outlineSoft: 'bg-transparent text-[#200E01] border border-[#200E01]/25 hover:border-[#200E01] hover:bg-[#EDE7C7]/50',
+    outlineSoft: 'bg-transparent text-[#4A3A32] border border-[#C5B3A4] hover:border-[#4A3A32] hover:bg-[#FAF7F2]',
 
-    // Warm Cream Surface Button (for dark background sections)
-    cream: 'bg-[#FAF7F2] text-[#200E01] border border-[#FAF7F2] hover:bg-[#EDE7C7] hover:border-[#EDE7C7] shadow-sm',
+    // Cream Latte Surface Button
+    cream: 'bg-[#EADFD4] text-[#33251F] border border-[#D8C8BA] hover:bg-[#FAF7F2] hover:border-[#4A3A32] shadow-sm',
 
-    // Warm Light Outline (for dark background sections)
-    outlineLight: 'bg-transparent text-[#FAF7F2] border border-[#FAF7F2]/40 hover:border-[#FAF7F2] hover:bg-white/10',
+    // Warm Light Outline
+    outlineLight: 'bg-transparent text-[#33251F] border border-[#D8C8BA] hover:border-[#4A3A32] hover:bg-[#FAF7F2]',
   };
 
   const content = (

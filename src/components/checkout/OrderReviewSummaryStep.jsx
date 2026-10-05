@@ -21,12 +21,12 @@ export const OrderReviewSummaryStep = ({
   goToStep,
 }) => {
   return (
-    <div className="bg-[#2C1E18] border border-[#3E2B21] rounded-2xl p-6 sm:p-8 space-y-7 text-[#FAF7F2]">
-      <div className="pb-4 border-b border-[#3E2B21]">
-        <h2 className="text-sm uppercase tracking-widest font-bold text-[#FAF7F2]">
+    <div className="bg-[#FFFFFF] border border-[#E4D7CC] rounded-2xl p-6 sm:p-8 space-y-7 text-[#4A3A32]">
+      <div className="pb-4 border-b border-[#E4D7CC]">
+        <h2 className="text-sm uppercase tracking-widest font-bold text-[#33251F]">
           Order Summary & Details
         </h2>
-        <p className="text-xs text-[#C8B8AA] mt-0.5">
+        <p className="text-xs text-[#6B5549] mt-0.5">
           Please verify your items, contact information, and shipping address before proceeding.
         </p>
       </div>
@@ -34,54 +34,54 @@ export const OrderReviewSummaryStep = ({
       {/* Customer & Shipping Details Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Customer Information Card */}
-        <div className="p-5 bg-[#341F17] border border-[#3E2B21] rounded-xl flex flex-col justify-between">
+        <div className="p-5 bg-[#FAF7F2] border border-[#E4D7CC] rounded-xl flex flex-col justify-between">
           <div>
             <div className="flex justify-between items-center mb-3">
-              <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#FAF7F2]">
-                <User className="w-3.5 h-3.5 text-[#D99E84]" />
+              <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#33251F]">
+                <User className="w-3.5 h-3.5 text-[#4A3A32]" />
                 <span>Customer</span>
               </div>
               <button
                 type="button"
                 onClick={() => goToStep(CHECKOUT_STEPS.CUSTOMER)}
-                className="inline-flex items-center space-x-1 text-[11px] uppercase tracking-wider font-semibold text-[#D99E84] hover:text-[#FAF7F2] transition-colors"
+                className="inline-flex items-center space-x-1 text-[11px] uppercase tracking-wider font-semibold text-[#4A3A32] hover:text-[#33251F] transition-colors"
               >
                 <Edit2 className="w-3 h-3" />
                 <span>Edit</span>
               </button>
             </div>
-            <div className="text-xs space-y-1 text-[#FAF7F2]">
+            <div className="text-xs space-y-1 text-[#33251F]">
               <p className="font-semibold">{customer.firstName} {customer.lastName}</p>
-              <p className="text-[#C8B8AA]">{customer.email}</p>
-              <p className="text-[#C8B8AA]">{customer.phone}</p>
+              <p className="text-[#6B5549]">{customer.email}</p>
+              <p className="text-[#6B5549]">{customer.phone}</p>
             </div>
           </div>
         </div>
 
         {/* Shipping Destination Card */}
-        <div className="p-5 bg-[#341F17] border border-[#3E2B21] rounded-xl flex flex-col justify-between">
+        <div className="p-5 bg-[#FAF7F2] border border-[#E4D7CC] rounded-xl flex flex-col justify-between">
           <div>
             <div className="flex justify-between items-center mb-3">
-              <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#FAF7F2]">
-                <MapPin className="w-3.5 h-3.5 text-[#D99E84]" />
+              <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#33251F]">
+                <MapPin className="w-3.5 h-3.5 text-[#4A3A32]" />
                 <span>Shipping Address</span>
               </div>
               <button
                 type="button"
                 onClick={() => goToStep(CHECKOUT_STEPS.SHIPPING)}
-                className="inline-flex items-center space-x-1 text-[11px] uppercase tracking-wider font-semibold text-[#D99E84] hover:text-[#FAF7F2] transition-colors"
+                className="inline-flex items-center space-x-1 text-[11px] uppercase tracking-wider font-semibold text-[#4A3A32] hover:text-[#33251F] transition-colors"
               >
                 <Edit2 className="w-3 h-3" />
                 <span>Edit</span>
               </button>
             </div>
-            <div className="text-xs space-y-1 text-[#FAF7F2]">
+            <div className="text-xs space-y-1 text-[#33251F]">
               <p className="font-semibold">{shipping.addressLine1}</p>
-              {shipping.addressLine2 && <p className="text-[#C8B8AA]">{shipping.addressLine2}</p>}
-              <p className="text-[#C8B8AA]">
+              {shipping.addressLine2 && <p className="text-[#6B5549]">{shipping.addressLine2}</p>}
+              <p className="text-[#6B5549]">
                 {shipping.city}, {shipping.state} - {shipping.postalCode}
               </p>
-              <p className="text-[#C8B8AA]">{shipping.country}</p>
+              <p className="text-[#6B5549]">{shipping.country}</p>
             </div>
           </div>
         </div>
@@ -89,21 +89,21 @@ export const OrderReviewSummaryStep = ({
 
       {/* Products Review */}
       <div>
-        <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#3E2B21]">
-          <h3 className="text-xs uppercase tracking-widest font-bold text-[#FAF7F2]">
+        <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#E4D7CC]">
+          <h3 className="text-xs uppercase tracking-widest font-bold text-[#33251F]">
             Selected Products ({items.length})
           </h3>
           <button
             type="button"
             onClick={() => goToStep(CHECKOUT_STEPS.REVIEW)}
-            className="inline-flex items-center space-x-1 text-[11px] uppercase tracking-wider font-semibold text-[#D99E84] hover:text-[#FAF7F2] transition-colors"
+            className="inline-flex items-center space-x-1 text-[11px] uppercase tracking-wider font-semibold text-[#4A3A32] hover:text-[#33251F] transition-colors"
           >
             <Edit2 className="w-3 h-3" />
             <span>Edit Quantities</span>
           </button>
         </div>
 
-        <div className="divide-y divide-[#3E2B21]">
+        <div className="divide-y divide-[#E4D7CC]">
           {items.map((item) => (
             <CartItem
               key={item.itemKey}
@@ -116,33 +116,33 @@ export const OrderReviewSummaryStep = ({
       </div>
 
       {/* Financial Breakdown */}
-      <div className="pt-4 border-t border-[#3E2B21] space-y-2.5 text-xs">
-        <div className="flex justify-between items-center text-[#C8B8AA]">
+      <div className="pt-4 border-t border-[#E4D7CC] space-y-2.5 text-xs">
+        <div className="flex justify-between items-center text-[#6B5549]">
           <span>Subtotal</span>
-          <span className="font-semibold text-[#FAF7F2]">{formatCurrency(subtotal)}</span>
+          <span className="font-semibold text-[#33251F]">{formatCurrency(subtotal)}</span>
         </div>
-        <div className="flex justify-between items-center text-[#C8B8AA]">
+        <div className="flex justify-between items-center text-[#6B5549]">
           <span>Shipping</span>
-          <span className="font-medium text-[#D99E84]">
+          <span className="font-medium text-[#4A3A32]">
             {shippingCost === 0 ? 'Complimentary' : formatCurrency(shippingCost)}
           </span>
         </div>
-        <div className="flex justify-between items-baseline pt-3 border-t border-[#3E2B21]">
-          <span className="text-xs uppercase tracking-wider font-bold text-[#FAF7F2]">
+        <div className="flex justify-between items-baseline pt-3 border-t border-[#E4D7CC]">
+          <span className="text-xs uppercase tracking-wider font-bold text-[#33251F]">
             Total Amount
           </span>
-          <span className="text-xl font-bold text-[#FAF7F2]">
+          <span className="text-xl font-bold text-[#33251F]">
             {formatCurrency(total || subtotal)}
           </span>
         </div>
       </div>
 
       {/* Actions */}
-      <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#3E2B21]">
+      <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#E4D7CC]">
         <button
           type="button"
           onClick={onPrev}
-          className="w-full sm:w-auto px-6 py-3 rounded-xl border border-[#3E2B21] text-[#FAF7F2] hover:bg-[#3E2B21] text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center space-x-2"
+          className="w-full sm:w-auto px-6 py-3 rounded-xl border border-[#D8C8BA] text-[#33251F] hover:bg-[#FAF7F2] text-xs uppercase tracking-wider font-semibold transition-colors flex items-center justify-center space-x-2"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Shipping</span>
@@ -151,7 +151,7 @@ export const OrderReviewSummaryStep = ({
         <button
           type="button"
           onClick={onNext}
-          className="w-full sm:w-auto px-8 py-3.5 bg-[#FAF7F2] text-[#1D1410] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#E8DEC8] active:scale-95 transition-all flex items-center justify-center space-x-2 shadow-md"
+          className="w-full sm:w-auto px-8 py-3.5 bg-[#4A3A32] text-[#FAF7F2] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#33251F] active:scale-95 transition-all flex items-center justify-center space-x-2 shadow-md"
         >
           <span>Continue to Payment</span>
           <ArrowRight className="w-4 h-4" />

@@ -36,15 +36,15 @@ export const WishlistPage = () => {
   };
 
   return (
-    <div className="bg-[#241812] text-[#FAF7F2] min-h-[80vh] py-10 sm:py-16">
+    <div className="bg-[#FAF7F2] text-[#4A3A32] min-h-[80vh] py-10 sm:py-16">
       <Container>
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-6 mb-10 border-b border-[#3E2B21] gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-6 mb-10 border-b border-[#E4D7CC] gap-4">
           <div>
-            <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block mb-1">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#8B7768] font-bold block mb-1">
               Personal Curation
             </span>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#FAF7F2]">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#33251F]">
               Saved Wishlist ({wishlistItems.length})
             </h1>
           </div>
@@ -54,13 +54,13 @@ export const WishlistPage = () => {
               <button
                 type="button"
                 onClick={clearWishlist}
-                className="text-xs uppercase tracking-wider font-semibold text-[#C8B8AA] hover:text-[#A6445D] transition-colors"
+                className="text-xs uppercase tracking-wider font-semibold text-[#8B7768] hover:text-[#33251F] transition-colors"
               >
                 Clear All Pieces
               </button>
               <Link
                 to={ROUTES.SHOP}
-                className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-wider font-bold text-[#FAF7F2] hover:text-[#D99E84] transition-colors"
+                className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-wider font-bold text-[#4A3A32] hover:text-[#33251F] transition-colors"
               >
                 <span>Continue Shopping</span>
                 <AnimatedArrowRight className="w-3.5 h-3.5" />
@@ -79,23 +79,23 @@ export const WishlistPage = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.3 }}
-              className="py-16 sm:py-24 text-center bg-[#2C1E18] rounded-3xl border border-[#3E2B21] p-8 sm:p-12 max-w-lg mx-auto shadow-xl"
+              className="py-16 sm:py-24 text-center bg-[#FFFFFF] rounded-3xl border border-[#E4D7CC] p-8 sm:p-12 max-w-lg mx-auto shadow-xl"
             >
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#3E2B21] flex items-center justify-center text-[#FAF7F2]">
-                <AnimatedHeartIcon isFavorited={false} className="w-6 h-6 text-[#FAF7F2]" />
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#EADFD4] flex items-center justify-center text-[#33251F]">
+                <AnimatedHeartIcon isFavorited={false} className="w-6 h-6 text-[#33251F]" />
               </div>
 
-              <h2 className="font-serif text-2xl font-bold text-[#FAF7F2] mb-2">
+              <h2 className="font-serif text-2xl font-bold text-[#33251F] mb-2">
                 YOUR WISHLIST IS EMPTY
               </h2>
 
-              <p className="text-xs sm:text-sm text-[#C8B8AA] leading-relaxed max-w-sm mx-auto mb-8">
+              <p className="text-xs sm:text-sm text-[#6B5549] leading-relaxed max-w-sm mx-auto mb-8">
                 Save pieces you want to come back to as you explore our menswear collections and new arrivals.
               </p>
 
               <FashionButton
                 to={ROUTES.SHOP}
-                variant="cream"
+                variant="dark"
                 size="lg"
               >
                 Explore Shop

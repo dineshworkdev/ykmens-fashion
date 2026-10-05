@@ -77,23 +77,23 @@ export const LookbookPage = () => {
   ];
 
   return (
-    <div className="py-10 md:py-16 space-y-16 md:space-y-24">
+    <div className="bg-[#FAF7F2] text-[#4A3A32] py-10 md:py-16 space-y-16 md:space-y-24">
       {/* Header */}
       <Container>
-        <div className="pb-8 border-b border-[#DFE5F3]">
-          <div className="flex items-center space-x-2 text-xs uppercase tracking-widest text-[#557373] font-semibold mb-2">
-            <Link to={ROUTES.HOME} className="hover:text-[#0D0D0D]">
+        <div className="pb-8 border-b border-[#E4D7CC]">
+          <div className="flex items-center space-x-2 text-xs uppercase tracking-widest text-[#6B5549] font-semibold mb-2">
+            <Link to={ROUTES.HOME} className="hover:text-[#33251F]">
               Home
             </Link>
             <span>/</span>
-            <span className="text-[#0D0D0D]">Lookbook</span>
+            <span className="text-[#33251F]">Lookbook</span>
           </div>
 
           <div className="max-w-2xl">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0D0D0D]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#33251F]">
               Visual Lookbook
             </h1>
-            <p className="text-sm sm:text-base text-[#557373] mt-3 leading-relaxed">
+            <p className="text-sm sm:text-base text-[#6B5549] mt-3 leading-relaxed">
               Curated menswear pairings and proportions. Explore how tailored cuts, tactile knitwear, and structured outerwear come together.
             </p>
           </div>
@@ -128,7 +128,7 @@ export const LookbookPage = () => {
                       whileInView={{ clipPath: 'inset(0% 0% 0% 0% round 1.5rem)', opacity: 1 }}
                       viewport={{ once: true, margin: '-40px' }}
                       transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-                      className={`${look.aspectRatio} bg-[#E7DECD] rounded-3xl overflow-hidden shadow-lg border border-[#DFE5F3] relative group`}
+                      className={`${look.aspectRatio} bg-[#FFFFFF] rounded-3xl overflow-hidden shadow-lg border border-[#E4D7CC] relative group`}
                     >
                       <img
                         src={look.primaryImage}
@@ -136,10 +136,10 @@ export const LookbookPage = () => {
                         className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D]/40 via-transparent to-transparent pointer-events-none opacity-60 group-hover:opacity-80 transition-opacity" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#33251F]/30 via-transparent to-transparent pointer-events-none opacity-50 group-hover:opacity-70 transition-opacity" />
 
                       {/* Floating Badge */}
-                      <div className="absolute top-4 left-4 bg-[#F2EFEA]/90 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider text-[#0D0D0D] border border-[#DFE5F3]">
+                      <div className="absolute top-4 left-4 bg-[#FAF7F2]/90 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider text-[#4A3A32] border border-[#E4D7CC]">
                         {look.number}
                       </div>
                     </motion.div>
@@ -152,7 +152,7 @@ export const LookbookPage = () => {
                       transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
                       className={`hidden sm:block absolute -bottom-8 ${
                         isEven ? '-right-6' : '-left-6'
-                      } w-44 lg:w-48 aspect-[3/4] bg-[#F2EFEA] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl border-2 border-[#F2EFEA] z-10 group/card transition-all duration-500 hover:-translate-y-2`}
+                      } w-44 lg:w-48 aspect-[3/4] bg-[#FFFFFF] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl border-2 border-[#FFFFFF] z-10 group/card transition-all duration-500 hover:-translate-y-2`}
                     >
                       <img
                         src={look.detailImage}
@@ -160,8 +160,8 @@ export const LookbookPage = () => {
                         className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-700 ease-out"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-[#0D0D0D]/20 group-hover/card:bg-transparent transition-colors" />
-                      <div className="absolute bottom-2.5 left-2.5 right-2.5 bg-[#0D0D0D]/80 backdrop-blur-sm text-[#F2EFEA] text-[9px] uppercase tracking-wider font-semibold py-1 px-2 rounded-md text-center">
+                      <div className="absolute inset-0 bg-[#33251F]/15 group-hover/card:bg-transparent transition-colors" />
+                      <div className="absolute bottom-2.5 left-2.5 right-2.5 bg-[#33251F]/85 backdrop-blur-sm text-[#FAF7F2] text-[9px] uppercase tracking-wider font-semibold py-1 px-2 rounded-md text-center">
                         Fabric & Cut
                       </div>
                     </motion.div>
@@ -175,20 +175,20 @@ export const LookbookPage = () => {
                   }`}
                 >
                   <div className="space-y-2">
-                    <span className="text-xs uppercase tracking-widest text-[#8B0000] font-bold block">
+                    <span className="text-xs uppercase tracking-widest text-[#8B7768] font-bold block">
                       {look.number} • {look.collectionName}
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0D0D0D]">
+                    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#33251F]">
                       {look.title}
                     </h2>
-                    <p className="text-xs sm:text-sm text-[#557373] leading-relaxed pt-1">
+                    <p className="text-xs sm:text-sm text-[#6B5549] leading-relaxed pt-1">
                       {look.subtitle}
                     </p>
                   </div>
 
                   {/* Featured Pieces in This Look */}
-                  <div className="bg-[#F2EFEA] border border-[#DFE5F3] rounded-2xl p-5 space-y-3">
-                    <span className="text-[11px] uppercase tracking-wider font-bold text-[#0D0D0D] block pb-2 border-b border-[#DFE5F3]">
+                  <div className="bg-[#FFFFFF] border border-[#E4D7CC] rounded-2xl p-5 space-y-3 shadow-xs">
+                    <span className="text-[11px] uppercase tracking-wider font-bold text-[#33251F] block pb-2 border-b border-[#E4D7CC]">
                       Featured Pieces
                     </span>
                     <div className="space-y-2.5">
@@ -198,16 +198,16 @@ export const LookbookPage = () => {
                           className="flex items-center justify-between text-xs group"
                         >
                           <div>
-                            <span className="text-[10px] uppercase tracking-wider text-[#557373] block">
+                            <span className="text-[10px] uppercase tracking-wider text-[#8B7768] block">
                               {piece.category}
                             </span>
-                            <span className="font-semibold text-[#0D0D0D] group-hover:text-[#8B0000] transition-colors">
+                            <span className="font-semibold text-[#33251F] group-hover:text-[#4A3A32] transition-colors">
                               {piece.name}
                             </span>
                           </div>
                           <Link
                             to={`/product/${piece.slug}`}
-                            className="inline-flex items-center space-x-1 text-[11px] font-semibold text-[#142F40] hover:text-[#0D0D0D] p-1 transition-colors"
+                            className="inline-flex items-center space-x-1 text-[11px] font-semibold text-[#4A3A32] hover:text-[#33251F] p-1 transition-colors"
                           >
                             <span>Inspect</span>
                             <Eye className="w-3.5 h-3.5" />
@@ -221,7 +221,7 @@ export const LookbookPage = () => {
                   <div className="pt-2 flex flex-wrap gap-3">
                     <Link
                       to={`/collection/${look.collectionSlug}`}
-                      className="inline-flex items-center space-x-2 px-6 py-3 bg-[#0D0D0D] text-[#F2EFEA] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#272401] active:scale-95 transition-all shadow-md"
+                      className="inline-flex items-center space-x-2 px-6 py-3 bg-[#4A3A32] text-[#FAF7F2] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#33251F] active:scale-95 transition-all shadow-md"
                     >
                       <span>Explore Collection</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -229,7 +229,7 @@ export const LookbookPage = () => {
 
                     <Link
                       to={ROUTES.SHOP}
-                      className="inline-flex items-center space-x-1.5 px-5 py-3 border border-[#DFE5F3] text-[#0D0D0D] text-xs uppercase tracking-wider font-semibold rounded-xl hover:bg-[#DFE5F3] transition-colors"
+                      className="inline-flex items-center space-x-1.5 px-5 py-3 border border-[#D8C8BA] bg-[#FFFFFF] text-[#4A3A32] text-xs uppercase tracking-wider font-semibold rounded-xl hover:bg-[#FAF7F2] transition-colors"
                     >
                       <ShoppingBag className="w-3.5 h-3.5" />
                       <span>Shop The Look</span>
@@ -245,26 +245,26 @@ export const LookbookPage = () => {
       {/* Bottom Exploration Banner */}
       <section>
         <Container>
-          <div className="bg-[#EDE7C7]/60 border border-[#DFE5F3] rounded-3xl p-8 sm:p-12 text-center space-y-5 shadow-sm">
-            <span className="text-xs uppercase tracking-widest text-[#272401] font-bold block">
+          <div className="bg-[#EADFD4] border border-[#D8C8BA] rounded-3xl p-8 sm:p-12 text-center space-y-5 shadow-sm">
+            <span className="text-xs uppercase tracking-widest text-[#8B7768] font-bold block">
               Complete Wardrobe
             </span>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0D0D0D] max-w-xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#33251F] max-w-xl mx-auto">
               Want to see all available menswear pieces?
             </h2>
-            <p className="text-xs sm:text-sm text-[#393A10] max-w-md mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#6B5549] max-w-md mx-auto leading-relaxed">
               Browse our full catalog with interactive filters for size, category, color, and availability.
             </p>
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 to={ROUTES.SHOP}
-                className="w-full sm:w-auto px-8 py-3.5 bg-[#0D0D0D] text-[#F2EFEA] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#272401] active:scale-95 transition-all shadow-md"
+                className="w-full sm:w-auto px-8 py-3.5 bg-[#4A3A32] text-[#FAF7F2] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#33251F] active:scale-95 transition-all shadow-md"
               >
                 Browse Shop Catalog
               </Link>
               <Link
                 to={ROUTES.COLLECTIONS}
-                className="w-full sm:w-auto px-8 py-3.5 border border-[#0D0D0D] text-[#0D0D0D] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#DFE5F3] transition-colors"
+                className="w-full sm:w-auto px-8 py-3.5 border border-[#4A3A32] text-[#4A3A32] text-xs uppercase tracking-widest font-bold rounded-xl hover:bg-[#4A3A32] hover:text-[#FAF7F2] transition-colors"
               >
                 View All Collections
               </Link>

@@ -12,8 +12,8 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background-color: #221712;
-    color: #FAF7F2;
+    background-color: #FAF7F2;
+    color: #4A3A32;
   }
 
   body {
@@ -27,8 +27,8 @@
   }
 
   ::selection {
-    background-color: #A6445D;
-    color: #FAF7F2;
+    background-color: #EADFD4;
+    color: #33251F;
   }
 }
 

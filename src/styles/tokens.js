@@ -1,164 +1,137 @@
 /**
  * YK MENS FASHION - Master Color Library & Design Tokens
  * 
- * STRICT APPROVED PALETTES:
+ * MASTER PALETTE FAMILY:
+ * #FAF7F2 — Warm Ivory
+ * #F5EFE8 — Soft Warm Cream
+ * #EADFD4 — Cream Latte
+ * #E4D7CC — Light Beige
+ * #D8C8BA — Muted Beige
+ * #C5B3A4 — Warm Taupe
+ * #B09C8D — Soft Taupe
+ * #8B7768 — Muted Mocha
+ * #6B5549 — Coffee Brown
+ * #4A3A32 — Mocha Brown
+ * #33251F — Deep Espresso
+ * #FFFFFF — Pure White
  * 
- * 1. ORIGINAL COLORS:
- *    #DFE5F3, #557373, #272401, #F2EFEA, #0D0D0D
- * 
- * 2. DEEP COLOR PALETTE:
- *    #A6445D, #142F40, #62929E, #393A10, #E7DECD
- * 
- * 3. GOLDEN LUXE PALETTE:
- *    #EDE7C7, #8B0000, #5B0202, #200E01
+ * HIERARCHY:
+ * LIGHT COLORS DOMINATE (Backgrounds, Section surfaces, Cards)
+ * RICH MOCHA / ESPRESSO BROWNS PROVIDE CONTRAST & STRUCTURE (Typography, Buttons, Active States)
  */
 
 export const MASTER_COLORS = Object.freeze({
-  // Original
-  ICE: '#DFE5F3',
-  SLATE: '#557373',
-  OLIVE: '#272401',
-  SAND: '#F2EFEA',
-  DARK: '#0D0D0D',
+  // Light Backgrounds & Surfaces
+  WARM_IVORY: '#FAF7F2',
+  WARM_CREAM: '#F5EFE8',
+  CREAM_LATTE: '#EADFD4',
+  LIGHT_BEIGE: '#E4D7CC',
+  MUTED_BEIGE: '#D8C8BA',
+  PURE_WHITE: '#FFFFFF',
 
-  // Deep Palette
-  VELVET_ROSE: '#A6445D',
-  MIDNIGHT_NAVY: '#142F40',
-  SEA_GLASS: '#62929E',
-  ARMY_OLIVE: '#393A10',
-  PARCHMENT: '#E7DECD',
+  // Warm Taupe & Intermediate Accents
+  WARM_TAUPE: '#C5B3A4',
+  SOFT_TAUPE: '#B09C8D',
+  MUTED_MOCHA: '#8B7768',
 
-  // Golden Luxe Palette
-  CHALK_CREAM: '#EDE7C7',
-  CRIMSON: '#8B0000',
-  BURGUNDY: '#5B0202',
-  ESPRESSO: '#200E01',
+  // Rich Dark Browns (Typography, Structure, Primary Buttons)
+  COFFEE_BROWN: '#6B5549',
+  MOCHA_BROWN: '#4A3A32',
+  DEEP_ESPRESSO: '#33251F',
 
-  // Dark Editorial Experiment Palette (Rich, Deep, Warm, Masculine, Non-black)
-  DARK_ESPRESSO: '#231711',     // Floating Navbar & base shell
-  DARK_WARM_BROWN: '#2C1E18',   // Hero Section
-  DARK_MUTED_OLIVE: '#202920',  // Featured Categories Curved
-  DARK_MUTED_TEAL: '#183038',   // Seasonal Showcase Donut Carousel
-  DARK_BURGUNDY: '#34151C',     // Closing Brand CTA
-  DARK_CHARCOAL_BROWN: '#1D1410', // Deepest Footer
-  WARM_CREAM: '#FAF7F2',        // Primary headings, light contrast cards
-  SOFT_BEIGE: '#E8DEC8',        // Secondary titles, italic highlights
-  MUTED_TAUPE: '#C8B8AA',       // Supporting text & borders
-  LIGHT_TAUPE: '#D4C5B6',       // Secondary navigation & labels
+  // Core & Backwards Compatibility Aliases
+  MOCHA: '#4A3A32',
+  LATTE: '#EADFD4',
+  WHITE: '#FFFFFF',
+  DEEP_MOCHA: '#33251F',
+  SURFACE_MOCHA: '#6B5549',
+  BORDER_MOCHA: '#D8C8BA',
+  CREAM_TAUPE: '#B09C8D',
+  SAND_TAUPE: '#C5B3A4',
+  LATTE_BORDER: '#E4D7CC',
+  CREAM_WHITE: '#FAF7F2',
+  WARM_FOAM: '#FAF7F2',
+
+  ICE: '#EADFD4',
+  SLATE: '#8B7768',
+  OLIVE: '#4A3A32',
+  SAND: '#FAF7F2',
+  DARK: '#4A3A32',
+  VELVET_ROSE: '#EADFD4',
+  MIDNIGHT_NAVY: '#33251F',
+  SEA_GLASS: '#E4D7CC',
+  ARMY_OLIVE: '#4A3A32',
+  PARCHMENT: '#E4D7CC',
+  CHALK_CREAM: '#F5EFE8',
+  CRIMSON: '#4A3A32',
+  BURGUNDY: '#33251F',
+  ESPRESSO: '#33251F',
+  DARK_ESPRESSO: '#33251F',
+  DARK_WARM_BROWN: '#4A3A32',
+  DARK_MUTED_OLIVE: '#33251F',
+  DARK_MUTED_TEAL: '#4A3A32',
+  DARK_BURGUNDY: '#33251F',
+  DARK_CHARCOAL_BROWN: '#33251F',
+  SOFT_BEIGE: '#E4D7CC',
+  MUTED_TAUPE: '#B09C8D',
+  LIGHT_TAUPE: '#E4D7CC',
 });
 
-// Dark Editorial Theme Chapters for Rich Color Rhythm
+// Editorial Theme Chapters (Light-First Hierarchy)
 export const DARK_COLOR_CHAPTERS = Object.freeze({
-  // Chapter 1: Hero — Rich Warm Brown / Deep Taupe
   hero: {
-    bg: MASTER_COLORS.DARK_WARM_BROWN,
-    border: '#3E2A21',
-    heading: MASTER_COLORS.WARM_CREAM,
-    headingItalic: MASTER_COLORS.SOFT_BEIGE,
-    text: MASTER_COLORS.MUTED_TAUPE,
-    accent: MASTER_COLORS.VELVET_ROSE,
-    surfaceCard: MASTER_COLORS.WARM_CREAM,
-    surfaceCardText: MASTER_COLORS.ESPRESSO,
+    bg: MASTER_COLORS.WARM_IVORY,
+    border: MASTER_COLORS.LIGHT_BEIGE,
+    heading: MASTER_COLORS.DEEP_ESPRESSO,
+    headingItalic: MASTER_COLORS.COFFEE_BROWN,
+    text: MASTER_COLORS.MOCHA_BROWN,
+    accent: MASTER_COLORS.MOCHA_BROWN,
+    surfaceCard: MASTER_COLORS.PURE_WHITE,
+    surfaceCardText: MASTER_COLORS.DEEP_ESPRESSO,
   },
-
-  // Chapter 2: Featured Categories — Deep Muted Olive / Forest Tone
   categories: {
-    bg: MASTER_COLORS.DARK_MUTED_OLIVE,
-    border: '#2E3A2E',
-    heading: MASTER_COLORS.WARM_CREAM,
-    text: MASTER_COLORS.MUTED_TAUPE,
-    accent: '#D99E84',
-    cardBg: MASTER_COLORS.WARM_CREAM,
-    cardBorder: '#E2D7C8',
-    cardText: '#182018',
+    bg: MASTER_COLORS.CREAM_LATTE,
+    border: MASTER_COLORS.MUTED_BEIGE,
+    heading: MASTER_COLORS.DEEP_ESPRESSO,
+    text: MASTER_COLORS.MOCHA_BROWN,
+    accent: MASTER_COLORS.COFFEE_BROWN,
+    cardBg: MASTER_COLORS.PURE_WHITE,
+    cardBorder: MASTER_COLORS.MUTED_BEIGE,
+    cardText: MASTER_COLORS.DEEP_ESPRESSO,
   },
-
-  // Chapter 3: Seasonal Showcase — Deep Muted Teal
   showcase: {
-    bg: MASTER_COLORS.DARK_MUTED_TEAL,
-    border: '#22444E',
-    heading: MASTER_COLORS.WARM_CREAM,
-    text: MASTER_COLORS.MUTED_TAUPE,
-    accent: '#D99E84',
-    controlBg: '#23454F',
-    controlBorder: '#366674',
+    bg: MASTER_COLORS.WARM_CREAM,
+    border: MASTER_COLORS.LIGHT_BEIGE,
+    heading: MASTER_COLORS.DEEP_ESPRESSO,
+    text: MASTER_COLORS.MOCHA_BROWN,
+    accent: MASTER_COLORS.MOCHA_BROWN,
+    controlBg: MASTER_COLORS.PURE_WHITE,
+    controlBorder: MASTER_COLORS.MUTED_BEIGE,
   },
-
-  // Chapter 4: Closing Brand CTA — Rich Burgundy / Warm Wine
   cta: {
-    bg: MASTER_COLORS.DARK_BURGUNDY,
-    border: '#4A1E28',
-    heading: MASTER_COLORS.WARM_CREAM,
-    text: '#D4BFC4',
-    accent: '#D99E84',
+    bg: MASTER_COLORS.CREAM_LATTE,
+    border: MASTER_COLORS.MUTED_BEIGE,
+    heading: MASTER_COLORS.DEEP_ESPRESSO,
+    text: MASTER_COLORS.MOCHA_BROWN,
+    accent: MASTER_COLORS.MOCHA_BROWN,
   },
-
-  // Chapter 5: Footer — Deepest Warm Brown / Charcoal
   footer: {
-    bg: MASTER_COLORS.DARK_CHARCOAL_BROWN,
-    border: '#2C1E18',
-    heading: MASTER_COLORS.WARM_CREAM,
-    text: MASTER_COLORS.MUTED_TAUPE,
-    accent: MASTER_COLORS.VELVET_ROSE,
+    bg: MASTER_COLORS.CREAM_LATTE,
+    border: MASTER_COLORS.MUTED_BEIGE,
+    heading: MASTER_COLORS.DEEP_ESPRESSO,
+    text: MASTER_COLORS.COFFEE_BROWN,
+    accent: MASTER_COLORS.MOCHA_BROWN,
   },
 });
 
-// Light-first chapter color themes for visual storytelling (preserved for fallback)
 export const COLOR_CHAPTERS = Object.freeze({
-  // Chapter 1: Pale Sand & Deep Espresso / Crimson Accents
   heroLight: {
-    bg: MASTER_COLORS.SAND,
-    surface: MASTER_COLORS.CHALK_CREAM,
-    text: MASTER_COLORS.ESPRESSO,
-    heading: MASTER_COLORS.DARK,
-    accent: MASTER_COLORS.CRIMSON,
-    muted: MASTER_COLORS.SLATE,
-    border: '#E7DECD',
-  },
-
-  // Chapter 2: Warm Parchment & Deep Olive / Berry Accents
-  warmParchment: {
-    bg: MASTER_COLORS.PARCHMENT,
-    surface: MASTER_COLORS.SAND,
-    text: MASTER_COLORS.ARMY_OLIVE,
-    heading: MASTER_COLORS.OLIVE,
-    accent: MASTER_COLORS.VELVET_ROSE,
-    muted: MASTER_COLORS.SLATE,
-    border: '#DFE5F3',
-  },
-
-  // Chapter 3: Golden Luxe Cream & Deep Midnight Navy / Sea Glass Accents
-  goldenCream: {
-    bg: MASTER_COLORS.CHALK_CREAM,
-    surface: MASTER_COLORS.SAND,
-    text: MASTER_COLORS.MIDNIGHT_NAVY,
-    heading: MASTER_COLORS.ESPRESSO,
-    accent: MASTER_COLORS.SEA_GLASS,
-    muted: MASTER_COLORS.SLATE,
-    border: 'rgba(32, 14, 1, 0.1)',
-  },
-
-  // Chapter 4: Ice Blue & Obsidian / Slate Accents
-  iceMinimal: {
-    bg: MASTER_COLORS.ICE,
-    surface: MASTER_COLORS.SAND,
-    text: MASTER_COLORS.DARK,
-    heading: MASTER_COLORS.DARK,
-    accent: MASTER_COLORS.SLATE,
-    muted: MASTER_COLORS.SLATE,
-    border: 'rgba(85, 115, 115, 0.2)',
-  },
-
-  // Chapter 5: Soft Sea Glass Wash & Burgundy Details
-  seaGlassAir: {
-    bg: MASTER_COLORS.SAND,
-    surface: MASTER_COLORS.PARCHMENT,
-    text: MASTER_COLORS.DARK,
-    heading: MASTER_COLORS.BURGUNDY,
-    accent: MASTER_COLORS.CRIMSON,
-    muted: MASTER_COLORS.SLATE,
-    border: '#E7DECD',
+    bg: MASTER_COLORS.WARM_IVORY,
+    surface: MASTER_COLORS.PURE_WHITE,
+    text: MASTER_COLORS.MOCHA_BROWN,
+    heading: MASTER_COLORS.DEEP_ESPRESSO,
+    accent: MASTER_COLORS.MOCHA_BROWN,
+    muted: MASTER_COLORS.MUTED_MOCHA,
+    border: MASTER_COLORS.LIGHT_BEIGE,
   },
 });
-
-

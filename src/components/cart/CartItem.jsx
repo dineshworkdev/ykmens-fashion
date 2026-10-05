@@ -31,7 +31,7 @@ export const CartItem = ({
       {/* Thumbnail */}
       <Link
         to={item.slug ? `/product/${item.slug}` : '#'}
-        className={`relative flex-shrink-0 bg-[#241812] overflow-hidden rounded-xl border border-[#3E2B21] group ${
+        className={`relative flex-shrink-0 bg-[#FAF7F2] overflow-hidden rounded-xl border border-[#E4D7CC] group ${
           compact ? 'w-16 h-20' : 'w-20 h-24 sm:w-24 sm:h-28'
         }`}
       >
@@ -43,7 +43,7 @@ export const CartItem = ({
             loading="lazy"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-[10px] text-[#C8B8AA]">
+          <div className="w-full h-full flex items-center justify-center text-[10px] text-[#8B7768]">
             YK
           </div>
         )}
@@ -55,7 +55,7 @@ export const CartItem = ({
           <div className="flex justify-between items-start gap-2">
             <Link
               to={item.slug ? `/product/${item.slug}` : '#'}
-              className="font-medium text-[#FAF7F2] hover:text-[#D99E84] transition-colors text-sm line-clamp-1"
+              className="font-medium text-[#33251F] hover:text-[#4A3A32] transition-colors text-sm line-clamp-1"
             >
               {item.name}
             </Link>
@@ -64,7 +64,7 @@ export const CartItem = ({
                 type="button"
                 onClick={() => onRemove(item.itemKey)}
                 aria-label={`Remove ${item.name} from bag`}
-                className="text-[#C8B8AA] hover:text-[#A6445D] p-1 rounded-lg transition-colors flex-shrink-0"
+                className="text-[#8B7768] hover:text-[#33251F] p-1 rounded-lg transition-colors flex-shrink-0"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -72,12 +72,12 @@ export const CartItem = ({
           </div>
 
           {/* Variants */}
-          <div className="flex items-center gap-2 mt-1 text-xs text-[#C8B8AA]">
-            <span className="bg-[#33221A] border border-[#443024] px-2 py-0.5 rounded-md font-medium text-[#FAF7F2]">
+          <div className="flex items-center gap-2 mt-1 text-xs text-[#6B5549]">
+            <span className="bg-[#FAF7F2] border border-[#D8C8BA] px-2 py-0.5 rounded-md font-medium text-[#4A3A32]">
               Size: {item.variant?.size || 'Standard'}
             </span>
             {item.variant?.color && (
-              <span className="bg-[#33221A] border border-[#443024] px-2 py-0.5 rounded-md font-medium text-[#FAF7F2]">
+              <span className="bg-[#FAF7F2] border border-[#D8C8BA] px-2 py-0.5 rounded-md font-medium text-[#4A3A32]">
                 {item.variant.color}
               </span>
             )}
@@ -87,27 +87,27 @@ export const CartItem = ({
         {/* Pricing & Quantity Controls */}
         <div className="flex items-center justify-between mt-3 pt-2">
           {readOnly ? (
-            <span className="text-xs text-[#C8B8AA] font-medium">
-              Qty: <strong className="text-[#FAF7F2]">{item.quantity}</strong>
+            <span className="text-xs text-[#6B5549] font-medium">
+              Qty: <strong className="text-[#33251F]">{item.quantity}</strong>
             </span>
           ) : (
-            <div className="flex items-center bg-[#2E1E17] border border-[#3E2B21] rounded-lg overflow-hidden">
+            <div className="flex items-center bg-[#FFFFFF] border border-[#D8C8BA] rounded-lg overflow-hidden">
               <button
                 type="button"
                 onClick={() => onDecrement(item.itemKey)}
                 aria-label="Decrease quantity"
-                className="w-8 h-8 flex items-center justify-center text-[#FAF7F2] hover:bg-[#3E2B21] active:scale-95 transition-all text-xs"
+                className="w-8 h-8 flex items-center justify-center text-[#4A3A32] hover:bg-[#FAF7F2] active:scale-95 transition-all text-xs"
               >
                 <Minus className="w-3.5 h-3.5" />
               </button>
-              <span className="w-8 text-center text-xs font-bold text-[#FAF7F2]">
+              <span className="w-8 text-center text-xs font-bold text-[#33251F]">
                 {item.quantity}
               </span>
               <button
                 type="button"
                 onClick={() => onIncrement(item.itemKey)}
                 aria-label="Increase quantity"
-                className="w-8 h-8 flex items-center justify-center text-[#FAF7F2] hover:bg-[#3E2B21] active:scale-95 transition-all text-xs"
+                className="w-8 h-8 flex items-center justify-center text-[#4A3A32] hover:bg-[#FAF7F2] active:scale-95 transition-all text-xs"
               >
                 <Plus className="w-3.5 h-3.5" />
               </button>
@@ -115,11 +115,11 @@ export const CartItem = ({
           )}
 
           <div className="text-right">
-            <div className="text-sm font-bold text-[#FAF7F2] tracking-tight">
+            <div className="text-sm font-bold text-[#33251F] tracking-tight">
               {formatCurrency(lineTotal)}
             </div>
             {item.quantity > 1 && (
-              <div className="text-[11px] text-[#C8B8AA]">
+              <div className="text-[11px] text-[#8B7768]">
                 {formatCurrency(itemPrice)} each
               </div>
             )}

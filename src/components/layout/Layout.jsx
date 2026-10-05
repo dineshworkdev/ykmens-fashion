@@ -10,7 +10,7 @@ import CartDrawer from '../cart/CartDrawer';
  */
 export const Layout = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-[#221712] text-[#FAF7F2]">
+    <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#4A3A32]">
       <Header />
       <main className="flex-1 w-full">
         <Outlet />

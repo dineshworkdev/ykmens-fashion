@@ -1,6 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'framer-motion';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionValueEvent,
+  useReducedMotion,
+} from 'framer-motion';
 import Container from '../layout/Container';
 import { ROUTES } from '../../utils/constants';
 import { AnimatedArrowRight } from '../common/AnimatedIcons';
@@ -82,117 +89,99 @@ const CATEGORY_ITEMS = [
 
 /**
  * Mobile Runway Card:
- * Continuous scroll-driven motion passed through a responsive spring layer.
- * As the user scrolls vertically, each card continuously glides along the invisible curved runway:
- * - Resting tilt (-6° or +5.5°)
- * - Smoothly straightens toward 0° at focal position (center viewport)
- * - Scale expands continuously (0.93 -> 0.96 -> 1.00 -> 1.025 -> 1.00 -> 0.96 -> 0.93)
- * - Image crop & parallax drift continuously inside card
- * - Gracefully returns to resting tilt as it leaves focal position
- * - Zero snapping, zero pauses, zero scroll-jacking.
+ * Features the signature curved/serpentine resting arrangement.
+ * 
+ * NEW BEHAVIOR:
+ * When a Featured Categories card reaches the active center position:
+ * 1. It moves into the center of the viewport (x: 0).
+ * 2. It straightens to 0° (rotate: 0deg).
+ * 3. It becomes visually dominant (scale: 1.0, opacity: 1.0).
+ * 4. It settles there permanently.
+ * 5. Once settled, it DOES NOT return to its original tilted/curved position when the user scrolls away.
+ * 6. When the user scrolls back up, it DOES NOT replay entrance animations or re-tilt; it remains stable.
  */
 const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
   const cardRef = useRef(null);
+  const [isSettled, setIsSettled] = useState(false);
 
   const { scrollYProgress: rawScrollProgress } = useScroll({
     target: cardRef,
     offset: ['start end', 'end start'],
   });
 
-  // Spring-smoothed scroll progress eliminates stickiness and jitter
-  const smoothProgress = useSpring(rawScrollProgress, runwaySpringConfig);
+  // Track scroll progress to trigger one-way settled latch when focal zone is reached
+  useMotionValueEvent(rawScrollProgress, 'change', (val) => {
+    if (!isSettled && val >= 0.36) {
+      setIsSettled(true);
+    }
+  });
 
-  // Continuous multi-point scale interpolation
-  const scale = useTransform(
-    smoothProgress,
-    [0, 0.2, 0.35, 0.5, 0.65, 0.8, 1],
-    shouldReduceMotion
-      ? [1, 1, 1, 1, 1, 1, 1]
-      : [0.93, 0.95, 0.98, 1.025, 0.98, 0.95, 0.93]
-  );
+  // Check on mount and window scroll in case already in view or past focal zone
+  useEffect(() => {
+    if (isSettled) return;
 
-  // High-visibility continuous opacity
-  const opacity = useTransform(
-    smoothProgress,
-    [0, 0.25, 0.5, 0.75, 1],
-    shouldReduceMotion ? [1, 1, 1, 1, 1] : [0.86, 0.94, 1, 0.94, 0.86]
-  );
+    const checkActivation = () => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight || 800;
+      // Focal zone: when card center approaches 65% of viewport height
+      if (rect.top + rect.height * 0.4 <= windowHeight * 0.65) {
+        setIsSettled(true);
+      }
+    };
 
-  // Continuous rotation: Starts at resting tilt, continuously travels to 0° at focus (0.5), then returns
-  const rotate = useTransform(
-    smoothProgress,
-    [0, 0.2, 0.35, 0.5, 0.65, 0.8, 1],
-    shouldReduceMotion
-      ? [0, 0, 0, 0, 0, 0, 0]
-      : [
-          `${item.baseRotate}deg`,
-          `${item.baseRotate * 0.75}deg`,
-          `${item.baseRotate * 0.35}deg`,
-          '0deg',
-          `${item.baseRotate * 0.35}deg`,
-          `${item.baseRotate * 0.75}deg`,
-          `${item.baseRotate}deg`,
-        ]
-  );
+    checkActivation();
+    window.addEventListener('scroll', checkActivation, { passive: true });
+    return () => window.removeEventListener('scroll', checkActivation);
+  }, [isSettled]);
 
-  // Continuous horizontal sway along the curved runway
-  const x = useTransform(
-    smoothProgress,
-    [0, 0.25, 0.5, 0.75, 1],
-    shouldReduceMotion
-      ? [0, 0, 0, 0, 0]
-      : [
-          `${item.baseShift}px`,
-          `${item.baseShift * 0.6}px`,
-          '0px',
-          `${item.baseShift * -0.3}px`,
-          `${item.baseShift * -0.5}px`,
-        ]
-  );
+  // Initial tilted state vs settled centered state
+  const initialVariants = shouldReduceMotion
+    ? { rotate: 0, x: 0, scale: 1, opacity: 1 }
+    : {
+        rotate: item.baseRotate,
+        x: item.baseShift * 1.5,
+        scale: 0.95,
+        opacity: 0.92,
+      };
 
-  // Subtle image crop & parallax reaction
-  const imageScale = useTransform(
-    smoothProgress,
-    [0, 0.5, 1],
-    shouldReduceMotion ? [1, 1, 1] : [1.02, 1.06, 1.02]
-  );
-
-  const imageY = useTransform(
-    smoothProgress,
-    [0, 0.5, 1],
-    shouldReduceMotion ? ['0px', '0px', '0px'] : ['-6px', '0px', '6px']
-  );
+  const settledVariants = {
+    rotate: 0,
+    x: 0,
+    scale: 1,
+    opacity: 1,
+  };
 
   return (
     <motion.div
       ref={cardRef}
-      style={{
-        scale,
-        opacity,
-        rotate,
-        x,
+      initial={initialVariants}
+      animate={shouldReduceMotion || isSettled ? settledVariants : initialVariants}
+      transition={{
+        duration: shouldReduceMotion ? 0 : 0.6,
+        ease: [0.22, 1, 0.36, 1], // luxury ease
       }}
-      className={`w-[84%] max-w-[320px] sm:max-w-[360px] ${item.mobileAlign} relative my-6 sm:my-8 origin-center`}
+      className="w-[86%] max-w-[320px] sm:max-w-[360px] mx-auto relative my-5 sm:my-7 origin-center will-change-transform"
     >
       <Link
         to={`${ROUTES.SHOP}?category=${item.slug}`}
-        className="group block bg-[#FAF7F2] rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 border border-[#E2D7C8] shadow-md active:scale-[0.98] transition-all duration-300"
+        className={`group block bg-[#FFFFFF] rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 border transition-all duration-300 active:scale-[0.98] ${
+          isSettled
+            ? 'border-[#C4B2A2] shadow-lg'
+            : 'border-[#D8C8BA] shadow-md'
+        }`}
       >
         {/* Visual Frame */}
-        <div className="relative aspect-[3.7/4.4] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#EDE7DC]/70 mb-3.5">
-          <motion.img
-            style={{
-              scale: imageScale,
-              y: imageY,
-            }}
+        <div className="relative aspect-[3.7/4.4] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#FAF7F2] mb-3.5">
+          <img
             src={item.image}
             alt={item.name}
-            className="w-full h-full object-cover object-top will-change-transform"
+            className="w-full h-full object-cover object-top will-change-transform group-hover:scale-105 transition-transform duration-500 ease-out"
             loading="lazy"
           />
 
           {/* Minimal Editorial Code Badge */}
-          <div className="absolute top-2.5 left-2.5 px-2.5 py-1 bg-[#202920]/90 backdrop-blur-xs text-[#FAF7F2] text-[10px] tracking-[0.2em] font-mono rounded-full">
+          <div className="absolute top-2.5 left-2.5 px-2.5 py-1 bg-[#4A3A32]/90 backdrop-blur-xs text-[#FAF7F2] text-[10px] tracking-[0.2em] font-mono rounded-full">
             {item.code}
           </div>
         </div>
@@ -200,19 +189,19 @@ const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
         {/* Category Information */}
         <div className="px-1 pb-1">
           <div className="flex items-center justify-between mb-1">
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#182018] tracking-tight group-hover:text-[#A6445D] transition-colors">
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#33251F] tracking-tight group-hover:text-[#4A3A32] transition-colors">
               {item.name}
             </h3>
-            <span className="text-[10px] font-mono text-[#5A6858]">
+            <span className="text-[10px] font-mono text-[#8B7768]">
               WARDROBE
             </span>
           </div>
 
-          <p className="text-xs text-[#5A6858] line-clamp-1 mb-2.5">
+          <p className="text-xs text-[#6B5549] line-clamp-1 mb-2.5">
             {item.subtitle}
           </p>
 
-          <div className="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-[#283628] group-hover:text-[#A6445D] transition-colors">
+          <div className="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-[#4A3A32] group-hover:text-[#33251F] transition-colors">
             <span>{item.ctaText}</span>
             <AnimatedArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
@@ -262,10 +251,10 @@ const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion })
     >
       <Link
         to={`${ROUTES.SHOP}?category=${item.slug}`}
-        className="group block bg-[#FAF7F2] rounded-[1.75rem] p-4 border border-[#E2D7C8] hover:border-[#182018] shadow-md hover:shadow-xl transition-all duration-500 ease-out"
+        className="group block bg-[#FFFFFF] rounded-[1.75rem] p-4 border border-[#D8C8BA] hover:border-[#4A3A32] shadow-md hover:shadow-xl transition-all duration-500 ease-out"
       >
         {/* Visual Frame */}
-        <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-[#EDE7DC]/70 mb-4">
+        <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-[#FAF7F2] mb-4">
           <img
             src={item.image}
             alt={item.name}
@@ -274,24 +263,24 @@ const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion })
           />
 
           {/* Minimal Editorial Code Badge */}
-          <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#202920]/90 backdrop-blur-xs text-[#FAF7F2] text-[10px] tracking-[0.2em] font-mono rounded-full">
+          <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#4A3A32]/90 backdrop-blur-xs text-[#FAF7F2] text-[10px] tracking-[0.2em] font-mono rounded-full">
             {item.code}
           </div>
         </div>
 
         {/* Category Information */}
         <div className="px-1">
-          <span className="text-[10px] font-mono text-[#5A6858] uppercase tracking-wider block mb-1">
+          <span className="text-[10px] font-mono text-[#8B7768] uppercase tracking-wider block mb-1">
             Wardrobe / {item.code}
           </span>
-          <h3 className="font-serif text-2xl font-bold text-[#182018] tracking-tight group-hover:text-[#A6445D] transition-colors mb-1.5">
+          <h3 className="font-serif text-2xl font-bold text-[#33251F] tracking-tight group-hover:text-[#4A3A32] transition-colors mb-1.5">
             {item.name}
           </h3>
-          <p className="text-xs text-[#5A6858] line-clamp-1 mb-3">
+          <p className="text-xs text-[#6B5549] line-clamp-1 mb-3">
             {item.subtitle}
           </p>
 
-          <div className="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-[#283628] group-hover:text-[#A6445D] transition-colors">
+          <div className="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-[#4A3A32] group-hover:text-[#33251F] transition-colors">
             <span>{item.ctaText}</span>
             <AnimatedArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
@@ -307,7 +296,7 @@ const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion })
  * 
  * - Mobile: Continuous flowing curved path with spring-smoothed scroll physics & subtle tilt
  * - Desktop: Upright, stable, premium cards arranged along an undulating curved wave layout
- * - Background: Rich deep muted forest olive (#202920) with warm cream contrast cards
+ * - Background: Cream Latte (#EADFD4) with crisp white contrast cards and mocha typography
  */
 export const FeaturedCategoriesCurved = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -324,28 +313,28 @@ export const FeaturedCategoriesCurved = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-16 sm:py-24 lg:py-28 bg-[#202920] border-b border-[#2E3A2E] overflow-hidden relative"
+      className="py-16 sm:py-24 lg:py-28 bg-[#EADFD4] border-b border-[#D8C8BA] overflow-hidden relative"
     >
       {/* Subtle atmospheric tonal accents */}
-      <div className="absolute inset-0 pointer-events-none opacity-30">
-        <div className="absolute -top-32 left-1/3 w-96 h-96 rounded-full bg-[#2E3B2E] blur-3xl" />
-        <div className="absolute -bottom-32 right-1/4 w-96 h-96 rounded-full bg-[#344434] blur-3xl" />
+      <div className="absolute inset-0 pointer-events-none opacity-40">
+        <div className="absolute -top-32 left-1/3 w-96 h-96 rounded-full bg-[#FAF7F2] blur-3xl" />
+        <div className="absolute -bottom-32 right-1/4 w-96 h-96 rounded-full bg-[#F5EFE8] blur-3xl" />
       </div>
 
       <Container className="relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-10 sm:mb-14 border-b border-[#2E3A2E] gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-10 sm:mb-14 border-b border-[#D8C8BA] gap-4">
           <div>
-            <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block mb-2">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#6B5549] font-bold block mb-2">
               Explore Wardrobe
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAF7F2]">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#33251F]">
               Featured Categories
             </h2>
           </div>
           <Link
             to={ROUTES.SHOP}
-            className="inline-flex items-center space-x-2 text-xs uppercase tracking-wider font-bold text-[#E8DDD2] hover:text-[#FAF7F2] transition-colors group"
+            className="inline-flex items-center space-x-2 text-xs uppercase tracking-wider font-bold text-[#4A3A32] hover:text-[#33251F] transition-colors group"
           >
             <span>View All Categories</span>
             <AnimatedArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

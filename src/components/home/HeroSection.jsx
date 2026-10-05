@@ -59,12 +59,12 @@ export const HeroSection = () => {
       ref={heroContainerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative bg-[#2C1E18] border-b border-[#3E2A21] pt-3 sm:pt-6 lg:pt-8 pb-10 sm:pb-14 lg:pb-16 overflow-hidden"
+      className="relative bg-[#FAF7F2] border-b border-[#E4D7CC] pt-3 sm:pt-6 lg:pt-8 pb-10 sm:pb-14 lg:pb-16 overflow-hidden"
     >
-      {/* Subtle architectural hairline accents in approved palette */}
+      {/* Subtle architectural hairline accents in approved warm beige palette */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-[#3E2A21] via-transparent to-transparent hidden lg:block" />
-        <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-[#3E2A21] via-transparent to-transparent hidden lg:block" />
+        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-[#E4D7CC] via-transparent to-transparent hidden lg:block" />
+        <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-[#E4D7CC] via-transparent to-transparent hidden lg:block" />
       </div>
 
       <Container className="relative z-10">
@@ -91,8 +91,8 @@ export const HeroSection = () => {
             className="w-full relative"
           >
             {/* Outer Frame */}
-            <div className="relative p-2 sm:p-2.5 bg-[#38261E] rounded-2xl border border-[#4D362B] shadow-sm">
-              <div className="relative aspect-[4/4.5] sm:aspect-[4/4.2] w-full max-h-[420px] rounded-xl overflow-hidden bg-[#241812]">
+            <div className="relative p-2 sm:p-2.5 bg-[#FFFFFF] rounded-2xl border border-[#E4D7CC] shadow-sm">
+              <div className="relative aspect-[4/4.5] sm:aspect-[4/4.2] w-full max-h-[420px] rounded-xl overflow-hidden bg-[#EADFD4]">
                 <motion.img
                   initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.05 }}
                   animate={{ scale: 1 }}
@@ -104,20 +104,20 @@ export const HeroSection = () => {
                   fetchPriority="high"
                 />
 
-                {/* Clean Floating Product Panel: High-contrast Warm Cream Card */}
+                {/* Clean Floating Product Panel: Pure White Card on Cream */}
                 <Link
                   to={`/product/${heroProduct.slug}`}
-                  className="absolute inset-x-2.5 bottom-2.5 p-3 bg-[#FAF7F2] rounded-xl border border-[#E7DFD5] flex items-center justify-between shadow-md active:bg-[#EDE6DC] transition-colors"
+                  className="absolute inset-x-2.5 bottom-2.5 p-3 bg-[#FFFFFF] rounded-xl border border-[#E4D7CC] flex items-center justify-between shadow-md active:bg-[#FAF7F2] transition-colors"
                 >
                   <div className="pr-2 min-w-0">
-                    <span className="text-[10px] uppercase tracking-wider text-[#6B5A50] font-semibold block">
+                    <span className="text-[10px] uppercase tracking-wider text-[#8B7768] font-semibold block">
                       Featured Piece
                     </span>
-                    <h4 className="text-xs sm:text-sm font-bold text-[#1C120C] truncate">
+                    <h4 className="text-xs sm:text-sm font-bold text-[#33251F] truncate">
                       {heroProduct.name}
                     </h4>
                   </div>
-                  <span className="inline-flex items-center space-x-1 px-3 py-1.5 bg-[#200E01] text-[#FAF7F2] text-xs font-semibold rounded-lg shrink-0">
+                  <span className="inline-flex items-center space-x-1 px-3 py-1.5 bg-[#4A3A32] text-[#FAF7F2] text-xs font-semibold rounded-lg shrink-0">
                     <span>Shop</span>
                     <AnimatedArrowRight className="w-3 h-3" />
                   </span>
@@ -131,9 +131,9 @@ export const HeroSection = () => {
             initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.12, ease: luxuryEase }}
-            className="flex items-center space-x-2 text-xs uppercase tracking-[0.25em] text-[#D4C5B6] font-semibold pt-0.5"
+            className="flex items-center space-x-2 text-xs uppercase tracking-[0.25em] text-[#6B5549] font-semibold pt-0.5"
           >
-            <span className="w-4 h-[2px] bg-[#A6445D] rounded-full" />
+            <span className="w-4 h-[2px] bg-[#4A3A32] rounded-full" />
             <span>YK Mens Fashion</span>
           </motion.div>
 
@@ -144,7 +144,7 @@ export const HeroSection = () => {
                 initial={shouldReduceMotion ? { opacity: 0 } : { y: '100%', opacity: 0 }}
                 animate={{ y: '0%', opacity: 1 }}
                 transition={{ duration: 0.75, delay: 0.18, ease: luxuryEase }}
-                className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#FAF7F2] leading-[1.08]"
+                className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#33251F] leading-[1.08]"
               >
                 Defined By Style.
               </motion.h1>
@@ -154,7 +154,7 @@ export const HeroSection = () => {
                 initial={shouldReduceMotion ? { opacity: 0 } : { y: '100%', opacity: 0 }}
                 animate={{ y: '0%', opacity: 1 }}
                 transition={{ duration: 0.75, delay: 0.25, ease: luxuryEase }}
-                className="block font-serif font-normal italic text-[#E8DEC8] text-2xl sm:text-3xl"
+                className="block font-serif font-normal italic text-[#6B5549] text-2xl sm:text-3xl"
               >
                 Crafted For Movement.
               </motion.span>
@@ -166,7 +166,7 @@ export const HeroSection = () => {
             initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.32, ease: luxuryEase }}
-            className="text-sm sm:text-base text-[#C8B8AA] leading-relaxed max-w-md"
+            className="text-sm sm:text-base text-[#4A3A32] leading-relaxed max-w-md"
           >
             Modern menswear designed for everyday confidence.
           </motion.p>
@@ -180,7 +180,7 @@ export const HeroSection = () => {
           >
             <FashionButton
               to={ROUTES.SHOP}
-              variant="cream"
+              variant="dark"
               size="md"
               className="w-full sm:w-auto justify-center"
             >
@@ -189,7 +189,7 @@ export const HeroSection = () => {
 
             <FashionButton
               to={ROUTES.COLLECTIONS}
-              variant="outlineLight"
+              variant="outlineDark"
               size="md"
               showArrow={false}
               className="w-full sm:w-auto justify-center"
@@ -208,14 +208,14 @@ export const HeroSection = () => {
         <div className="hidden lg:grid lg:grid-cols-12 gap-8 xl:gap-12 items-center min-h-[560px] xl:min-h-[600px]">
           {/* Left Column: Brand & Campaign Statement (5 Columns) */}
           <div className="lg:col-span-5 flex flex-col justify-center space-y-6 xl:space-y-7 z-20">
-            {/* Brand Tagline with Crimson Accent */}
+            {/* Brand Tagline with Accent */}
             <motion.div
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.65, ease: luxuryEase }}
-              className="flex items-center space-x-3 text-xs uppercase tracking-[0.28em] text-[#D4C5B6] font-semibold"
+              className="flex items-center space-x-3 text-xs uppercase tracking-[0.28em] text-[#6B5549] font-semibold"
             >
-              <span className="w-7 h-[2px] bg-[#A6445D] rounded-full" />
+              <span className="w-7 h-[2px] bg-[#4A3A32] rounded-full" />
               <span>YK Mens Fashion</span>
             </motion.div>
 
@@ -226,7 +226,7 @@ export const HeroSection = () => {
                   initial={shouldReduceMotion ? { opacity: 0 } : { y: '105%', opacity: 0 }}
                   animate={{ y: '0%', opacity: 1 }}
                   transition={{ duration: 0.85, delay: 0.08, ease: luxuryEase }}
-                  className="font-serif text-5xl xl:text-6xl font-bold tracking-tight text-[#FAF7F2] leading-[1.05]"
+                  className="font-serif text-5xl xl:text-6xl font-bold tracking-tight text-[#33251F] leading-[1.05]"
                 >
                   Defined By Style.
                 </motion.h1>
@@ -236,7 +236,7 @@ export const HeroSection = () => {
                   initial={shouldReduceMotion ? { opacity: 0 } : { y: '105%', opacity: 0 }}
                   animate={{ y: '0%', opacity: 1 }}
                   transition={{ duration: 0.85, delay: 0.18, ease: luxuryEase }}
-                  className="block font-serif font-normal italic text-[#E8DEC8] text-4xl xl:text-5xl mt-0.5"
+                  className="block font-serif font-normal italic text-[#6B5549] text-4xl xl:text-5xl mt-0.5"
                 >
                   Crafted For Movement.
                 </motion.span>
@@ -248,7 +248,7 @@ export const HeroSection = () => {
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.28, ease: luxuryEase }}
-              className="text-base text-[#C8B8AA] max-w-sm leading-relaxed"
+              className="text-base text-[#4A3A32] max-w-sm leading-relaxed"
             >
               Modern menswear designed for everyday confidence.
             </motion.p>
@@ -262,7 +262,7 @@ export const HeroSection = () => {
             >
               <FashionButton
                 to={ROUTES.SHOP}
-                variant="cream"
+                variant="dark"
                 size="lg"
               >
                 Explore Shop
@@ -270,7 +270,7 @@ export const HeroSection = () => {
 
               <FashionButton
                 to={ROUTES.COLLECTIONS}
-                variant="outlineLight"
+                variant="outlineDark"
                 size="lg"
                 showArrow={false}
               >
@@ -282,7 +282,7 @@ export const HeroSection = () => {
           {/* Right Column: Dominant Editorial Fashion Artwork (7 Columns) */}
           <div className="lg:col-span-7 relative z-10">
             {/* Subtle architectural offset backdrop */}
-            <div className="absolute -inset-3 bg-[#38261E]/70 rounded-[2.25rem] -rotate-1 border border-[#4D362B]/80 -z-10 pointer-events-none" />
+            <div className="absolute -inset-3 bg-[#EADFD4]/60 rounded-[2.25rem] -rotate-1 border border-[#D8C8BA] -z-10 pointer-events-none" />
 
             {/* Main Interactive Framed Composition */}
             <motion.div
@@ -308,10 +308,10 @@ export const HeroSection = () => {
                   : { opacity: 1, clipPath: 'inset(0% 0% 0% 0% round 1.75rem)', scale: 1 }
               }
               transition={{ duration: 1.05, delay: 0.1, ease: luxuryEase }}
-              className="relative p-3.5 xl:p-4 bg-[#221610] rounded-[1.85rem] border border-[#3E2A21] shadow-2xl group"
+              className="relative p-3.5 xl:p-4 bg-[#FFFFFF] rounded-[1.85rem] border border-[#E4D7CC] shadow-[0_20px_50px_rgba(74,58,50,0.08)] group"
             >
               {/* Primary Image Container */}
-              <div className="relative aspect-[4/4.7] xl:aspect-[4/4.5] w-full rounded-2xl overflow-hidden bg-[#1A100B]">
+              <div className="relative aspect-[4/4.7] xl:aspect-[4/4.5] w-full rounded-2xl overflow-hidden bg-[#EADFD4]">
                 <motion.img
                   initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.06 }}
                   animate={{ scale: 1 }}
@@ -328,38 +328,38 @@ export const HeroSection = () => {
                   initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.75, delay: 0.4, ease: luxuryEase }}
-                  className="absolute top-4 right-4 w-28 xl:w-32 aspect-[3/4] rounded-xl overflow-hidden border-2 border-[#FAF7F2] shadow-lg bg-[#2C1E18] hidden sm:block group/inset"
+                  className="absolute top-4 right-4 w-28 xl:w-32 aspect-[3/4] rounded-xl overflow-hidden border-2 border-[#FFFFFF] shadow-lg bg-[#EADFD4] hidden sm:block group/inset"
                 >
                   <img
                     src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80"
                     alt="Tailoring Texture Detail"
                     className="w-full h-full object-cover object-center group-hover/inset:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0D0D0D]/90 to-transparent p-1.5 text-center">
-                    <span className="text-[9px] uppercase tracking-wider text-[#FAF7F2] font-semibold block">
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#33251F]/80 to-transparent p-1.5 text-center">
+                    <span className="text-[9px] uppercase tracking-wider text-[#FFFFFF] font-semibold block">
                       Tailored Fit
                     </span>
                   </div>
                 </motion.div>
 
-                {/* Floating Inset Action Card: High-contrast Warm Cream Card */}
+                {/* Floating Inset Action Card: Pure White Card with beige border */}
                 <motion.div
                   initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, delay: 0.42, ease: luxuryEase }}
-                  className="absolute inset-x-4 bottom-4 p-4 bg-[#FAF7F2] backdrop-blur-md rounded-xl border border-[#E7DFD5] flex justify-between items-center shadow-lg transition-all duration-300 hover:bg-white"
+                  className="absolute inset-x-4 bottom-4 p-4 bg-[#FFFFFF]/95 backdrop-blur-md rounded-xl border border-[#E4D7CC] flex justify-between items-center shadow-lg transition-all duration-300 hover:bg-[#FFFFFF]"
                 >
                   <div className="pr-3">
-                    <span className="text-[10px] uppercase tracking-wider text-[#6B5A50] font-semibold block">
+                    <span className="text-[10px] uppercase tracking-wider text-[#8B7768] font-semibold block">
                       Featured Piece
                     </span>
-                    <h4 className="text-sm font-bold text-[#1C120C]">
+                    <h4 className="text-sm font-bold text-[#33251F]">
                       {heroProduct.name}
                     </h4>
                   </div>
                   <Link
                     to={`/product/${heroProduct.slug}`}
-                    className="inline-flex items-center space-x-2 px-4 py-2 bg-[#200E01] text-[#FAF7F2] hover:bg-[#8B0000] text-xs font-semibold rounded-lg transition-colors shadow-xs active:scale-95 shrink-0"
+                    className="inline-flex items-center space-x-2 px-4 py-2 bg-[#4A3A32] text-[#FAF7F2] hover:bg-[#33251F] text-xs font-semibold rounded-lg transition-colors shadow-xs active:scale-95 shrink-0"
                   >
                     <span>Shop</span>
                     <AnimatedArrowRight className="w-3.5 h-3.5" />

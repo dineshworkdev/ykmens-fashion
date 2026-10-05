@@ -66,8 +66,8 @@ export const AnimatedHeartIcon = ({ isFavorited = false, className = 'w-5 h-5', 
         <Heart
           className={`${className} transition-colors duration-200 ${
             isFavorited
-              ? 'fill-[#8B0000] text-[#8B0000]'
-              : 'text-current hover:text-[#8B0000]'
+              ? 'fill-current'
+              : 'text-current hover:opacity-80'
           }`}
         />
       </motion.div>

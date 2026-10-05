@@ -11,11 +11,11 @@ export const Badge = ({
   ...props
 }) => {
   const variantStyles = {
-    ice: 'bg-[#DFE5F3] text-[#0D0D0D]',
-    olive: 'bg-[#272401] text-[#F2EFEA]',
-    slate: 'bg-[#557373] text-[#F2EFEA]',
-    dark: 'bg-[#0D0D0D] text-[#F2EFEA]',
-    sand: 'bg-[#F2EFEA] text-[#0D0D0D] border border-[#557373]',
+    ice: 'bg-[#EADFD4] text-[#33251F]',
+    olive: 'bg-[#4A3A32] text-[#FAF7F2]',
+    slate: 'bg-[#6B5549] text-[#FAF7F2]',
+    dark: 'bg-[#33251F] text-[#FAF7F2]',
+    sand: 'bg-[#FFFFFF] text-[#33251F] border border-[#D8C8BA]',
   };
 
   return (

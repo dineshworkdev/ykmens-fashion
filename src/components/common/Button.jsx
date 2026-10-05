@@ -24,11 +24,11 @@ export const Button = ({
   };
 
   const variantStyles = {
-    primary: 'bg-[#0D0D0D] text-[#F2EFEA] hover:bg-[#272401]',
-    secondary: 'bg-[#557373] text-[#F2EFEA] hover:bg-[#0D0D0D]',
-    outline: 'border border-[#272401] text-[#272401] hover:bg-[#272401] hover:text-[#F2EFEA]',
-    ice: 'bg-[#DFE5F3] text-[#0D0D0D] hover:bg-[#557373] hover:text-[#F2EFEA]',
-    ghost: 'text-[#0D0D0D] hover:bg-[#DFE5F3]',
+    primary: 'bg-[#4A3A32] text-[#FAF7F2] hover:bg-[#33251F]',
+    secondary: 'bg-[#6B5549] text-[#FAF7F2] hover:bg-[#4A3A32]',
+    outline: 'border border-[#4A3A32] text-[#4A3A32] hover:bg-[#4A3A32] hover:text-[#FAF7F2]',
+    ice: 'bg-[#FFFFFF] text-[#33251F] border border-[#D8C8BA] hover:bg-[#FAF7F2]',
+    ghost: 'text-[#4A3A32] hover:bg-[#EADFD4]',
   };
 
   return (

@@ -16,13 +16,13 @@ export const CollectionCard = ({ collection, isFeatured = false }) => {
   return (
     <Link
       to={`/collection/${collection.slug}`}
-      className={`group relative flex flex-col bg-[#FAF7F2] rounded-3xl border border-[#E8DEC8] hover:border-[#A6445D] overflow-hidden p-4 sm:p-6 shadow-sm hover:shadow-xl transition-all duration-300 ${
+      className={`group relative flex flex-col bg-[#FFFFFF] rounded-3xl border border-[#E4D7CC] hover:border-[#4A3A32] overflow-hidden p-4 sm:p-6 shadow-sm hover:shadow-xl transition-all duration-300 ${
         isFeatured ? 'lg:col-span-2' : ''
       }`}
     >
       {/* Collection Image Container */}
       <div
-        className={`relative w-full rounded-2xl overflow-hidden bg-[#EFEAE2] mb-5 select-none ${
+        className={`relative w-full rounded-2xl overflow-hidden bg-[#EADFD4]/40 mb-5 select-none ${
           isFeatured ? 'aspect-[16/9] sm:aspect-[21/9]' : 'aspect-[4/3] sm:aspect-[16/10]'
         }`}
       >
@@ -33,18 +33,18 @@ export const CollectionCard = ({ collection, isFeatured = false }) => {
         />
 
         {/* Subtle Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#33251F]/40 via-transparent to-transparent opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
 
         {/* Season Pill Badge */}
         <div className="absolute top-4 left-4">
-          <span className="px-3 py-1.5 bg-[#FAF7F2]/95 backdrop-blur-xs text-[10px] uppercase tracking-wider font-semibold text-[#1D1410] rounded-lg shadow-xs">
+          <span className="px-3 py-1.5 bg-[#FAF7F2]/95 backdrop-blur-xs text-[10px] uppercase tracking-wider font-semibold text-[#4A3A32] rounded-lg shadow-xs">
             {collection.season}
           </span>
         </div>
 
         {/* Item Count Badge */}
         <div className="absolute bottom-4 right-4">
-          <span className="px-3 py-1 bg-black/60 backdrop-blur-xs text-[#FAF7F2] text-[10px] uppercase tracking-wider font-medium rounded-md">
+          <span className="px-3 py-1 bg-[#33251F]/80 backdrop-blur-xs text-[#FAF7F2] text-[10px] uppercase tracking-wider font-medium rounded-md">
             {collection.itemCount}
           </span>
         </div>
@@ -53,22 +53,22 @@ export const CollectionCard = ({ collection, isFeatured = false }) => {
       {/* Content Area */}
       <div className="flex-1 flex flex-col justify-between space-y-4">
         <div>
-          <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1D1410] group-hover:text-[#A6445D] transition-colors leading-tight mb-2">
+          <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#33251F] group-hover:text-[#4A3A32] transition-colors leading-tight mb-2">
             {collection.name}
           </h3>
 
-          <p className="text-xs sm:text-sm text-[#6A5C52] leading-relaxed max-w-2xl">
+          <p className="text-xs sm:text-sm text-[#6B5549] leading-relaxed max-w-2xl">
             {collection.description}
           </p>
         </div>
 
         {/* Action Row */}
-        <div className="pt-3 border-t border-[#E8DEC8] flex items-center justify-between">
-          <span className="text-xs uppercase tracking-wider font-semibold text-[#6A5C52]">
+        <div className="pt-3 border-t border-[#E4D7CC] flex items-center justify-between">
+          <span className="text-xs uppercase tracking-wider font-semibold text-[#8B7768]">
             Curated Wardrobe
           </span>
 
-          <span className="inline-flex items-center space-x-2 text-xs uppercase tracking-wider font-bold text-[#1D1410] group-hover:text-[#A6445D] transition-colors">
+          <span className="inline-flex items-center space-x-2 text-xs uppercase tracking-wider font-bold text-[#4A3A32] group-hover:text-[#33251F] transition-colors">
             <span>Explore Collection</span>
             <AnimatedArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </span>

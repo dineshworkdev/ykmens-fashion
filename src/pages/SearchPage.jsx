@@ -64,7 +64,7 @@ export const SearchPage = () => {
   };
 
   return (
-    <div className="bg-[#241812] text-[#FAF7F2] min-h-screen py-10 sm:py-16">
+    <div className="bg-[#FAF7F2] text-[#4A3A32] min-h-screen py-10 sm:py-16">
       <Container>
         {/* Search Header */}
         <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-12">
@@ -74,22 +74,22 @@ export const SearchPage = () => {
             transition={{ duration: 0.5 }}
             className="space-y-3"
           >
-            <span className="text-xs uppercase tracking-[0.25em] text-[#D99E84] font-bold block">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#8B7768] font-bold block">
               Catalog Search
             </span>
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#FAF7F2]">
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#33251F]">
               Search Menswear
             </h1>
-            <p className="text-xs sm:text-sm text-[#C8B8AA] leading-relaxed max-w-lg mx-auto">
+            <p className="text-xs sm:text-sm text-[#6B5549] leading-relaxed max-w-lg mx-auto">
               Search by garment silhouette, category, material, or color palette.
             </p>
           </motion.div>
 
           {/* Interactive Search Bar Input */}
           <div className="mt-8 relative">
-            <div className="relative flex items-center bg-[#2C1E18] rounded-2xl border border-[#3E2B21] hover:border-[#FAF7F2]/50 focus-within:border-[#FAF7F2] shadow-xl transition-all overflow-hidden p-2">
-              <div className="pl-3.5 pr-2 text-[#D99E84]">
-                <AnimatedSearchIcon className="w-5 h-5 text-[#D99E84]" />
+            <div className="relative flex items-center bg-[#FFFFFF] rounded-2xl border border-[#D8C8BA] hover:border-[#4A3A32] focus-within:border-[#4A3A32] shadow-sm transition-all overflow-hidden p-2">
+              <div className="pl-3.5 pr-2 text-[#4A3A32]">
+                <AnimatedSearchIcon className="w-5 h-5 text-[#4A3A32]" />
               </div>
 
               <input
@@ -98,7 +98,7 @@ export const SearchPage = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search coats, shirts, wool trousers, blazers..."
-                className="w-full py-3 px-2 bg-transparent text-[#FAF7F2] placeholder-[#C8B8AA]/60 text-sm sm:text-base font-medium focus:outline-none"
+                className="w-full py-3 px-2 bg-transparent text-[#33251F] placeholder-[#8B7768]/70 text-sm sm:text-base font-medium focus:outline-none"
               />
 
               {searchQuery && (
@@ -106,7 +106,7 @@ export const SearchPage = () => {
                   type="button"
                   onClick={handleClearSearch}
                   aria-label="Clear search input"
-                  className="p-2 mr-1 rounded-xl text-[#C8B8AA] hover:text-[#FAF7F2] hover:bg-[#3E2B21] transition-colors"
+                  className="p-2 mr-1 rounded-xl text-[#8B7768] hover:text-[#33251F] hover:bg-[#FAF7F2] transition-colors"
                 >
                   <AnimatedCloseIcon className="w-4 h-4" />
                 </button>
@@ -115,13 +115,13 @@ export const SearchPage = () => {
 
             {/* Suggested Search Query Chips */}
             <div className="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs">
-              <span className="text-[#C8B8AA] font-medium mr-1">Popular:</span>
+              <span className="text-[#8B7768] font-medium mr-1">Popular:</span>
               {SUGGESTED_SEARCHES.map((query) => (
                 <button
                   key={query}
                   type="button"
                   onClick={() => setSearchQuery(query)}
-                  className="px-3 py-1 bg-[#2C1E18] hover:bg-[#3E2B21] border border-[#3E2B21] text-[#FAF7F2] rounded-lg font-medium transition-colors"
+                  className="px-3 py-1 bg-[#FFFFFF] hover:bg-[#FAF7F2] border border-[#D8C8BA] text-[#4A3A32] rounded-lg font-medium transition-colors"
                 >
                   {query}
                 </button>
@@ -132,17 +132,17 @@ export const SearchPage = () => {
 
         {/* Results Metadata Bar */}
         {searchQuery.trim() && (
-          <div className="pb-6 mb-8 border-b border-[#3E2B21] flex items-center justify-between text-xs sm:text-sm">
-            <span className="text-[#C8B8AA]">
-              Showing <span className="font-bold text-[#FAF7F2]">{products.length}</span>{' '}
+          <div className="pb-6 mb-8 border-b border-[#E4D7CC] flex items-center justify-between text-xs sm:text-sm">
+            <span className="text-[#6B5549]">
+              Showing <span className="font-bold text-[#33251F]">{products.length}</span>{' '}
               {products.length === 1 ? 'piece' : 'pieces'} matching{' '}
-              <span className="font-bold text-[#FAF7F2]">"{searchQuery}"</span>
+              <span className="font-bold text-[#33251F]">"{searchQuery}"</span>
             </span>
 
             <button
               type="button"
               onClick={handleClearSearch}
-              className="text-xs uppercase tracking-wider font-bold text-[#D99E84] hover:underline"
+              className="text-xs uppercase tracking-wider font-bold text-[#4A3A32] hover:text-[#33251F] hover:underline"
             >
               Reset Search
             </button>
@@ -158,23 +158,23 @@ export const SearchPage = () => {
           />
         ) : (
           /* Polished Empty Search State */
-          <div className="py-16 sm:py-24 text-center bg-[#2C1E18] rounded-3xl border border-[#3E2B21] p-8 sm:p-12 max-w-xl mx-auto shadow-xl">
-            <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[#3E2B21] flex items-center justify-center text-[#FAF7F2]">
-              <AnimatedSearchIcon className="w-6 h-6 text-[#FAF7F2]" />
+          <div className="py-16 sm:py-24 text-center bg-[#FFFFFF] rounded-3xl border border-[#E4D7CC] p-8 sm:p-12 max-w-xl mx-auto shadow-xl">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[#EADFD4] flex items-center justify-center text-[#33251F]">
+              <AnimatedSearchIcon className="w-6 h-6 text-[#33251F]" />
             </div>
 
-            <h3 className="font-serif text-2xl font-bold text-[#FAF7F2] mb-2">
+            <h3 className="font-serif text-2xl font-bold text-[#33251F] mb-2">
               No Pieces Found
             </h3>
 
-            <p className="text-xs sm:text-sm text-[#C8B8AA] leading-relaxed max-w-md mx-auto mb-8">
+            <p className="text-xs sm:text-sm text-[#6B5549] leading-relaxed max-w-md mx-auto mb-8">
               We couldn't find what you're looking for with "{searchQuery}". Check your spelling or explore our complete catalog.
             </p>
 
             <div className="flex flex-wrap justify-center gap-3">
               <FashionButton
                 to={ROUTES.SHOP}
-                variant="cream"
+                variant="dark"
                 size="md"
               >
                 View All Products
@@ -182,7 +182,7 @@ export const SearchPage = () => {
 
               <FashionButton
                 to={ROUTES.COLLECTIONS}
-                variant="outlineLight"
+                variant="outlineDark"
                 size="md"
                 showArrow={false}
               >
