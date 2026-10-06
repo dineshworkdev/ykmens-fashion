@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatCurrency } from '../../utils/formatters';
@@ -23,7 +23,7 @@ import FashionButton from '../common/FashionButton';
  * - Localized INR price formatting
  * - Direct Add-to-Bag integration with Cart drawer
  */
-export const QuickViewModal = ({ product, isOpen, onClose }) => {
+export const QuickViewModal = memo(function QuickViewModal({ product, isOpen, onClose }) {
   const { addItem, openDrawer } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
 
@@ -36,13 +36,39 @@ export const QuickViewModal = ({ product, isOpen, onClose }) => {
   const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  if (!isOpen || !product) return null;
+  // Sync variants when product changes
+  useEffect(() => {
+    if (product) {
+      setSelectedSize(product.sizes?.[0] || 'Standard');
+      setSelectedColor(product.colors?.[0]?.name || 'Default');
+      setQuantity(1);
+      setActiveImageIndex(0);
+    }
+  }, [product]);
 
-  const isFavorited = isInWishlist(product.id);
-  const isOutOfStock = product.stockStatus === 'out_of_stock';
+  // Lock body scroll and handle Escape key while modal is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
+  const isFavorited = product ? isInWishlist(product.id) : false;
+  const isOutOfStock = product?.stockStatus === 'out_of_stock';
 
   const handleAddToCart = () => {
-    if (isOutOfStock) return;
+    if (isOutOfStock || !product) return;
     addItem(product, { size: selectedSize, color: selectedColor }, quantity);
     onClose();
     openDrawer();
@@ -50,17 +76,18 @@ export const QuickViewModal = ({ product, isOpen, onClose }) => {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6">
-        {/* Backdrop */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="fixed inset-0 bg-[#33251F]/60 backdrop-blur-xs"
-          onClick={onClose}
-          aria-hidden="true"
-        />
+      {isOpen && product && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 bg-[#33251F]/60 backdrop-blur-xs"
+            onClick={onClose}
+            aria-hidden="true"
+          />
 
         {/* Modal Window / Mobile Bottom Sheet */}
         <motion.div
@@ -276,8 +303,9 @@ export const QuickViewModal = ({ product, isOpen, onClose }) => {
           </div>
         </motion.div>
       </div>
+    )}
     </AnimatePresence>
   );
-};
+});
 
 export default QuickViewModal;

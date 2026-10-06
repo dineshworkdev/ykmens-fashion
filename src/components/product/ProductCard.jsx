@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../../hooks/useCart';
@@ -22,13 +22,13 @@ import {
  * - Quick View trigger integration.
  * - Localized Indian Rupee (₹) pricing with Indian standard formatting.
  */
-export const ProductCard = ({
+export const ProductCard = memo(function ProductCard({
   product,
   variant = 'standard',
   showcase = false,
   onQuickView,
   className = '',
-}) => {
+}) {
   const { addItem, openDrawer } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
 
@@ -44,34 +44,34 @@ export const ProductCard = ({
   const isOutOfStock = product.stockStatus === 'out_of_stock';
   const isFeatured = variant === 'featured';
 
-  const handleAddToCart = (e) => {
+  const handleAddToCart = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
     if (isOutOfStock) return;
     addItem(product, { size: selectedSize, color: selectedColor }, 1);
     openDrawer();
-  };
+  }, [isOutOfStock, addItem, product, selectedSize, selectedColor, openDrawer]);
 
-  const handleWishlistToggle = (e) => {
+  const handleWishlistToggle = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
     toggleWishlist(product);
-  };
+  }, [toggleWishlist, product]);
 
-  const handleQuickViewClick = (e) => {
+  const handleQuickViewClick = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
     if (onQuickView) {
       onQuickView(product);
     }
-  };
+  }, [onQuickView, product]);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-20px' }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      initial={showcase ? false : { opacity: 0, y: 16 }}
+      whileInView={showcase ? undefined : { opacity: 1, y: 0 }}
+      viewport={showcase ? undefined : { once: true, margin: '-20px' }}
+      transition={showcase ? undefined : { duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={`group relative flex flex-col bg-[#FFFFFF] border border-[#E4D7CC] hover:border-[#4A3A32] rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-3.5 sm:p-5 active:scale-[0.99] ${
@@ -238,6 +238,6 @@ export const ProductCard = ({
       </div>
     </motion.div>
   );
-};
+});
 
 export default ProductCard;

@@ -42,4 +42,5 @@ export {
   Send,
   MessageSquare,
   HelpCircle,
+  Shirt,
 } from 'lucide-react';

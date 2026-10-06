@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Container from '../components/layout/Container';
@@ -45,11 +45,19 @@ export const ProductDetailPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
-  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
+  const imageRef = useRef(null);
+  const stageRectRef = useRef(null);
+  const addTimerRef = useRef(null);
   const [isAdded, setIsAdded] = useState(false);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [quickViewOpen, setQuickViewOpen] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      if (addTimerRef.current) clearTimeout(addTimerRef.current);
+    };
+  }, []);
 
   // Accordion state
   const [openAccordions, setOpenAccordions] = useState({
@@ -92,18 +100,38 @@ export const ProductDetailPage = () => {
     if (isOutOfStock) return;
     addItem(product, { size: selectedSize, color: selectedColor }, quantity);
     setIsAdded(true);
-    setTimeout(() => {
+    if (addTimerRef.current) clearTimeout(addTimerRef.current);
+    addTimerRef.current = setTimeout(() => {
       setIsAdded(false);
       openDrawer();
     }, 1200);
   };
 
-  // Primary image hover zoom handler
+  // Primary image hover zoom handler — direct GPU origin without React re-renders
+  const handleMouseEnter = (e) => {
+    setIsZoomed(true);
+    stageRectRef.current = e.currentTarget.getBoundingClientRect();
+  };
+
+  const handleMouseLeave = () => {
+    setIsZoomed(false);
+    stageRectRef.current = null;
+    if (imageRef.current) {
+      imageRef.current.style.transformOrigin = '50% 50%';
+    }
+  };
+
   const handleMouseMove = (e) => {
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - left) / width) * 100;
-    const y = ((e.clientY - top) / height) * 100;
-    setZoomPos({ x, y });
+    if (!stageRectRef.current) {
+      stageRectRef.current = e.currentTarget.getBoundingClientRect();
+    }
+    const rect = stageRectRef.current;
+    if (!rect || !rect.width || !rect.height) return;
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    if (imageRef.current) {
+      imageRef.current.style.transformOrigin = `${x}% ${y}%`;
+    }
   };
 
   return (
@@ -139,8 +167,8 @@ export const ProductDetailPage = () => {
           <div className="lg:col-span-7 space-y-4">
             {/* Primary Image Stage */}
             <div
-              onMouseEnter={() => setIsZoomed(true)}
-              onMouseLeave={() => setIsZoomed(false)}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
               onMouseMove={handleMouseMove}
               className="relative aspect-[3/4] w-full bg-[#FFFFFF] rounded-3xl border border-[#E4D7CC] overflow-hidden shadow-xl group select-none cursor-crosshair"
             >
@@ -148,6 +176,7 @@ export const ProductDetailPage = () => {
                 <div className="w-full h-full relative overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.img
+                      ref={imageRef}
                       key={activeImageIndex}
                       initial={{ opacity: 0.8 }}
                       animate={{ opacity: 1 }}
@@ -156,7 +185,6 @@ export const ProductDetailPage = () => {
                       src={product.images[activeImageIndex]}
                       alt={product.name}
                       style={{
-                        transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
                         transform: isZoomed ? 'scale(1.35)' : 'scale(1)',
                       }}
                       className="w-full h-full object-cover object-top transition-transform duration-300 ease-out"

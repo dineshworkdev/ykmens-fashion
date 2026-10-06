@@ -203,10 +203,17 @@ export const RadialShowcaseCarousel = forwardRef(function RadialShowcaseCarousel
   const dragStateRef = useRef(null);
   const hasDraggedRef = useRef(false);
 
-  // Resize listener
+  // Resize listener with RAF debouncing
   useEffect(() => {
+    let ticking = false;
     const handleResize = () => {
-      setParams(getResponsiveParams(window.innerWidth));
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setParams(getResponsiveParams(window.innerWidth));
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   motion,
@@ -100,7 +100,7 @@ const CATEGORY_ITEMS = [
  * 5. Once settled, it DOES NOT return to its original tilted/curved position when the user scrolls away.
  * 6. When the user scrolls back up, it DOES NOT replay entrance animations or re-tilt; it remains stable.
  */
-const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
+const MobileRunwayCard = memo(function MobileRunwayCard({ item, shouldReduceMotion }) {
   const cardRef = useRef(null);
   const [isSettled, setIsSettled] = useState(false);
 
@@ -123,23 +123,24 @@ const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
     }
   });
 
-  // Check on mount and window scroll in case already in view or past focal zone
+  // Check on mount via IntersectionObserver — zero forced layouts and zero scroll listeners
   useEffect(() => {
-    if (isSettled) return;
+    if (isSettled || !cardRef.current) return;
 
-    const checkActivation = () => {
-      if (!cardRef.current) return;
-      const rect = cardRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight || 800;
-      // Focal zone: when card center approaches 65% of viewport height
-      if (rect.top + rect.height * 0.4 <= windowHeight * 0.65) {
-        setIsSettled(true);
-      }
-    };
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            setIsSettled(true);
+            observer.disconnect();
+          }
+        },
+        { rootMargin: '0px 0px -35% 0px', threshold: 0 }
+      );
 
-    checkActivation();
-    window.addEventListener('scroll', checkActivation, { passive: true });
-    return () => window.removeEventListener('scroll', checkActivation);
+      observer.observe(cardRef.current);
+      return () => observer.disconnect();
+    }
   }, [isSettled]);
 
   // Initial tilted state vs settled centered state
@@ -243,7 +244,7 @@ const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
       </Link>
     </motion.div>
   );
-};
+});
 
 /**
  * Desktop Runway Item:
@@ -251,7 +252,7 @@ const MobileRunwayCard = ({ item, shouldReduceMotion }) => {
  * Center apex card is elevated, side cards are angled and scaled naturally.
  * Includes subtle internal image parallax and restrained hover response.
  */
-const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion }) => {
+const DesktopRunwayItem = memo(function DesktopRunwayItem({ item, sectionProgress, index, shouldReduceMotion }) {
   // Staggered wave offset along the curve
   const phase = index * 0.2;
   const start = Math.max(0, phase - 0.1);
@@ -338,7 +339,7 @@ const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion })
       </Link>
     </motion.div>
   );
-};
+});
 
 /**
  * YK MENS FASHION — FEATURED CATEGORIES
@@ -348,7 +349,7 @@ const DesktopRunwayItem = ({ item, sectionProgress, index, shouldReduceMotion })
  * - Desktop: Upright, stable, premium cards arranged along an undulating curved wave layout
  * - Background: Cream Latte (#EADFD4) with crisp white contrast cards and mocha typography
  */
-export const FeaturedCategoriesCurved = () => {
+export const FeaturedCategoriesCurved = memo(function FeaturedCategoriesCurved() {
   const shouldReduceMotion = useReducedMotion();
   const sectionRef = useRef(null);
 
@@ -439,6 +440,6 @@ export const FeaturedCategoriesCurved = () => {
       </Container>
     </section>
   );
-};
+});
 
 export default FeaturedCategoriesCurved;

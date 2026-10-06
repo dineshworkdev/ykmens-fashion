@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import ProductCard from './ProductCard';
 import FashionButton from '../common/FashionButton';
@@ -12,13 +12,13 @@ import FashionButton from '../common/FashionButton';
  * - Subtle staggered entrance animations
  * - Polished empty state with action to clear filters
  */
-export const ProductGrid = ({
+export const ProductGrid = memo(function ProductGrid({
   products = [],
   onQuickView,
   onResetFilters,
   emptyMessage = 'No menswear pieces match your current filters.',
   showFeaturedSpan = false,
-}) => {
+}) {
   if (!products || products.length === 0) {
     return (
       <div className="py-20 text-center bg-[#FFFFFF] rounded-2xl border border-[#E4D7CC] p-8 max-w-lg mx-auto shadow-xs my-8">
@@ -57,12 +57,13 @@ export const ProductGrid = ({
             key={product.id}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.3) }}
+            transition={{ duration: 0.4, delay: Math.min(index * 0.04, 0.25) }}
             className={isFeatured ? 'sm:col-span-2' : ''}
           >
             <ProductCard
               product={product}
               variant={isFeatured ? 'featured' : 'standard'}
+              showcase={true}
               onQuickView={onQuickView}
             />
           </motion.div>
@@ -70,6 +71,6 @@ export const ProductGrid = ({
       })}
     </div>
   );
-};
+});
 
 export default ProductGrid;

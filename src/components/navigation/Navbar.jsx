@@ -24,7 +24,16 @@ import MobileNav from './MobileNav';
  * - Smooth hover accent underline animation (200-300ms).
  * - Compact, balanced mobile layout with responsive micro-touch feedback.
  */
-export const Navbar = () => {
+const NAV_LINKS = [
+  { name: 'HOME', path: ROUTES.HOME },
+  { name: 'SHOP', path: ROUTES.SHOP },
+  { name: 'NEW ARRIVALS', path: ROUTES.NEW_ARRIVALS },
+  { name: 'COLLECTIONS', path: ROUTES.COLLECTIONS },
+  { name: 'ABOUT', path: ROUTES.ABOUT },
+  { name: 'CONTACT', path: ROUTES.CONTACT },
+];
+
+export const Navbar = memo(function Navbar() {
   const location = useLocation();
   const { cartCount, openDrawer } = useCart();
   const { wishlistCount } = useWishlist();
@@ -33,21 +42,30 @@ export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+    let prevScrolled = typeof window !== 'undefined' ? window.scrollY > 25 : false;
+    if (prevScrolled) setIsScrolled(true);
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 25);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 25;
+          if (scrolled !== prevScrolled) {
+            prevScrolled = scrolled;
+            setIsScrolled(scrolled);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'HOME', path: ROUTES.HOME },
-    { name: 'SHOP', path: ROUTES.SHOP },
-    { name: 'NEW ARRIVALS', path: ROUTES.NEW_ARRIVALS },
-    { name: 'COLLECTIONS', path: ROUTES.COLLECTIONS },
-    { name: 'ABOUT', path: ROUTES.ABOUT },
-    { name: 'CONTACT', path: ROUTES.CONTACT },
-  ];
+  const handleOpenMenu = useCallback(() => setMobileMenuOpen(true), []);
+  const handleCloseMenu = useCallback(() => setMobileMenuOpen(false), []);
 
   return (
     <>
@@ -66,7 +84,7 @@ export const Navbar = () => {
             <div className="flex items-center lg:hidden">
               <button
                 type="button"
-                onClick={() => setMobileMenuOpen(true)}
+                onClick={handleOpenMenu}
                 aria-label="Open navigation menu"
                 className="p-2 -ml-1 text-[#4A3A32] hover:text-[#33251F] active:scale-90 transition-transform duration-150 rounded-lg"
               >
@@ -97,7 +115,7 @@ export const Navbar = () => {
               className="hidden lg:flex items-center space-x-1 xl:space-x-2"
               onMouseLeave={() => setHoveredPath(null)}
             >
-              {navLinks.map((link) => {
+              {NAV_LINKS.map((link) => {
                 const isActive =
                   link.path === ROUTES.HOME
                     ? location.pathname === ROUTES.HOME
@@ -181,12 +199,12 @@ export const Navbar = () => {
         {/* Mobile Navigation Drawer */}
         <MobileNav
           isOpen={mobileMenuOpen}
-          onClose={() => setMobileMenuOpen(false)}
-          links={navLinks}
+          onClose={handleCloseMenu}
+          links={NAV_LINKS}
         />
       </header>
     </>
   );
-};
+});
 
 export default Navbar;

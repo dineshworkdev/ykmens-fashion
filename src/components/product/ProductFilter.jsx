@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedFilterIcon, AnimatedCloseIcon, AnimatedChevronRight } from '../common/AnimatedIcons';
 import { formatCurrency } from '../../utils/formatters';
@@ -41,7 +41,7 @@ const PRICE_TIERS = [
  * - Expandable filter panel (Size, Color, Availability, Price)
  * - Mobile bottom sheet drawer for easy thumb access
  */
-export const ProductFilter = ({
+export const ProductFilter = memo(function ProductFilter({
   selectedCategory,
   onSelectCategory,
   selectedSize,
@@ -56,7 +56,7 @@ export const ProductFilter = ({
   onChangeSort,
   onResetFilters,
   totalCount = 0,
-}) => {
+}) {
   const [filterPanelOpen, setFilterPanelOpen] = useState(false);
   const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
 
@@ -371,6 +371,6 @@ export const ProductFilter = ({
       </AnimatePresence>
     </div>
   );
-};
+});
 
 export default ProductFilter;

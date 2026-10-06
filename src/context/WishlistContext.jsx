@@ -13,9 +13,13 @@ export const WishlistProvider = ({ children }) => {
     safeStorage.set(STORAGE_KEYS.WISHLIST, wishlistItems);
   }, [wishlistItems]);
 
-  const isInWishlist = useCallback((productId) => {
-    return wishlistItems.some((item) => item.id === productId);
+  const wishlistIdSet = useMemo(() => {
+    return new Set(wishlistItems.map((item) => item.id));
   }, [wishlistItems]);
+
+  const isInWishlist = useCallback((productId) => {
+    return wishlistIdSet.has(productId);
+  }, [wishlistIdSet]);
 
   const toggleWishlist = useCallback((product) => {
     if (!product || !product.id) return;
@@ -38,14 +42,23 @@ export const WishlistProvider = ({ children }) => {
     safeStorage.remove(STORAGE_KEYS.WISHLIST);
   }, []);
 
-  const value = {
-    wishlistItems,
-    wishlistCount: wishlistItems.length,
-    isInWishlist,
-    toggleWishlist,
-    removeFromWishlist,
-    clearWishlist,
-  };
+  const value = useMemo(
+    () => ({
+      wishlistItems,
+      wishlistCount: wishlistItems.length,
+      isInWishlist,
+      toggleWishlist,
+      removeFromWishlist,
+      clearWishlist,
+    }),
+    [
+      wishlistItems,
+      isInWishlist,
+      toggleWishlist,
+      removeFromWishlist,
+      clearWishlist,
+    ]
+  );
 
   return <WishlistContext.Provider value={value}>{children}</WishlistContext.Provider>;
 };

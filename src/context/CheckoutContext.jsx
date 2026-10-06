@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import { CHECKOUT_STEPS, PAYMENT_STATUS } from '../utils/constants';
 import { validateCustomerInfo, validateShippingAddress } from '../utils/validators';
 import { orderService } from '../services/orders/orderService';
@@ -152,23 +152,42 @@ export const CheckoutProvider = ({ children }) => {
     setIsProcessing(false);
   }, []);
 
-  const value = {
-    currentStep,
-    customer,
-    shipping,
-    selectedPaymentGateway,
-    setSelectedPaymentGateway,
-    errors,
-    isProcessing,
-    completedOrder,
-    updateCustomer,
-    updateShipping,
-    goToStep,
-    nextStep,
-    prevStep,
-    initiatePaymentAndPlaceOrder,
-    resetCheckout,
-  };
+  const value = useMemo(
+    () => ({
+      currentStep,
+      customer,
+      shipping,
+      selectedPaymentGateway,
+      setSelectedPaymentGateway,
+      errors,
+      isProcessing,
+      completedOrder,
+      updateCustomer,
+      updateShipping,
+      goToStep,
+      nextStep,
+      prevStep,
+      initiatePaymentAndPlaceOrder,
+      resetCheckout,
+    }),
+    [
+      currentStep,
+      customer,
+      shipping,
+      selectedPaymentGateway,
+      setSelectedPaymentGateway,
+      errors,
+      isProcessing,
+      completedOrder,
+      updateCustomer,
+      updateShipping,
+      goToStep,
+      nextStep,
+      prevStep,
+      initiatePaymentAndPlaceOrder,
+      resetCheckout,
+    ]
+  );
 
   return <CheckoutContext.Provider value={value}>{children}</CheckoutContext.Provider>;
 };

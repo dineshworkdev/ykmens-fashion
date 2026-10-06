@@ -82,7 +82,7 @@ const HangingUnit = memo(function HangingUnit({
   total,
   trackX,
   params,
-  activeIndex,
+  isCenter,
   onSelect,
   shouldReduceMotion,
   isDraggingRef,
@@ -151,14 +151,14 @@ const HangingUnit = memo(function HangingUnit({
     }
 
     // Clicking a side card focuses and centers it on the rack
-    if (index !== activeIndex) {
+    if (!isCenter) {
       e.preventDefault();
       e.stopPropagation();
       onSelect(index);
     }
   };
 
-  const isCurrentCenter = index === activeIndex;
+  const isCurrentCenter = isCenter;
 
   return (
     <motion.div
@@ -307,13 +307,25 @@ export const GarmentRackShowcase = forwardRef(function GarmentRackShowcase(
   // Continuous motion value driving the rack translation along the pipe
   const trackX = useMotionValue(0);
 
-  // Resize listener
+  const dragTimeoutRef = useRef(null);
+
+  // Resize listener with RAF debouncing
   useEffect(() => {
+    let ticking = false;
     const handleResize = () => {
-      setParams(getRackParams(window.innerWidth));
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setParams(getRackParams(window.innerWidth));
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (dragTimeoutRef.current) clearTimeout(dragTimeoutRef.current);
+    };
   }, []);
 
   // Monitor track position and update activeIndex when a card settles near center
@@ -358,7 +370,8 @@ export const GarmentRackShowcase = forwardRef(function GarmentRackShowcase(
 
   const handleDragEnd = () => {
     // Release drag lock slightly after drag ends to prevent accidental link click
-    setTimeout(() => {
+    if (dragTimeoutRef.current) clearTimeout(dragTimeoutRef.current);
+    dragTimeoutRef.current = setTimeout(() => {
       isDraggingRef.current = false;
     }, 140);
   };
@@ -447,7 +460,7 @@ export const GarmentRackShowcase = forwardRef(function GarmentRackShowcase(
                   total={total}
                   trackX={trackX}
                   params={params}
-                  activeIndex={activeIndex}
+                  isCenter={index === activeIndex}
                   onSelect={scrollToIndex}
                   shouldReduceMotion={shouldReduceMotion}
                   isDraggingRef={isDraggingRef}

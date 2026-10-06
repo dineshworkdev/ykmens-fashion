@@ -20,4 +20,16 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-motion': ['framer-motion'],
+          'vendor-lottie': ['lottie-web/build/player/lottie_light'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 600,
+  },
 });

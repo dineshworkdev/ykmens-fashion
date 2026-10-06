@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Minus, Plus, Trash2 } from '../../assets/icons';
@@ -8,14 +8,14 @@ import { formatCurrency } from '../../utils/formatters';
  * Premium Cart Item Row Component
  * Used in Cart Drawer, Cart Page, and Checkout Review.
  */
-export const CartItem = ({
+export const CartItem = memo(function CartItem({
   item,
   onIncrement,
   onDecrement,
   onRemove,
   compact = false,
   readOnly = false,
-}) => {
+}) {
   const itemPrice = item.effectivePrice ?? (item.salePrice ?? item.price);
   const lineTotal = itemPrice * item.quantity;
 
@@ -128,6 +128,6 @@ export const CartItem = ({
       </div>
     </motion.div>
   );
-};
+});
 
 export default CartItem;

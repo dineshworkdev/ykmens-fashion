@@ -150,24 +150,44 @@ export const CartProvider = ({ children }) => {
     return subtotal + shipping;
   }, [subtotal, shipping]);
 
-  const value = {
-    items,
-    cartCount,
-    subtotal,
-    shipping,
-    estimatedTax,
-    total,
-    isDrawerOpen,
-    openDrawer,
-    closeDrawer,
-    toggleDrawer,
-    addItem,
-    removeItem,
-    updateQuantity,
-    incrementQuantity,
-    decrementQuantity,
-    emptyCart,
-  };
+  const value = useMemo(
+    () => ({
+      items,
+      cartCount,
+      subtotal,
+      shipping,
+      estimatedTax,
+      total,
+      isDrawerOpen,
+      openDrawer,
+      closeDrawer,
+      toggleDrawer,
+      addItem,
+      removeItem,
+      updateQuantity,
+      incrementQuantity,
+      decrementQuantity,
+      emptyCart,
+    }),
+    [
+      items,
+      cartCount,
+      subtotal,
+      shipping,
+      estimatedTax,
+      total,
+      isDrawerOpen,
+      openDrawer,
+      closeDrawer,
+      toggleDrawer,
+      addItem,
+      removeItem,
+      updateQuantity,
+      incrementQuantity,
+      decrementQuantity,
+      emptyCart,
+    ]
+  );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

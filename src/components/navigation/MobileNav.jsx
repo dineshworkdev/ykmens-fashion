@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ShoppingBag, Heart, ArrowRight } from '../../assets/icons';
@@ -18,14 +18,32 @@ import { ROUTES } from '../../utils/constants';
  * - Smooth staggered entrance animation.
  * - Responsive micro-touch feedback (150ms).
  */
-export const MobileNav = ({ isOpen, onClose, links = [] }) => {
+export const MobileNav = memo(function MobileNav({ isOpen, onClose, links = [] }) {
   const { cartCount, openDrawer } = useCart();
   const { wishlistCount } = useWishlist();
 
-  const handleOpenBag = () => {
+  const handleOpenBag = useCallback(() => {
     onClose();
     openDrawer();
-  };
+  }, [onClose, openDrawer]);
+
+  // Prevent underlying page scrolling and layout recalculation when menu is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence>
@@ -53,6 +71,7 @@ export const MobileNav = ({ isOpen, onClose, links = [] }) => {
             animate={{ x: '0%' }}
             exit={{ x: '-105%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 260 }}
+            style={{ willChange: 'transform' }}
             className="relative pointer-events-auto m-2.5 sm:m-4 w-[calc(100%-1.25rem)] sm:w-[calc(100%-2rem)] max-w-sm bg-[#FAF7F2] border border-[#E4D7CC] rounded-[22px] shadow-2xl h-[calc(100%-1.25rem)] sm:h-[calc(100%-2rem)] flex flex-col p-6 z-10 overflow-y-auto"
           >
             {/* Drawer Header */}
@@ -173,6 +192,6 @@ export const MobileNav = ({ isOpen, onClose, links = [] }) => {
       )}
     </AnimatePresence>
   );
-};
+});
 
 export default MobileNav;

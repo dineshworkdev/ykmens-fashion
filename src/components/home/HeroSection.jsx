@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Container from '../layout/Container';
@@ -6,7 +6,7 @@ import FashionButton from '../common/FashionButton';
 import { ROUTES } from '../../utils/constants';
 import { PRODUCTS } from '../../data/products';
 import { AnimatedArrowRight } from '../common/AnimatedIcons';
-import InteractiveBrandPet from './InteractiveBrandPet';
+import InteractiveTShirt from './InteractiveTShirt';
 
 // Refined luxury cubic bezier curves
 const luxuryEase = [0.22, 1, 0.36, 1];
@@ -22,7 +22,7 @@ const luxuryEase = [0.22, 1, 0.36, 1];
  * - Refined, un-cluttered floating product panel: FEATURED PIECE / [Product Name] / Shop →
  * - Polished Framer Motion reveals with full prefers-reduced-motion support
  */
-export const HeroSection = () => {
+export const HeroSection = memo(function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
   const heroContainerRef = useRef(null);
 
@@ -41,9 +41,21 @@ export const HeroSection = () => {
   const imageTranslateX = useTransform(smoothMouseX, [-0.5, 0.5], ['-3px', '3px']);
   const imageTranslateY = useTransform(smoothMouseY, [-0.5, 0.5], ['-3px', '3px']);
 
+  const rectRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    if (heroContainerRef.current) {
+      rectRef.current = heroContainerRef.current.getBoundingClientRect();
+    }
+  };
+
   const handleMouseMove = (e) => {
-    if (shouldReduceMotion || !heroContainerRef.current) return;
-    const rect = heroContainerRef.current.getBoundingClientRect();
+    if (shouldReduceMotion) return;
+    if (!rectRef.current && heroContainerRef.current) {
+      rectRef.current = heroContainerRef.current.getBoundingClientRect();
+    }
+    const rect = rectRef.current;
+    if (!rect || !rect.width || !rect.height) return;
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     mouseX.set(x);
@@ -51,6 +63,7 @@ export const HeroSection = () => {
   };
 
   const handleMouseLeave = () => {
+    rectRef.current = null;
     mouseX.set(0);
     mouseY.set(0);
   };
@@ -58,6 +71,7 @@ export const HeroSection = () => {
   return (
     <section
       ref={heroContainerRef}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className="relative bg-[#FAF7F2] border-b border-[#E4D7CC] pt-3 sm:pt-6 lg:pt-8 pb-10 sm:pb-14 lg:pb-16 overflow-hidden"
@@ -127,8 +141,8 @@ export const HeroSection = () => {
             </div>
           </motion.div>
 
-          {/* 2. Mobile Brand Label & Interactive Brand Pet */}
-          <div className="flex items-center justify-between pt-0.5">
+          {/* 2. Mobile Brand Label */}
+          <div className="pt-0.5">
             <motion.div
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -138,9 +152,6 @@ export const HeroSection = () => {
               <span className="w-4 h-[2px] bg-[#4A3A32] rounded-full" />
               <span>YK Mens Fashion</span>
             </motion.div>
-
-            {/* Interactive Brand Pet: Sir Kip (Mobile Hero Anchor) */}
-            <InteractiveBrandPet className="shrink-0 -my-3" />
           </div>
 
           {/* 3. Mobile Campaign Headline */}
@@ -202,6 +213,16 @@ export const HeroSection = () => {
             >
               View Collections
             </FashionButton>
+          </motion.div>
+
+          {/* 6. Interactive Animated T-Shirt Brand Micro-Interaction (Near Hero CTA) */}
+          <motion.div
+            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.44, ease: luxuryEase }}
+            className="pt-0.5"
+          >
+            <InteractiveTShirt />
           </motion.div>
         </div>
 
@@ -284,10 +305,15 @@ export const HeroSection = () => {
               </FashionButton>
             </motion.div>
 
-            {/* Interactive YK Brand Pet: Sir Kip (Desktop Hero Placement — open space below CTAs, above the fold) */}
-            <div className="self-start ml-8 pt-1">
-              <InteractiveBrandPet />
-            </div>
+            {/* Interactive Animated T-Shirt Brand Micro-Interaction (Near Hero CTA) */}
+            <motion.div
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.44, ease: luxuryEase }}
+              className="pt-1"
+            >
+              <InteractiveTShirt />
+            </motion.div>
           </div>
 
           {/* Right Column: Dominant Editorial Fashion Artwork (7 Columns) */}
@@ -383,6 +409,6 @@ export const HeroSection = () => {
       </Container>
     </section>
   );
-};
+});
 
 export default HeroSection;

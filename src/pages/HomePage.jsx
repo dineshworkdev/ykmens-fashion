@@ -7,7 +7,7 @@ import FeaturedCategoriesCurved from '../components/home/FeaturedCategoriesCurve
 import RadialShowcaseCarousel from '../components/home/RadialShowcaseCarousel';
 import GarmentRackShowcase from '../components/home/GarmentRackShowcase';
 import FashionButton from '../components/common/FashionButton';
-import { useProducts } from '../hooks/useProducts';
+import { PRODUCTS } from '../data/products';
 import { ROUTES } from '../utils/constants';
 import {
   AnimatedArrowRight,
@@ -18,23 +18,10 @@ import {
 // Refined luxury cubic bezier curves
 const luxuryEase = [0.22, 1, 0.36, 1];
 
-/**
- * YK MENS FASHION - Phase 2A Final Visual Reconstruction
- * 
- * Strict Compliance:
- * - LIGHT / MEDIUM-LIGHT SURFACES dominate the entire experience (#F2EFEA, #E7DECD, #EDE7C7, #DFE5F3).
- * - NO dark dominant page backgrounds (#0D0D0D, #200E01, etc. used only for text, borders, buttons, accents).
- * - Seamless visual connection from loading animation stage (#FFFFFF / light) to homepage surface.
- * - Balanced typography hierarchy (confident, fashionable, readable — NOT giant text-9xl).
- * - Refined corner radius system (rounded-2xl containers, rounded-xl images & buttons).
- * - NO fake fashion magazine text (removed issue numbers, N° 01, coordinates, atelier claims).
- * - Homepage is a SHOWCASE: no prices displayed on showcase sections.
- * - Practical, touch-friendly CTAs: "EXPLORE SHOP", "SHOP NOW", "EXPLORE COLLECTION".
- * - Fully structured, mobile-first layouts with zero awkward overlaps.
- */
+// Stable slice of seasonal new arrivals for the showcase
+const SEASONAL_SHOWCASE_PRODUCTS = PRODUCTS.filter((p) => p.newArrivalStatus).slice(0, 6);
+
 export const HomePage = () => {
-  const { getNewArrivals } = useProducts();
-  const newArrivals = getNewArrivals().slice(0, 6);
   const carouselRef = useRef(null);
 
   return (
@@ -105,7 +92,7 @@ export const HomePage = () => {
           {/* Seasonal Showcase: Realistic Garment Rack (Mobile & Desktop) */}
           <GarmentRackShowcase
             ref={carouselRef}
-            products={newArrivals}
+            products={SEASONAL_SHOWCASE_PRODUCTS}
           />
         </Container>
       </section>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ShoppingBag, ArrowRight } from '../../assets/icons';
@@ -12,7 +12,7 @@ import CartItem from './CartItem';
  * - Desktop: Slide-in from the right with rounded-l-3xl edges
  * - Mobile: Bottom-sheet drawer with rounded-t-3xl corners & drag bar
  */
-export const CartDrawer = () => {
+export const CartDrawer = memo(function CartDrawer() {
   const {
     items,
     isDrawerOpen,
@@ -69,6 +69,7 @@ export const CartDrawer = () => {
               animate={{ y: 0, x: 0 }}
               exit={{ y: '100%', md: { y: 0, x: '100%' } }}
               transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+              style={{ willChange: 'transform' }}
               className="pointer-events-auto w-full md:w-[420px] lg:w-[460px] max-h-[88vh] md:max-h-full h-full bg-[#FAF7F2] border-t md:border-t-0 md:border-l border-[#E4D7CC] rounded-t-3xl md:rounded-t-none md:rounded-l-3xl shadow-2xl flex flex-col overflow-hidden text-[#4A3A32]"
             >
               {/* Mobile Drag Indicator Bar */}
@@ -187,6 +188,6 @@ export const CartDrawer = () => {
       )}
     </AnimatePresence>
   );
-};
+});
 
 export default CartDrawer;
