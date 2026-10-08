@@ -31,7 +31,7 @@ export const paymentService = {
     return [
       {
         id: 'cashfree',
-        name: 'Cashfree Payments (Sandbox)',
+        name: 'Cashfree Payments',
         description: 'UPI, Credit/Debit Cards, NetBanking via Cashfree Hosted Checkout',
         isDefault: true,
       },

@@ -59,7 +59,7 @@ export const PaymentStep = ({
                   </span>
                   <span className="text-[11px] text-[#6B5549]">
                     {gw.description || (gw.id === 'cashfree'
-                      ? 'UPI, Cards, NetBanking via Cashfree Sandbox'
+                      ? 'UPI, Cards, NetBanking via Cashfree Payments'
                       : gw.id === 'razorpay'
                       ? 'UPI, NetBanking & Indian Debit/Credit Cards'
                       : 'International & Domestic Card Hosted Checkout')}
@@ -78,7 +78,7 @@ export const PaymentStep = ({
         <div className="text-xs text-[#6B5549] leading-relaxed space-y-1">
           <p className="font-bold uppercase tracking-wider text-[#33251F]">
             {selectedGateway === 'cashfree'
-              ? 'Cashfree Sandbox Hosted Checkout'
+              ? 'Cashfree Secure Checkout'
               : 'Payment Gateway Integration Notice'}
           </p>
           <p className="text-[#6B5549]">
@@ -88,7 +88,7 @@ export const PaymentStep = ({
           </p>
           <p className="text-[#8B7768]">
             {selectedGateway === 'cashfree'
-              ? 'All transactions run in secure test/sandbox mode without charging real funds.'
+              ? 'All transactions are encrypted and securely processed via Cashfree Payments.'
               : 'This frontend demonstration records the order as Payment Pending without charging live funds or collecting card numbers.'}
           </p>
         </div>

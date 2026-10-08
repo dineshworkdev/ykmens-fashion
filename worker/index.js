@@ -96,12 +96,12 @@ async function handleApiRequest(request, env, ctx, url) {
     );
   }
 
-  // Cashfree Sandbox Order Creation
+  // Cashfree Production Order Creation
   if (pathname === '/api/cashfree/create-order') {
     return handleCreateCashfreeOrder(request, env, ctx, corsHeaders);
   }
 
-  // Cashfree Sandbox Order Verification (GET /api/cashfree/verify-order/:orderId)
+  // Cashfree Production Order Verification (GET /api/cashfree/verify-order/:orderId)
   if (pathname.startsWith('/api/cashfree/verify-order/') || pathname === '/api/cashfree/verify-order') {
     const routeOrderId = pathname.startsWith('/api/cashfree/verify-order/')
       ? pathname.replace('/api/cashfree/verify-order/', '').trim()

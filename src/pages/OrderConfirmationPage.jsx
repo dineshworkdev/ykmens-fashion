@@ -70,7 +70,7 @@ export const OrderConfirmationPage = () => {
             loading: false,
             status: 'paid',
             transactionId: verification.transactionId,
-            message: verification.message || 'Payment successfully verified via Cashfree Sandbox.',
+            message: verification.message || 'Payment successfully verified via Cashfree.',
             error: null,
           });
 

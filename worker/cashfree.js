@@ -1,12 +1,12 @@
 /**
- * Cashfree Payment Gateway Integration (Sandbox)
+ * Cashfree Payment Gateway Integration (Production)
  * 
- * Handles order creation on the Cashfree Sandbox API.
+ * Handles order creation on the Cashfree Production API.
  * Uses environment secrets (CASHFREE_APP_ID, CASHFREE_SECRET_KEY) securely from Worker env.
  * Never exposes secrets to client, logs, or error responses.
  */
 
-const CASHFREE_SANDBOX_ORDERS_URL = 'https://sandbox.cashfree.com/pg/orders';
+const CASHFREE_PRODUCTION_ORDERS_URL = 'https://api.cashfree.com/pg/orders';
 const CASHFREE_API_VERSION = '2025-01-01';
 
 /**
@@ -120,7 +120,7 @@ export async function handleCreateCashfreeOrder(request, env, ctx, corsHeaders) 
     phone = phone.slice(2);
   }
   if (!phone || phone.length < 10) {
-    phone = '9999999999'; // Safe sandbox fallback if not supplied
+    phone = '9999999999'; // Fallback if customer phone not supplied
   } else if (phone.length > 10) {
     phone = phone.slice(-10);
   }
@@ -155,21 +155,22 @@ export async function handleCreateCashfreeOrder(request, env, ctx, corsHeaders) 
     },
   };
 
-  // Optional return_url for redirect after payment
-  const returnUrl = body.returnUrl || body.return_url || (body.order_meta && body.order_meta.return_url);
-  if (returnUrl && typeof returnUrl === 'string') {
-    cashfreePayload.order_meta = {
-      return_url: returnUrl,
-    };
+  // Return URL for redirect after payment - ensures production return URL
+  let returnUrl = body.returnUrl || body.return_url || (body.order_meta && body.order_meta.return_url);
+  if (!returnUrl || typeof returnUrl !== 'string' || returnUrl.includes('localhost') || returnUrl.includes('127.0.0.1')) {
+    returnUrl = 'https://ykmensfashion.in/order-confirmation?order_id={order_id}';
   }
+  cashfreePayload.order_meta = {
+    return_url: returnUrl,
+  };
 
   if (body.order_note || body.note) {
     cashfreePayload.order_note = String(body.order_note || body.note).substring(0, 200);
   }
 
-  // 8. Invoke Cashfree Sandbox API
+  // 8. Invoke Cashfree Production API
   try {
-    const cfResponse = await fetch(CASHFREE_SANDBOX_ORDERS_URL, {
+    const cfResponse = await fetch(CASHFREE_PRODUCTION_ORDERS_URL, {
       method: 'POST',
       headers: {
         'x-client-id': appId,
@@ -212,7 +213,7 @@ export async function handleCreateCashfreeOrder(request, env, ctx, corsHeaders) 
         order_amount: responseData.order_amount,
         order_currency: responseData.order_currency,
         order_status: responseData.order_status,
-        environment: 'sandbox',
+        environment: 'production',
       }),
       {
         status: 200,
@@ -245,7 +246,7 @@ export async function handleCreateCashfreeOrder(request, env, ctx, corsHeaders) 
 
 /**
  * Handle GET /api/cashfree/verify-order/:orderId
- * Calls Cashfree Sandbox Payments API: GET https://sandbox.cashfree.com/pg/orders/{order_id}/payments
+ * Calls Cashfree Production Payments API: GET https://api.cashfree.com/pg/orders/{order_id}/payments
  * 
  * Determines payment status according to Cashfree's documented logic:
  * - If any transaction has payment_status === "SUCCESS", final status = PAID
@@ -319,8 +320,8 @@ export async function handleVerifyCashfreeOrder(request, env, ctx, orderId, cors
     );
   }
 
-  // 4. Query Cashfree Sandbox Payments endpoint
-  const paymentsUrl = `https://sandbox.cashfree.com/pg/orders/${encodeURIComponent(trimmedOrderId)}/payments`;
+  // 4. Query Cashfree Production Payments endpoint
+  const paymentsUrl = `https://api.cashfree.com/pg/orders/${encodeURIComponent(trimmedOrderId)}/payments`;
 
   try {
     const cfResponse = await fetch(paymentsUrl, {
@@ -405,7 +406,7 @@ export async function handleVerifyCashfreeOrder(request, env, ctx, orderId, cors
         payment_time: primaryTx?.payment_time || null,
         payment_message: primaryTx?.payment_message || null,
         payment_group: primaryTx?.payment_group || null,
-        environment: 'sandbox',
+        environment: 'production',
       }),
       {
         status: 200,

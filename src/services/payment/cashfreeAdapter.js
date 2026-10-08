@@ -48,7 +48,7 @@ export async function loadCashfreeSDK() {
 }
 
 /**
- * Cashfree Payment Gateway Adapter (Sandbox Mode)
+ * Cashfree Payment Gateway Adapter (Production Mode)
  * 
  * - Communicates strictly with our Cloudflare Worker backend POST /api/cashfree/create-order.
  * - Never contains or exposes Cashfree App ID or Secret Key in frontend code.
@@ -58,13 +58,13 @@ export class CashfreePaymentAdapter extends PaymentGatewayInterface {
   constructor() {
     super();
     this.name = 'cashfree';
-    this.mode = 'sandbox';
+    this.mode = 'production';
     this.endpointUrl = '/api/cashfree/create-order';
     this.cashfreeInstance = null;
   }
 
   /**
-   * Initializes the Cashfree SDK instance in sandbox mode.
+   * Initializes the Cashfree SDK instance in production mode.
    * @param {object} [config]
    * @returns {Promise<boolean>}
    */
@@ -103,10 +103,8 @@ export class CashfreePaymentAdapter extends PaymentGatewayInterface {
       await this.initialize();
     }
 
-    // 2. Derive return URL fallback
-    const defaultReturnUrl = typeof window !== 'undefined'
-      ? `${window.location.origin}/order-confirmation?order_id={order_id}`
-      : undefined;
+    // 2. Derive production return URL
+    const defaultReturnUrl = 'https://ykmensfashion.in/order-confirmation?order_id={order_id}';
 
     // 3. Format customer payload
     const customerPayload = {
